@@ -1,0 +1,4 @@
+# Arquivos gerados por script saem sempre em LF. Sem isto, numa maquina com
+# outra configuracao de core.autocrlf o arquivo inteiro apareceria alterado.
+* text=auto eol=lf
+*.png binary
