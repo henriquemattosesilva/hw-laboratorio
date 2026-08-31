@@ -6,8 +6,7 @@
   interface: "paralelo HD44780; 6 pinos no modo de 4 bits"
   biblioteca: LiquidCrystal
   notas: |
-    Precisa de um potenciômetro de 10 kΩ no pino V0 para o contraste. Sem ele
-    a tela fica toda preta ou toda apagada, e parece defeito.
+    Precisa de um potenciômetro de 10 kΩ no pino V0 para o contraste. Sem ele a tela fica toda preta ou toda apagada, e parece defeito.
     Não tem adaptador I2C aqui, então gasta 6 pinos de verdade.
     Já é o display do receptor no hw-codigo-morse.
 
@@ -30,16 +29,14 @@
   biblioteca: "MD_MAX72XX, ou LedControl"
   notas: |
     O MAX7219 faz a multiplexação sozinho: o micro só manda o que mostrar.
-    Os módulos são encadeáveis em série, então dá para virar painel de texto
-    correndo comprando mais.
+    Os módulos são encadeáveis em série, então dá para virar painel de texto correndo comprando mais.
 
 - id: matriz-8x8-bicolor
   nome: "Display LED Matriz de LED 8x8 Bicolor (Verde/Vermelho)"
   qtd: 1
   interface: "matriz crua de 24 pinos — sem driver"
   notas: |
-    Esta é a matriz nua, sem MAX7219. Acender tudo ao mesmo tempo é impossível:
-    precisa de multiplexação por software e de resistor em cada coluna.
+    Esta é a matriz nua, sem MAX7219. Acender tudo ao mesmo tempo é impossível: precisa de multiplexação por software e de resistor em cada coluna.
     Dá muito mais trabalho que a do MAX7219 — em troca, faz duas cores.
 
 - id: display-7seg
@@ -50,5 +47,4 @@
   notas: |
     O CD4511 traduz 4 bits em dígito, economizando três pinos por display.
     Ele só serve para CÁTODO COMUM, que é o caso destes.
-    Continua precisando de resistor em cada segmento — o CD4511 não limita
-    corrente.
+    Continua precisando de resistor em cada segmento — o CD4511 não limita corrente.

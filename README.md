@@ -27,50 +27,50 @@ Os projetos ficam em repositórios próprios, com prefixo `hw-`.
 | Sensor de Chuva | 1 | 3,3 V a 5 V | analógico (AO) e digital com limiar por trimpot (DO) | Mesma armadilha do higrômetro: a placa coletora corrói energizada. |
 | Sensor de Cor RGB TCS34725 com Filtro IR | 1 | 3,3 V no chip; o módulo costuma aceitar 5 V | I2C | A quantidade veio em branco no export do Notion; anotado 1 por suposição. |
 | Sensor de Distância Ultrassônico HC-SR04 | 2 | 5 V | digital: pulso de 10 µs no trigger, largura do echo é a distância | O pino echo devolve 5 V. Ligar direto num ESP8266 ou ESP32 exige divisor. |
-| Sensor de Frequência Cardíaca | 1 |  | analógico, provavelmente | O nome no Notion é genérico e não identifica o modelo. CONFERIR A |
-| Sensor de Luminosidade LDR 5mm | 13 |  | analógico — é um resistor, precisa de divisor | Sozinho não mede nada: entra num divisor com um resistor fixo (10 kΩ é o |
-| Sensor de Pressão e Temperatura BMP280 | 1 | 3,3 V no chip; o módulo com regulador aceita 5 V | I2C (também faz SPI) | Não mede umidade. O que mede é o BME280, fisicamente quase idêntico e com |
-| Sensor de Som Microfone KY-038 | 1 | 3,3 V a 5 V | analógico (AO) e digital com limiar por trimpot (DO) | Detecta que houve som acima de um limiar. Não reconhece nota, palavra nem |
-| Sensor de Temperatura a Prova D’água DS18B20 | 2 | 3,0 V a 5,5 V | 1-Wire | Precisa de pull-up de 4,7 kΩ entre dados e VCC. Sem ele o sensor não |
-| Sensor de Temperatura LM35DZ | 1 | 4 V a 30 V | analógico, 10 mV por °C | Não mede abaixo de 0 °C sem circuito extra — 0 °C é 0 V, e não há como |
-| Sensor de Umidade do Solo Higrômetro | 1 | 3,3 V a 5 V | analógico (AO) e digital com limiar por trimpot (DO) | Sonda resistiva: ela corrói quando fica energizada dentro da terra, e em |
-| Sensor de Umidade e Temperatura AM3202 DHT22 | 1 | 3,3 V a 5 V | 1 fio proprietário (não é o 1-Wire da Dallas) | Uma leitura a cada 2 s, no máximo. Ler mais rápido devolve o valor anterior |
-| Sensor Touch Capacitivo TTP223B | 1 | 2,0 V a 5,5 V | digital | Funciona através de acrílico ou plástico fino, o que serve bem para case |
+| Sensor de Frequência Cardíaca | 1 |  | analógico, provavelmente | O nome no Notion é genérico e não identifica o modelo. CONFERIR A SERIGRAFIA na plaquinha antes de planejar projeto com ele: se for um Pulse Sensor, é fotopletismografia analógica com biblioteca própria; se for MAX30102, é I2C e outra história inteira. |
+| Sensor de Luminosidade LDR 5mm | 13 |  | analógico — é um resistor, precisa de divisor | Sozinho não mede nada: entra num divisor com um resistor fixo (10 kΩ é o valor comum) e o meio do divisor vai para a entrada analógica. |
+| Sensor de Pressão e Temperatura BMP280 | 1 | 3,3 V no chip; o módulo com regulador aceita 5 V | I2C (também faz SPI) | Não mede umidade. O que mede é o BME280, fisicamente quase idêntico e com o mesmo endereço — comprar um pensando no outro é o erro clássico. |
+| Sensor de Som Microfone KY-038 | 1 | 3,3 V a 5 V | analógico (AO) e digital com limiar por trimpot (DO) | Detecta que houve som acima de um limiar. Não reconhece nota, palavra nem frequência — para isso seria preciso amostrar o AO rápido e fazer FFT. |
+| Sensor de Temperatura a Prova D’água DS18B20 | 2 | 3,0 V a 5,5 V | 1-Wire | Precisa de pull-up de 4,7 kΩ entre dados e VCC. Sem ele o sensor não responde, e o sintoma é leitura de -127. |
+| Sensor de Temperatura LM35DZ | 1 | 4 V a 30 V | analógico, 10 mV por °C | Não mede abaixo de 0 °C sem circuito extra — 0 °C é 0 V, e não há como ir mais baixo com alimentação simples. |
+| Sensor de Umidade do Solo Higrômetro | 1 | 3,3 V a 5 V | analógico (AO) e digital com limiar por trimpot (DO) | Sonda resistiva: ela corrói quando fica energizada dentro da terra, e em poucas semanas o valor sai errado. Alimentar por um pino de saída e ligar só no momento da leitura resolve boa parte disso. |
+| Sensor de Umidade e Temperatura AM3202 DHT22 | 1 | 3,3 V a 5 V | 1 fio proprietário (não é o 1-Wire da Dallas) | Uma leitura a cada 2 s, no máximo. Ler mais rápido devolve o valor anterior sem avisar que é velho. |
+| Sensor Touch Capacitivo TTP223B | 1 | 2,0 V a 5,5 V | digital | Funciona através de acrílico ou plástico fino, o que serve bem para case fechado sem furo de botão. |
 
 ### Displays
 
 | Componente | Qtd | Tensão | Interface | Observação |
 | --- | --- | --- | --- | --- |
 | Display 7 Segmentos 1 Dígito Vermelho Cátodo Comum CD4511 | 2 | 5 V | 4 pinos via CD4511 (BCD), ou 7 pinos direto | O CD4511 traduz 4 bits em dígito, economizando três pinos por display. |
-| Display LCD 16x2 | 1 | 5 V | paralelo HD44780; 6 pinos no modo de 4 bits | Precisa de um potenciômetro de 10 kΩ no pino V0 para o contraste. Sem ele |
+| Display LCD 16x2 | 1 | 5 V | paralelo HD44780; 6 pinos no modo de 4 bits | Precisa de um potenciômetro de 10 kΩ no pino V0 para o contraste. Sem ele a tela fica toda preta ou toda apagada, e parece defeito. |
 | Display LCD Nokia 5110 | 1 | 3,3 V — NÃO é tolerante a 5 V | SPI (PCD8544), 84 × 48 pixels | Ligar num Uno de 5 V sem divisor de tensão nos sinais mata o controlador. |
-| Display LED Matriz de LED 8x8 Bicolor (Verde/Vermelho) | 1 |  | matriz crua de 24 pinos — sem driver | Esta é a matriz nua, sem MAX7219. Acender tudo ao mesmo tempo é impossível: |
+| Display LED Matriz de LED 8x8 Bicolor (Verde/Vermelho) | 1 |  | matriz crua de 24 pinos — sem driver | Esta é a matriz nua, sem MAX7219. Acender tudo ao mesmo tempo é impossível: precisa de multiplexação por software e de resistor em cada coluna. |
 | Módulo Matriz de LED 8×8 com MAX7219 | 1 | 5 V | SPI | O MAX7219 faz a multiplexação sozinho: o micro só manda o que mostrar. |
 
 ### Atuadores
 
 | Componente | Qtd | Tensão | Interface | Observação |
 | --- | --- | --- | --- | --- |
-| Diodo Laser 5mW 5V | 1 | 5 V | digital | O componente solto, sem plaquinha. Diodo laser precisa de corrente |
-| Micro Servo 9g SG90 | 2 | 4,8 V a 6 V | PWM de 50 Hz; pulso de 1 a 2 ms define o ângulo | O pico de corrente ao começar a girar derruba o 5 V da USB e reinicia a |
-| Módulo Buzzer Ativo P15 | 1 | 3,3 V a 5 V | digital — nível liga, não precisa de tone() | Ativo quer dizer que o oscilador está dentro: toca uma nota só, e o |
+| Diodo Laser 5mW 5V | 1 | 5 V | digital | O componente solto, sem plaquinha. Diodo laser precisa de corrente controlada — ligar direto na fonte queima. Usar com resistor limitador, ou preferir o módulo. |
+| Micro Servo 9g SG90 | 2 | 4,8 V a 6 V | PWM de 50 Hz; pulso de 1 a 2 ms define o ângulo | O pico de corrente ao começar a girar derruba o 5 V da USB e reinicia a placa. Com dois servos isso é praticamente certo: fonte separada, terra em comum com o Arduino. |
+| Módulo Buzzer Ativo P15 | 1 | 3,3 V a 5 V | digital — nível liga, não precisa de tone() | Ativo quer dizer que o oscilador está dentro: toca uma nota só, e o código apenas liga e desliga. Para tocar melodia seria preciso um passivo, que não temos. |
 | Módulo Diodo Laser 5mW 5V 650nm 6mm | 1 | 5 V | digital | Já vem com o resistor limitador na plaquinha: é ligar e acender. |
-| Módulo Relé 5V 1 canal | 2 | bobina de 5 V; entrada de sinal aceita 3,3 V na maioria | digital — quase sempre acionado em nível BAIXO | A maioria destes módulos liga com LOW e desliga com HIGH. O sintoma de |
-| Módulo Relé 5V 2 canais | 1 | bobina de 5 V | dois pinos digitais — quase sempre acionados em nível BAIXO | Duas bobinas ligadas ao mesmo tempo puxam mais do que a USB do Arduino |
+| Módulo Relé 5V 1 canal | 2 | bobina de 5 V; entrada de sinal aceita 3,3 V na maioria | digital — quase sempre acionado em nível BAIXO | A maioria destes módulos liga com LOW e desliga com HIGH. O sintoma de ter assumido errado é o relé fechar sozinho ao ligar a placa, antes de o código rodar. |
+| Módulo Relé 5V 2 canais | 1 | bobina de 5 V | dois pinos digitais — quase sempre acionados em nível BAIXO | Duas bobinas ligadas ao mesmo tempo puxam mais do que a USB do Arduino entrega com folga. Alimentar o módulo por fora e usar o jumper de separação, quando ele existe. |
 
 ### Comunicação
 
 | Componente | Qtd | Tensão | Interface | Observação |
 | --- | --- | --- | --- | --- |
-| Cartão RFID Programável Mifare 13,56MHz | 8 |  | 13,56 MHz Mifare Classic 1K | 1 KB dividido em 16 setores. Cada setor tem duas chaves; a de fábrica é |
-| Controle Remoto Infravermelho 38KHz | 1 |  | infravermelho 38 kHz, protocolo NEC na maioria | Cada tecla manda um código de 32 bits. O jeito de descobrir é rodar o |
+| Cartão RFID Programável Mifare 13,56MHz | 8 |  | 13,56 MHz Mifare Classic 1K | 1 KB dividido em 16 setores. Cada setor tem duas chaves; a de fábrica é FF FF FF FF FF FF. |
+| Controle Remoto Infravermelho 38KHz | 1 |  | infravermelho 38 kHz, protocolo NEC na maioria | Cada tecla manda um código de 32 bits. O jeito de descobrir é rodar o exemplo de dump da IRremote e anotar o que sai — não existe tabela confiável para os controles genéricos. |
 | Módulo Emissor Infravermelho | 1 | 3,3 V a 5 V | digital, modulado em 38 kHz por software | O LED emite; quem gera os 38 kHz é a biblioteca, chaveando o pino. |
-| Módulo Leitor Rfid MFRC522 Mifare 13,56MHz | 1 | 3,3 V — os pinos não são para 5 V | SPI | Lê 13,56 MHz (Mifare). NÃO lê tag de 125 kHz, que é a de portaria e |
-| Módulo Receptor Infravermelho KY-022 38KHz | 1 | 3,3 V a 5 V | digital, saída ativa em nível BAIXO | É o mesmo receptor do VS1838B já numa plaquinha com os pinos marcados, |
-| Módulo Receptor Rádio Frequência 433MHz AM | 1 | 5 V | digital, um pino de dados | Os receptores baratos são superregenerativos: pegam ruído o tempo todo e |
-| Módulo Transmissor Rádio Frequência 433MHz AM | 1 | 3 V a 12 V — quanto mais tensão, mais alcance | digital, um pino de dados (ASK/OOK) | Sem antena o alcance é de centímetros. Um fio reto de 17,3 cm é um quarto |
-| Receptor Infravermelho VS1838B 38Khz | 1 | 2,7 V a 5,5 V | digital, saída ativa em nível BAIXO | Em repouso a saída fica em nível alto e cai quando chega portadora. Quem |
-| Sensor de Obstáculo Infravermelho | 2 | 3,3 V a 5 V | digital, nível BAIXO quando detecta | Emissor e receptor no mesmo módulo: mede reflexão, não distância. A |
+| Módulo Leitor Rfid MFRC522 Mifare 13,56MHz | 1 | 3,3 V — os pinos não são para 5 V | SPI | Lê 13,56 MHz (Mifare). NÃO lê tag de 125 kHz, que é a de portaria e crachá antigo, e é fisicamente parecida. |
+| Módulo Receptor Infravermelho KY-022 38KHz | 1 | 3,3 V a 5 V | digital, saída ativa em nível BAIXO | É o mesmo receptor do VS1838B já numa plaquinha com os pinos marcados, o que evita o risco de inverter a alimentação. |
+| Módulo Receptor Rádio Frequência 433MHz AM | 1 | 5 V | digital, um pino de dados | Os receptores baratos são superregenerativos: pegam ruído o tempo todo e o alcance decepciona. O superheteródino custa pouco mais e é outro mundo. |
+| Módulo Transmissor Rádio Frequência 433MHz AM | 1 | 3 V a 12 V — quanto mais tensão, mais alcance | digital, um pino de dados (ASK/OOK) | Sem antena o alcance é de centímetros. Um fio reto de 17,3 cm é um quarto de onda em 433,92 MHz e resolve, sem custo. |
+| Receptor Infravermelho VS1838B 38Khz | 1 | 2,7 V a 5,5 V | digital, saída ativa em nível BAIXO | Em repouso a saída fica em nível alto e cai quando chega portadora. Quem espera o contrário acha que está quebrado. |
+| Sensor de Obstáculo Infravermelho | 2 | 3,3 V a 5 V | digital, nível BAIXO quando detecta | Emissor e receptor no mesmo módulo: mede reflexão, não distância. A distância de disparo é ajustada no trimpot, de 2 a 30 cm. |
 | Tag Chaveiro RFID Programável Mifare 13,56MHz | 1 |  | 13,56 MHz Mifare Classic 1K | Mesma coisa do cartão, em formato de chaveiro. |
 
 ### Passivos
@@ -132,5 +132,5 @@ Os projetos ficam em repositórios próprios, com prefixo `hw-`.
 
 | Componente | Qtd | Tensão | Interface | Observação |
 | --- | --- | --- | --- | --- |
-| Módulo Cartão SD | 1 | 5 V no módulo com regulador; o cartão em si é 3,3 V | SPI | Conferir se o módulo tem regulador e conversor de nível. Os que só têm |
-| Real Time Clock RTC DS1307 | 1 | 5 V — o DS1307 não funciona confiável em 3,3 V | I2C | Erra na casa de minutos por mês: o cristal não é compensado por |
+| Módulo Cartão SD | 1 | 5 V no módulo com regulador; o cartão em si é 3,3 V | SPI | Conferir se o módulo tem regulador e conversor de nível. Os que só têm soquete e nada mais precisam de 3,3 V em tudo, inclusive nos sinais. |
+| Real Time Clock RTC DS1307 | 1 | 5 V — o DS1307 não funciona confiável em 3,3 V | I2C | Erra na casa de minutos por mês: o cristal não é compensado por temperatura. Para relógio que precisa acertar, o DS3231 é o substituto, e ele ainda funciona em 3,3 V. |

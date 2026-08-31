@@ -6,12 +6,9 @@
   interface: "PWM de 50 Hz; pulso de 1 a 2 ms define o ângulo"
   biblioteca: Servo
   notas: |
-    O pico de corrente ao começar a girar derruba o 5 V da USB e reinicia a
-    placa. Com dois servos isso é praticamente certo: fonte separada, terra
-    em comum com o Arduino.
+    O pico de corrente ao começar a girar derruba o 5 V da USB e reinicia a placa. Com dois servos isso é praticamente certo: fonte separada, terra em comum com o Arduino.
     Curso de mais ou menos 180°, e forçar contra o batente queima a engrenagem.
-    A biblioteca Servo usa o Timer1 no Uno, o mesmo que a RH_ASK do rádio
-    433 MHz quer — os dois juntos brigam.
+    A biblioteca Servo usa o Timer1 no Uno, o mesmo que a RH_ASK do rádio 433 MHz quer — os dois juntos brigam.
 
 - id: rele-1ch
   nome: "Módulo Relé 5V 1 canal"
@@ -19,11 +16,8 @@
   tensao: "bobina de 5 V; entrada de sinal aceita 3,3 V na maioria"
   interface: "digital — quase sempre acionado em nível BAIXO"
   notas: |
-    A maioria destes módulos liga com LOW e desliga com HIGH. O sintoma de
-    ter assumido errado é o relé fechar sozinho ao ligar a placa, antes de o
-    código rodar.
-    Do lado de carga é rede elétrica: separar fisicamente do lado de baixa
-    tensão, e não deixar trilha de 127/220 V passando por baixo da protoboard.
+    A maioria destes módulos liga com LOW e desliga com HIGH. O sintoma de ter assumido errado é o relé fechar sozinho ao ligar a placa, antes de o código rodar.
+    Do lado de carga é rede elétrica: separar fisicamente do lado de baixa tensão, e não deixar trilha de 127/220 V passando por baixo da protoboard.
 
 - id: rele-2ch
   nome: "Módulo Relé 5V 2 canais"
@@ -31,9 +25,7 @@
   tensao: "bobina de 5 V"
   interface: "dois pinos digitais — quase sempre acionados em nível BAIXO"
   notas: |
-    Duas bobinas ligadas ao mesmo tempo puxam mais do que a USB do Arduino
-    entrega com folga. Alimentar o módulo por fora e usar o jumper de
-    separação, quando ele existe.
+    Duas bobinas ligadas ao mesmo tempo puxam mais do que a USB do Arduino entrega com folga. Alimentar o módulo por fora e usar o jumper de separação, quando ele existe.
 
 - id: buzzer-ativo
   nome: "Módulo Buzzer Ativo P15"
@@ -41,13 +33,9 @@
   tensao: "3,3 V a 5 V"
   interface: "digital — nível liga, não precisa de tone()"
   notas: |
-    Ativo quer dizer que o oscilador está dentro: toca uma nota só, e o
-    código apenas liga e desliga. Para tocar melodia seria preciso um
-    passivo, que não temos.
-    A polaridade de acionamento NÃO foi verificada. Vários módulos P15 tocam
-    com nível BAIXO. Se apitar parado e calar ao acionar, é isso.
-    O hw-codigo-morse assume acionamento em nível ALTO e registra isso como
-    não verificado.
+    Ativo quer dizer que o oscilador está dentro: toca uma nota só, e o código apenas liga e desliga. Para tocar melodia seria preciso um passivo, que não temos.
+    A polaridade de acionamento NÃO foi verificada. Vários módulos P15 tocam com nível BAIXO. Se apitar parado e calar ao acionar, é isso.
+    O hw-codigo-morse assume acionamento em nível ALTO e registra isso como não verificado.
 
 - id: laser-modulo
   nome: "Módulo Diodo Laser 5mW 5V 650nm 6mm"
@@ -56,8 +44,7 @@
   interface: digital
   notas: |
     Já vem com o resistor limitador na plaquinha: é ligar e acender.
-    Não olhar para o feixe, e não apontar para ninguém. 5 mW em 650 nm passa
-    do que o reflexo de piscar protege.
+    Não olhar para o feixe, e não apontar para ninguém. 5 mW em 650 nm passa do que o reflexo de piscar protege.
 
 - id: laser-diodo
   nome: "Diodo Laser 5mW 5V"
@@ -65,8 +52,5 @@
   tensao: "5 V"
   interface: digital
   notas: |
-    O componente solto, sem plaquinha. Diodo laser precisa de corrente
-    controlada — ligar direto na fonte queima. Usar com resistor limitador,
-    ou preferir o módulo.
-    O nome vinha como "Dioso Laser" no export do Notion; erro de digitação
-    corrigido na migração.
+    O componente solto, sem plaquinha. Diodo laser precisa de corrente controlada — ligar direto na fonte queima. Usar com resistor limitador, ou preferir o módulo.
+    O nome vinha como "Dioso Laser" no export do Notion; erro de digitação corrigido na migração.

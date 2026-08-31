@@ -6,8 +6,7 @@
   interface: SPI
   biblioteca: SD
   notas: |
-    Conferir se o módulo tem regulador e conversor de nível. Os que só têm
-    soquete e nada mais precisam de 3,3 V em tudo, inclusive nos sinais.
+    Conferir se o módulo tem regulador e conversor de nível. Os que só têm soquete e nada mais precisam de 3,3 V em tudo, inclusive nos sinais.
     A escrita puxa corrente em rajada; alimentação fraca corrompe o cartão.
     Formatar em FAT32. A biblioteca SD só lê nome curto (8.3) sem ajuda.
     A biblioteca ocupa bastante RAM — num Uno de 2 KB isso pesa.
@@ -20,9 +19,6 @@
   endereco: "0x68"
   biblioteca: RTClib
   notas: |
-    Erra na casa de minutos por mês: o cristal não é compensado por
-    temperatura. Para relógio que precisa acertar, o DS3231 é o substituto,
-    e ele ainda funciona em 3,3 V.
-    A pilha CR2032 é o que segura a hora com a placa desligada. Sem pilha,
-    volta ao zero a cada energização.
+    Erra na casa de minutos por mês: o cristal não é compensado por temperatura. Para relógio que precisa acertar, o DS3231 é o substituto, e ele ainda funciona em 3,3 V.
+    A pilha CR2032 é o que segura a hora com a placa desligada. Sem pilha, volta ao zero a cada energização.
     Como exige 5 V, não combina direto com o ESP8266.

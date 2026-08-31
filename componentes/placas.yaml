@@ -18,8 +18,7 @@
   notas: |
     Mesmo micro do Uno, no mesmo relógio, num terço do tamanho.
     A6 e A7 só leem analógico: não servem como pino digital.
-    Placa de clone com CH340 costuma precisar de driver no Windows; se não
-    aparecer porta COM, é isso.
+    Placa de clone com CH340 costuma precisar de driver no Windows; se não aparecer porta COM, é isso.
 
 - id: esp8266-nodemcu
   nome: "Módulo ESP8266 ESP-12E CH340G NodeMCU"
@@ -28,9 +27,6 @@
   interface: "Wi-Fi 2,4 GHz; sem Bluetooth"
   notas: |
     Os pinos NÃO são tolerantes a 5 V. Ligar direto num sensor de 5 V queima.
-    Um único pino analógico, A0, e no chip ele lê até 1,0 V — a placa tem
-    divisor para aceitar 3,3 V.
-    Para deep sleep é preciso ligar GPIO16 (D0) ao RST com um fio; sem isso
-    a placa dorme e não acorda.
-    D3, D4 e D8 mandam no boot: nível errado neles na energização impede a
-    placa de subir.
+    Um único pino analógico, A0, e no chip ele lê até 1,0 V — a placa tem divisor para aceitar 3,3 V.
+    Para deep sleep é preciso ligar GPIO16 (D0) ao RST com um fio; sem isso a placa dorme e não acorda.
+    D3, D4 e D8 mandam no boot: nível errado neles na energização impede a placa de subir.
