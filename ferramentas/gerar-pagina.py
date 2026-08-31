@@ -7,7 +7,9 @@ na proxima geracao — a mesma regra que vale no hw-codigo-morse.
 """
 from __future__ import annotations
 
+import json
 import sys
+from dataclasses import asdict
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
@@ -133,21 +135,51 @@ def montar_readme(base: Base) -> str:
     return "\n".join(p).rstrip() + "\n"
 
 
+def montar_html(base: Base) -> str:
+    molde = (BASE / "ferramentas" / "modelo.html").read_text(encoding="utf-8")
+
+    grupos = por_familia(base)
+    componentes = [asdict(c) for familia in ORDEM for c in grupos[familia]]
+
+    dados = {
+        "titulos": TITULOS,
+        "componentes": componentes,
+        "alertas": alertas(base),
+    }
+    # </script> dentro do JSON encerraria a tag e quebraria a pagina inteira
+    # sem aviso nenhum.
+    bruto = json.dumps(dados, ensure_ascii=False).replace("</", "<\\/")
+
+    total = sum(c.qtd for c in base.componentes)
+    resumo = f"{len(base.componentes)} componentes distintos, {total} peças no total."
+
+    pagina = molde.replace("{{DADOS}}", bruto).replace("{{RESUMO}}", resumo)
+    sobrou = [m for m in ("{{DADOS}}", "{{RESUMO}}") if m in pagina]
+    if sobrou:
+        raise ErroDeDados(f"marcas nao substituidas no modelo: {', '.join(sobrou)}")
+    return pagina
+
+
 def main() -> int:
     # O console do Windows nao entra em UTF-8 sozinho, e os avisos saem com
     # caractere trocado justamente onde eles precisam ser lidos.
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+    # Os dois sao montados antes de qualquer escrita: se um falhar, o par nao
+    # fica meio gerado, com um README novo e uma pagina velha.
     try:
         base = carregar_tudo(BASE)
         readme = montar_readme(base)
+        html = montar_html(base)
     except ErroDeDados as erro:
         print(f"ERRO: {erro}", file=sys.stderr)
         return 1
 
     (BASE / "README.md").write_text(readme, encoding="utf-8", newline="\n")
-    print(f"README.md gerado: {len(base.componentes)} componentes")
+    (BASE / "index.html").write_text(html, encoding="utf-8", newline="\n")
+    print(f"README.md e index.html gerados: {len(base.componentes)} componentes, "
+          f"{len(html):,} bytes de pagina".replace(",", "."))
     for linha in alertas(base):
         print("  aviso: " + para_markdown(linha).replace("**", "").replace("`", ""))
     return 0

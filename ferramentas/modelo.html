@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hw-laboratorio — inventário da bancada</title>
+<meta name="description" content="Componentes, projetos e lista de compras da bancada de eletrônica.">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231554B8'/><rect x='7' y='9' width='18' height='3' rx='1.5' fill='%23CFE6FF'/><rect x='7' y='15' width='18' height='3' rx='1.5' fill='%2345D964'/><rect x='7' y='21' width='11' height='3' rx='1.5' fill='%23FFC24B'/></svg>">
+<style>
+:root{
+  --tinta:#060911; --painel:#0E1526; --painel2:#131C31; --borda:#22304E;
+  --texto:#D6E2F2; --fraco:#8296B4; --apagado:#465873;
+  --azul:#2C7BE5; --verde:#45D964; --ambar:#FFC24B;
+  --mono:'IBM Plex Mono','SFMono-Regular',ui-monospace,monospace;
+  --sans:'Public Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --larg:1120px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--tinta);color:var(--texto);
+  font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.env{max-width:var(--larg);margin:0 auto;padding:0 18px}
+a{color:var(--azul)}
+:focus-visible{outline:2px solid var(--ambar);outline-offset:3px;border-radius:4px}
+code{font-family:var(--mono);font-size:.9em;color:var(--texto)}
+
+header{padding:40px 0 26px;border-bottom:1px solid var(--borda)}
+.olho{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--fraco);
+  text-transform:uppercase;margin:0 0 12px}
+h1{font-family:var(--mono);font-weight:700;letter-spacing:-.03em;line-height:1.05;
+  font-size:clamp(2rem,7vw,3.2rem);margin:0 0 10px;text-transform:uppercase}
+.resumo{color:var(--fraco);margin:0}
+
+.barra{position:sticky;top:0;z-index:10;background:rgba(6,9,17,.94);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--borda);padding:12px 0}
+.busca{width:100%;padding:12px 14px;font-family:var(--mono);font-size:16px;
+  color:var(--texto);background:var(--painel);border:1px solid var(--borda);border-radius:8px}
+.busca::placeholder{color:var(--apagado)}
+.filtros{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-top:10px}
+.filtros::-webkit-scrollbar{display:none}
+.filtros button{font-family:var(--mono);font-size:12px;white-space:nowrap;cursor:pointer;
+  color:var(--fraco);background:var(--painel);border:1px solid var(--borda);
+  border-radius:999px;padding:7px 13px}
+.filtros button[aria-pressed="true"]{color:var(--tinta);background:var(--azul);
+  border-color:var(--azul);font-weight:600}
+
+.aviso{background:var(--painel2);border-left:3px solid var(--ambar);
+  padding:12px 14px;margin:14px 0;border-radius:0 8px 8px 0;font-size:14.5px}
+.aviso b{color:var(--ambar)}
+
+section{padding:26px 0 4px}
+h2{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fraco);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--borda)}
+
+.peca{background:var(--painel);border:1px solid var(--borda);border-radius:10px;
+  padding:13px 15px;margin-bottom:9px}
+.peca-topo{display:flex;gap:12px;align-items:baseline;justify-content:space-between}
+.peca-nome{font-weight:600;line-height:1.3}
+.peca-qtd{font-family:var(--mono);font-size:13px;color:var(--verde);white-space:nowrap}
+.peca-id{font-family:var(--mono);font-size:11.5px;color:var(--apagado);margin-top:3px}
+.peca-campos{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.campo{font-family:var(--mono);font-size:11.5px;color:var(--fraco);
+  background:var(--painel2);border:1px solid var(--borda);border-radius:5px;padding:3px 8px}
+.peca-notas{margin-top:9px;font-size:14px;color:var(--fraco);
+  border-top:1px solid var(--borda);padding-top:9px;white-space:pre-line}
+.vazio{color:var(--apagado);font-family:var(--mono);font-size:13px;padding:26px 0}
+
+footer{border-top:1px solid var(--borda);margin-top:36px;padding:22px 0 40px;
+  font-family:var(--mono);font-size:12px;color:var(--apagado)}
+</style>
+</head>
+<body>
+<header class="env">
+  <p class="olho">bancada de eletrônica</p>
+  <h1>hw-laboratorio</h1>
+  <p class="resumo">{{RESUMO}}</p>
+</header>
+
+<div class="barra">
+  <div class="env">
+    <input class="busca" id="busca" type="search" autocomplete="off"
+           placeholder="buscar por nome, id, interface ou nota…"
+           aria-label="Buscar componente">
+    <div class="filtros" id="filtros"></div>
+  </div>
+</div>
+
+<main class="env" id="lista"></main>
+
+<footer class="env">
+  gerado por ferramentas/gerar-pagina.py — não editar à mão
+</footer>
+
+<script type="application/json" id="dados">{{DADOS}}</script>
+<script>
+const DADOS = JSON.parse(document.getElementById('dados').textContent);
+const lista = document.getElementById('lista');
+const busca = document.getElementById('busca');
+const filtros = document.getElementById('filtros');
+let familiaAtiva = 'tudo';
+
+const familias = ['tudo', ...new Set(DADOS.componentes.map(c => c.familia))];
+for (const f of familias) {
+  const b = document.createElement('button');
+  b.textContent = DADOS.titulos[f] || 'Tudo';
+  b.setAttribute('aria-pressed', String(f === 'tudo'));
+  b.onclick = () => {
+    familiaAtiva = f;
+    [...filtros.children].forEach((o, i) =>
+      o.setAttribute('aria-pressed', String(familias[i] === f)));
+    desenhar();
+  };
+  filtros.appendChild(b);
+}
+
+function combina(c, termo) {
+  if (!termo) return true;
+  const alvo = [c.nome, c.id, c.interface, c.tensao, c.biblioteca, c.endereco, c.notas]
+    .filter(Boolean).join(' ').toLowerCase();
+  return termo.split(/\s+/).every(p => alvo.includes(p));
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g,
+    m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+}
+
+function cartao(c) {
+  const el = document.createElement('article');
+  el.className = 'peca';
+  const campos = [c.tensao, c.interface, c.endereco, c.biblioteca]
+    .filter(Boolean).map(v => `<span class="campo">${esc(v)}</span>`).join('');
+  el.innerHTML =
+    `<div class="peca-topo"><div><div class="peca-nome">${esc(c.nome)}</div>` +
+    `<div class="peca-id">${esc(c.id)}</div></div>` +
+    `<div class="peca-qtd">${c.qtd}×</div></div>` +
+    (campos ? `<div class="peca-campos">${campos}</div>` : '') +
+    (c.notas ? `<div class="peca-notas">${esc(c.notas.trim())}</div>` : '');
+  return el;
+}
+
+function desenhar() {
+  const termo = busca.value.trim().toLowerCase();
+  lista.textContent = '';
+
+  for (const a of DADOS.alertas) {
+    const el = document.createElement('div');
+    el.className = 'aviso';
+    el.innerHTML = a;
+    lista.appendChild(el);
+  }
+
+  let mostrados = 0;
+  for (const familia of Object.keys(DADOS.titulos)) {
+    if (familiaAtiva !== 'tudo' && familiaAtiva !== familia) continue;
+    const itens = DADOS.componentes.filter(c => c.familia === familia && combina(c, termo));
+    if (!itens.length) continue;
+    const sec = document.createElement('section');
+    sec.innerHTML = `<h2>${DADOS.titulos[familia]} — ${itens.length}</h2>`;
+    itens.forEach(c => sec.appendChild(cartao(c)));
+    lista.appendChild(sec);
+    mostrados += itens.length;
+  }
+
+  if (!mostrados) {
+    const v = document.createElement('p');
+    v.className = 'vazio';
+    v.textContent = 'nada encontrado';
+    lista.appendChild(v);
+  }
+}
+
+busca.addEventListener('input', desenhar);
+desenhar();
+</script>
+</body>
+</html>
