@@ -1,7 +1,28 @@
-# Diversos — migrado do export do Notion.
+# Diversos — o que não coube nas outras famílias.
 - id: cartao-sd
   nome: "Módulo Cartão SD"
   qtd: 1
+  tensao: "5 V no módulo com regulador; o cartão em si é 3,3 V"
+  interface: SPI
+  biblioteca: SD
+  notas: |
+    Conferir se o módulo tem regulador e conversor de nível. Os que só têm
+    soquete e nada mais precisam de 3,3 V em tudo, inclusive nos sinais.
+    A escrita puxa corrente em rajada; alimentação fraca corrompe o cartão.
+    Formatar em FAT32. A biblioteca SD só lê nome curto (8.3) sem ajuda.
+    A biblioteca ocupa bastante RAM — num Uno de 2 KB isso pesa.
+
 - id: rtc-ds1307
   nome: "Real Time Clock RTC DS1307"
   qtd: 1
+  tensao: "5 V — o DS1307 não funciona confiável em 3,3 V"
+  interface: I2C
+  endereco: "0x68"
+  biblioteca: RTClib
+  notas: |
+    Erra na casa de minutos por mês: o cristal não é compensado por
+    temperatura. Para relógio que precisa acertar, o DS3231 é o substituto,
+    e ele ainda funciona em 3,3 V.
+    A pilha CR2032 é o que segura a hora com a placa desligada. Sem pilha,
+    volta ao zero a cada energização.
+    Como exige 5 V, não combina direto com o ESP8266.

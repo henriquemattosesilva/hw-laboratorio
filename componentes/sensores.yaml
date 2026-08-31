@@ -1,43 +1,155 @@
-# Sensores — migrado do export do Notion.
-- id: ldr-modulo
-  nome: "Módulo Sensor de Luminosidade LDR"
-  qtd: 1
-- id: pir-dypme003
-  nome: "Módulo Sensor de Presença e Movimento PIR DYP-ME003"
-  qtd: 1
-- id: touch-ttp223b
-  nome: "Sensor Touch Capacitivo TTP223B"
-  qtd: 1
-- id: sensor-chuva
-  nome: "Sensor de Chuva"
-  qtd: 1
-- id: tcs34725
-  nome: "Sensor de Cor RGB TCS34725 com Filtro IR"
-  qtd: 1
-- id: hc-sr04
-  nome: "Sensor de Distância Ultrassônico HC-SR04"
-  qtd: 2
-- id: sensor-cardiaco
-  nome: "Sensor de Frequência Cardíaca"
-  qtd: 1
-- id: ldr-5mm
-  nome: "Sensor de Luminosidade LDR 5mm"
-  qtd: 13
+# Sensores — o que mede o mundo.
 - id: bmp280
   nome: "Sensor de Pressão e Temperatura BMP280"
   qtd: 1
-- id: ky-038
-  nome: "Sensor de Som Microfone KY-038"
-  qtd: 1
-- id: lm35
-  nome: "Sensor de Temperatura LM35DZ"
-  qtd: 1
-- id: ds18b20
-  nome: "Sensor de Temperatura a Prova D’água DS18B20"
-  qtd: 2
-- id: higrometro-solo
-  nome: "Sensor de Umidade do Solo Higrômetro"
-  qtd: 1
+  tensao: "3,3 V no chip; o módulo com regulador aceita 5 V"
+  interface: "I2C (também faz SPI)"
+  endereco: "0x76, ou 0x77 conforme o pino SDO"
+  biblioteca: Adafruit_BMP280
+  notas: |
+    Não mede umidade. O que mede é o BME280, fisicamente quase idêntico e com
+    o mesmo endereço — comprar um pensando no outro é o erro clássico.
+    A pressão serve de altímetro, com uns 10 cm de resolução.
+
 - id: dht22
   nome: "Sensor de Umidade e Temperatura AM3202 DHT22"
   qtd: 1
+  tensao: "3,3 V a 5 V"
+  interface: "1 fio proprietário (não é o 1-Wire da Dallas)"
+  biblioteca: "DHT sensor library (Adafruit)"
+  notas: |
+    Uma leitura a cada 2 s, no máximo. Ler mais rápido devolve o valor anterior
+    sem avisar que é velho.
+    Precisa de pull-up de 10 kΩ no pino de dados quando o módulo não traz um.
+
+- id: ds18b20
+  nome: "Sensor de Temperatura a Prova D’água DS18B20"
+  qtd: 2
+  tensao: "3,0 V a 5,5 V"
+  interface: 1-Wire
+  biblioteca: "OneWire + DallasTemperature"
+  notas: |
+    Precisa de pull-up de 4,7 kΩ entre dados e VCC. Sem ele o sensor não
+    responde, e o sintoma é leitura de -127.
+    Vários sensores dividem o mesmo pino: cada um tem endereço de 64 bits
+    gravado de fábrica.
+    Os dois aqui são a versão em sonda de aço, que serve para líquido e solo.
+
+- id: lm35
+  nome: "Sensor de Temperatura LM35DZ"
+  qtd: 1
+  tensao: "4 V a 30 V"
+  interface: "analógico, 10 mV por °C"
+  notas: |
+    Não mede abaixo de 0 °C sem circuito extra — 0 °C é 0 V, e não há como
+    ir mais baixo com alimentação simples.
+    Com referência de 5 V, cada passo do conversor vale 0,49 °C, o que é ruim.
+    analogReference(INTERNAL) no ATmega põe a referência em 1,1 V e melhora a
+    resolução para 0,11 °C.
+
+- id: hc-sr04
+  nome: "Sensor de Distância Ultrassônico HC-SR04"
+  qtd: 2
+  tensao: "5 V"
+  interface: "digital: pulso de 10 µs no trigger, largura do echo é a distância"
+  notas: |
+    O pino echo devolve 5 V. Ligar direto num ESP8266 ou ESP32 exige divisor.
+    Faixa útil de 2 cm a 4 m, e a leitura piora muito em superfície macia,
+    em pano, e em qualquer coisa inclinada — o eco volta para outro lugar.
+
+- id: pir-dypme003
+  nome: "Módulo Sensor de Presença e Movimento PIR DYP-ME003"
+  qtd: 1
+  tensao: "4,5 V a 20 V de alimentação; saída em 3,3 V"
+  interface: "digital, nível alto enquanto detecta"
+  notas: |
+    Precisa de 30 a 60 s parado depois de energizar para calibrar o fundo.
+    Movimento nesse tempo dá alarme falso.
+    Os dois trimpots ajustam sensibilidade e tempo de retenção; o jumper
+    escolhe entre disparo único e redisparo contínuo.
+    Como a saída é 3,3 V, serve tanto para Arduino quanto para ESP.
+
+- id: higrometro-solo
+  nome: "Sensor de Umidade do Solo Higrômetro"
+  qtd: 1
+  tensao: "3,3 V a 5 V"
+  interface: "analógico (AO) e digital com limiar por trimpot (DO)"
+  notas: |
+    Sonda resistiva: ela corrói quando fica energizada dentro da terra, e em
+    poucas semanas o valor sai errado. Alimentar por um pino de saída e ligar
+    só no momento da leitura resolve boa parte disso.
+    O que dura de verdade é o sensor capacitivo, que não temos.
+
+- id: sensor-chuva
+  nome: "Sensor de Chuva"
+  qtd: 1
+  tensao: "3,3 V a 5 V"
+  interface: "analógico (AO) e digital com limiar por trimpot (DO)"
+  notas: |
+    Mesma armadilha do higrômetro: a placa coletora corrói energizada.
+    Alimentar só na medição.
+
+- id: ldr-5mm
+  nome: "Sensor de Luminosidade LDR 5mm"
+  qtd: 13
+  interface: "analógico — é um resistor, precisa de divisor"
+  notas: |
+    Sozinho não mede nada: entra num divisor com um resistor fixo (10 kΩ é o
+    valor comum) e o meio do divisor vai para a entrada analógica.
+    Resistência cai com a luz — claro dá tensão diferente de escuro, e qual
+    dos dois depende de qual perna do divisor ele ocupa.
+
+- id: ldr-modulo
+  nome: "Módulo Sensor de Luminosidade LDR"
+  qtd: 1
+  tensao: "3,3 V a 5 V"
+  interface: "digital com limiar por trimpot; alguns trazem AO também"
+  notas: |
+    O módulo responde "está claro ou escuro?", não "quanto de luz?".
+    Para medir nível, usar o LDR solto num divisor.
+
+- id: touch-ttp223b
+  nome: "Sensor Touch Capacitivo TTP223B"
+  qtd: 1
+  tensao: "2,0 V a 5,5 V"
+  interface: "digital"
+  notas: |
+    Funciona através de acrílico ou plástico fino, o que serve bem para case
+    fechado sem furo de botão.
+    Os pares de solda A e B na traseira trocam entre pulso enquanto encostado
+    e alternância a cada toque.
+
+- id: tcs34725
+  nome: "Sensor de Cor RGB TCS34725 com Filtro IR"
+  qtd: 1
+  tensao: "3,3 V no chip; o módulo costuma aceitar 5 V"
+  interface: I2C
+  endereco: "0x29"
+  biblioteca: Adafruit_TCS34725
+  notas: |
+    A quantidade veio em branco no export do Notion; anotado 1 por suposição.
+    CONFERIR NA GAVETA.
+    Traz LED branco embutido: cor lida sem acender o LED depende da luz do
+    ambiente e muda de hora em hora.
+    O filtro de infravermelho é o que faz esse sensor acertar cor onde os
+    baratos erram.
+
+- id: ky-038
+  nome: "Sensor de Som Microfone KY-038"
+  qtd: 1
+  tensao: "3,3 V a 5 V"
+  interface: "analógico (AO) e digital com limiar por trimpot (DO)"
+  notas: |
+    Detecta que houve som acima de um limiar. Não reconhece nota, palavra nem
+    frequência — para isso seria preciso amostrar o AO rápido e fazer FFT.
+    O trimpot é sensível: o ajuste útil fica numa faixa estreita.
+
+- id: sensor-cardiaco
+  nome: "Sensor de Frequência Cardíaca"
+  qtd: 1
+  interface: "analógico, provavelmente"
+  notas: |
+    O nome no Notion é genérico e não identifica o modelo. CONFERIR A
+    SERIGRAFIA na plaquinha antes de planejar projeto com ele: se for um
+    Pulse Sensor, é fotopletismografia analógica com biblioteca própria; se
+    for MAX30102, é I2C e outra história inteira.

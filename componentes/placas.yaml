@@ -1,10 +1,36 @@
-# Placas — migrado do export do Notion.
-- id: arduino-nano
-  nome: "Arduino Nano V3.0 ATmega328 5V"
-  qtd: 1
+# Placas — as que rodam código.
 - id: arduino-uno
   nome: "Arduino Uno R3"
   qtd: 1
+  tensao: "5 V lógico; alimentação 7–12 V no jack ou pela USB"
+  interface: "USB-B; 14 digitais (6 com PWM), 6 analógicas"
+  notas: |
+    ATmega328P a 16 MHz: 32 KB de flash (menos o bootloader), 2 KB de RAM.
+    A RAM é o que acaba primeiro — cada string literal no código come dela.
+    Sem rádio de espécie alguma.
+    O regulador de 3,3 V da placa entrega uns 50 mA, não mais.
+
+- id: arduino-nano
+  nome: "Arduino Nano V3.0 ATmega328 5V"
+  qtd: 1
+  tensao: "5 V lógico"
+  interface: "mini-USB; 14 digitais (6 com PWM), 8 analógicas"
+  notas: |
+    Mesmo micro do Uno, no mesmo relógio, num terço do tamanho.
+    A6 e A7 só leem analógico: não servem como pino digital.
+    Placa de clone com CH340 costuma precisar de driver no Windows; se não
+    aparecer porta COM, é isso.
+
 - id: esp8266-nodemcu
   nome: "Módulo ESP8266 ESP-12E CH340G NodeMCU"
   qtd: 1
+  tensao: "3,3 V nos pinos; alimentação pela micro-USB"
+  interface: "Wi-Fi 2,4 GHz; sem Bluetooth"
+  notas: |
+    Os pinos NÃO são tolerantes a 5 V. Ligar direto num sensor de 5 V queima.
+    Um único pino analógico, A0, e no chip ele lê até 1,0 V — a placa tem
+    divisor para aceitar 3,3 V.
+    Para deep sleep é preciso ligar GPIO16 (D0) ao RST com um fio; sem isso
+    a placa dorme e não acorda.
+    D3, D4 e D8 mandam no boot: nível errado neles na energização impede a
+    placa de subir.

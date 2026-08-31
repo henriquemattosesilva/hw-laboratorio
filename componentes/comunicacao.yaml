@@ -1,31 +1,111 @@
-# Comunicacao — migrado do export do Notion.
-- id: rfid-cartao
-  nome: "Cartão RFID Programável Mifare 13,56MHz"
-  qtd: 8
-- id: controle-ir
-  nome: "Controle Remoto Infravermelho 38KHz"
-  qtd: 1
-- id: ir-emissor
-  nome: "Módulo Emissor Infravermelho"
-  qtd: 1
-- id: mfrc522
-  nome: "Módulo Leitor Rfid MFRC522 Mifare 13,56MHz"
-  qtd: 1
-- id: ir-rx-ky022
-  nome: "Módulo Receptor Infravermelho KY-022 38KHz"
-  qtd: 1
-- id: rf433-rx
-  nome: "Módulo Receptor Rádio Frequência 433MHz AM"
-  qtd: 1
+# Comunicacao — rádio, infravermelho e RFID.
 - id: rf433-tx
   nome: "Módulo Transmissor Rádio Frequência 433MHz AM"
   qtd: 1
-- id: ir-rx-vs1838b
-  nome: "Receptor Infravermelho VS1838B 38Khz"
+  tensao: "3 V a 12 V — quanto mais tensão, mais alcance"
+  interface: "digital, um pino de dados (ASK/OOK)"
+  biblioteca: "RadioHead RH_ASK, ou RCSwitch"
+  notas: |
+    Sem antena o alcance é de centímetros. Um fio reto de 17,3 cm é um quarto
+    de onda em 433,92 MHz e resolve, sem custo.
+    É meio-duplex e sem confirmação: o transmissor não sabe se chegou. Quem
+    quer confiabilidade repete a mensagem.
+    A serigrafia varia entre versões — conferir DATA / VCC / GND na plaquinha
+    antes de ligar.
+    Já usado no hw-codigo-morse.
+
+- id: rf433-rx
+  nome: "Módulo Receptor Rádio Frequência 433MHz AM"
   qtd: 1
-- id: sensor-obstaculo-ir
-  nome: "Sensor de Obstáculo Infravermelho"
-  qtd: 2
+  tensao: "5 V"
+  interface: "digital, um pino de dados"
+  biblioteca: "RadioHead RH_ASK, ou RCSwitch"
+  notas: |
+    Os receptores baratos são superregenerativos: pegam ruído o tempo todo e
+    o alcance decepciona. O superheteródino custa pouco mais e é outro mundo.
+    Também precisa dos 17,3 cm de antena.
+    Tem quatro pinos, dois deles DATA ligados internamente — usar qualquer um.
+
+- id: mfrc522
+  nome: "Módulo Leitor Rfid MFRC522 Mifare 13,56MHz"
+  qtd: 1
+  tensao: "3,3 V — os pinos não são para 5 V"
+  interface: SPI
+  biblioteca: MFRC522
+  notas: |
+    Lê 13,56 MHz (Mifare). NÃO lê tag de 125 kHz, que é a de portaria e
+    crachá antigo, e é fisicamente parecida.
+    Com Uno de 5 V muita gente liga direto e funciona, mas está fora de
+    especificação: o certo é divisor nos sinais que vão do Uno para o módulo.
+    Alimentar em 3,3 V — os 5 V queimam.
+
+- id: rfid-cartao
+  nome: "Cartão RFID Programável Mifare 13,56MHz"
+  qtd: 8
+  interface: "13,56 MHz Mifare Classic 1K"
+  notas: |
+    1 KB dividido em 16 setores. Cada setor tem duas chaves; a de fábrica é
+    FF FF FF FF FF FF.
+    Gravar chave nova sem anotar deixa o cartão inutilizável — não há como
+    voltar atrás.
+
 - id: rfid-chaveiro
   nome: "Tag Chaveiro RFID Programável Mifare 13,56MHz"
   qtd: 1
+  interface: "13,56 MHz Mifare Classic 1K"
+  notas: "Mesma coisa do cartão, em formato de chaveiro."
+
+- id: ir-emissor
+  nome: "Módulo Emissor Infravermelho"
+  qtd: 1
+  tensao: "3,3 V a 5 V"
+  interface: "digital, modulado em 38 kHz por software"
+  biblioteca: IRremote
+  notas: |
+    O LED emite; quem gera os 38 kHz é a biblioteca, chaveando o pino.
+    O alcance do módulo pronto é curto, porque a corrente é limitada por
+    resistor pequeno. Com transistor e mais corrente vai bem mais longe.
+
+- id: ir-rx-vs1838b
+  nome: "Receptor Infravermelho VS1838B 38Khz"
+  qtd: 1
+  tensao: "2,7 V a 5,5 V"
+  interface: "digital, saída ativa em nível BAIXO"
+  biblioteca: IRremote
+  notas: |
+    Em repouso a saída fica em nível alto e cai quando chega portadora. Quem
+    espera o contrário acha que está quebrado.
+    É o componente solto; a ordem dos três pinos varia por fabricante e
+    ligar invertido queima. Conferir contra o datasheet do VS1838B.
+
+- id: ir-rx-ky022
+  nome: "Módulo Receptor Infravermelho KY-022 38KHz"
+  qtd: 1
+  tensao: "3,3 V a 5 V"
+  interface: "digital, saída ativa em nível BAIXO"
+  biblioteca: IRremote
+  notas: |
+    É o mesmo receptor do VS1838B já numa plaquinha com os pinos marcados,
+    o que evita o risco de inverter a alimentação.
+
+- id: controle-ir
+  nome: "Controle Remoto Infravermelho 38KHz"
+  qtd: 1
+  interface: "infravermelho 38 kHz, protocolo NEC na maioria"
+  notas: |
+    Cada tecla manda um código de 32 bits. O jeito de descobrir é rodar o
+    exemplo de dump da IRremote e anotar o que sai — não existe tabela
+    confiável para os controles genéricos.
+    Vem com pilha CR2032 e quase sempre com uma película plástica que precisa
+    ser puxada antes de funcionar.
+
+- id: sensor-obstaculo-ir
+  nome: "Sensor de Obstáculo Infravermelho"
+  qtd: 2
+  tensao: "3,3 V a 5 V"
+  interface: "digital, nível BAIXO quando detecta"
+  notas: |
+    Emissor e receptor no mesmo módulo: mede reflexão, não distância. A
+    distância de disparo é ajustada no trimpot, de 2 a 30 cm.
+    Superfície preta absorve o infravermelho e não é detectada. Sol direto
+    cega o sensor. Os dois são limitação física, não defeito.

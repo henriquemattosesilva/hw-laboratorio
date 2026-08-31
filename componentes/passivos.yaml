@@ -11,12 +11,6 @@
 - id: chave-tactil-verm
   nome: "Chave Táctil Vermelha"
   qtd: 10
-- id: laser-diodo
-  nome: "Diodo Laser 5mW 5V"
-  qtd: 1
-- id: matriz-8x8-bicolor
-  nome: "Display LED Matriz de LED 8x8 Bicolor (Verde/Vermelho)"
-  qtd: 1
 - id: led-amarelo-cri
   nome: "LED Amarelo 5mm Cristalino"
   qtd: 10
@@ -59,9 +53,6 @@
 - id: led-vermelho-dif
   nome: "LED Vermelho 5mm Difuso"
   qtd: 6
-- id: laser-modulo
-  nome: "Módulo Diodo Laser 5mW 5V 650nm 6mm"
-  qtd: 1
 - id: pot-100k
   nome: "Potenciômetro Linear 100K"
   qtd: 2

@@ -1,13 +1,54 @@
-# Displays — migrado do export do Notion.
-- id: display-7seg
-  nome: "Display 7 Segmentos 1 Dígito Vermelho Cátodo Comum CD4511"
-  qtd: 2
+# Displays — o que mostra resultado.
 - id: lcd-16x2
   nome: "Display LCD 16x2"
   qtd: 1
+  tensao: "5 V"
+  interface: "paralelo HD44780; 6 pinos no modo de 4 bits"
+  biblioteca: LiquidCrystal
+  notas: |
+    Precisa de um potenciômetro de 10 kΩ no pino V0 para o contraste. Sem ele
+    a tela fica toda preta ou toda apagada, e parece defeito.
+    Não tem adaptador I2C aqui, então gasta 6 pinos de verdade.
+    Já é o display do receptor no hw-codigo-morse.
+
 - id: nokia-5110
   nome: "Display LCD Nokia 5110"
   qtd: 1
+  tensao: "3,3 V — NÃO é tolerante a 5 V"
+  interface: "SPI (PCD8544), 84 × 48 pixels"
+  biblioteca: "Adafruit_PCD8544 + Adafruit_GFX"
+  notas: |
+    Ligar num Uno de 5 V sem divisor de tensão nos sinais mata o controlador.
+    Com ESP8266 vai direto, que é onde ele brilha.
+    Ao contrário do 16x2, desenha gráfico e fonte de tamanhos diferentes.
+
 - id: matriz-max7219
   nome: "Módulo Matriz de LED 8×8 com MAX7219"
   qtd: 1
+  tensao: "5 V"
+  interface: "SPI"
+  biblioteca: "MD_MAX72XX, ou LedControl"
+  notas: |
+    O MAX7219 faz a multiplexação sozinho: o micro só manda o que mostrar.
+    Os módulos são encadeáveis em série, então dá para virar painel de texto
+    correndo comprando mais.
+
+- id: matriz-8x8-bicolor
+  nome: "Display LED Matriz de LED 8x8 Bicolor (Verde/Vermelho)"
+  qtd: 1
+  interface: "matriz crua de 24 pinos — sem driver"
+  notas: |
+    Esta é a matriz nua, sem MAX7219. Acender tudo ao mesmo tempo é impossível:
+    precisa de multiplexação por software e de resistor em cada coluna.
+    Dá muito mais trabalho que a do MAX7219 — em troca, faz duas cores.
+
+- id: display-7seg
+  nome: "Display 7 Segmentos 1 Dígito Vermelho Cátodo Comum CD4511"
+  qtd: 2
+  tensao: "5 V"
+  interface: "4 pinos via CD4511 (BCD), ou 7 pinos direto"
+  notas: |
+    O CD4511 traduz 4 bits em dígito, economizando três pinos por display.
+    Ele só serve para CÁTODO COMUM, que é o caso destes.
+    Continua precisando de resistor em cada segmento — o CD4511 não limita
+    corrente.
