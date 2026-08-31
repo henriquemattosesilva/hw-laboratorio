@@ -80,7 +80,14 @@ Arduino/                              raiz do repositório hw-laboratorio
 │   ├── gerar-pagina.py               YAML → README.md + index.html
 │   ├── novo-projeto.py               cria projeto a partir do modelo
 │   └── modelo/                       esqueleto de projeto hw-*
-├── docs/superpowers/specs/           specs de desenho (este arquivo)
+├── testes/
+│   ├── test_dados.py
+│   └── test_analise.py
+├── pytest.ini
+├── requisitos.txt                    PyYAML e pytest
+├── docs/superpowers/
+│   ├── specs/                        desenho (este arquivo)
+│   └── plans/                        planos de implementação
 └── codigo-morse/                     repositório separado, ignorado
 ```
 
@@ -121,9 +128,17 @@ não tem onde guardar.
   titulo: Monitor de estufa
   descricao: Umidade do solo e temperatura, envio por Wi-Fi
   status: ideia                   # ideia | especificado | montado | publicado
-  precisa: [esp32c3-supermini, dht22, higrometro-solo, lipo-500mah]
+  precisa:                        # mapa de id: quantidade
+    esp32c3-supermini: 1
+    dht22: 1
+    higrometro-solo: 1
+    resistor-10k: 2
   repositorio: null               # preenchido quando o projeto nascer
 ```
+
+`precisa` é mapa, não lista. A lista perderia a quantidade, e é exatamente em LED, resistor e
+jumper — onde o projeto usa cinco de uma vez — que o conflito de estoque acontece. Com lista,
+o cruzamento diria que dois LEDs cobrem um projeto que precisa de cinco.
 
 ### Item de compra
 
@@ -157,7 +172,11 @@ dependência externa, com busca por texto e filtro por família — feita para o
 
 Além da listagem, calcula e mostra:
 
-- **o que falta por projeto** — `precisa` menos o que existe em `componentes/`;
+- **o que falta por projeto** — `precisa` menos o que existe em `componentes/`, contando
+  quantidade: peça que existe em número insuficiente conta como faltando;
+- **id desconhecido** — projeto que pede um id que não existe nem no inventário nem nas
+  compras. Quase sempre é erro de digitação, e sem esse aviso ele só apareceria como peça
+  faltando no dia da montagem;
 - **compras órfãs** — item em `desejos.yaml` que nenhum projeto do backlog pede;
 - **conflito de estoque** — componente com quantidade menor que a soma dos projetos que o
   reservam. Reserva todo status menos `ideia` — ideia é intenção, não compromisso. Projeto
@@ -165,7 +184,7 @@ Além da listagem, calcula e mostra:
   repositório, não à protoboard. Desmontar é o que libera, e se registra voltando o status
   para `especificado`.
 
-Esses três cruzamentos são a razão de ter YAML com id em vez de planilha. Sem eles, a opção
+Esses quatro cruzamentos são a razão de ter YAML com id em vez de planilha. Sem eles, a opção
 honesta seria manter o CSV.
 
 O `README.md` e o `index.html` **nunca são editados à mão**, pela mesma razão registrada no
