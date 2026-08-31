@@ -47,7 +47,7 @@ para `inventario` seria troca sem ganho.
 
 ## Estrutura
 
-```
+```text
 Arduino/                              raiz do repositório hw-laboratorio
 ├── CLAUDE.md                         documento vivo: convenções, estado, decisões
 ├── README.md                         GERADO
@@ -138,8 +138,14 @@ não tem onde guardar.
   preco: 24.00
 ```
 
+O `id` aqui é o **mesmo** que o componente terá em `componentes/` quando chegar. É isso que
+permite um projeto do backlog listar em `precisa` uma peça que ainda não foi comprada: o
+gerador procura o id no inventário, não acha, e reporta como faltando — apontando para o item
+de compra correspondente.
+
 Quando um item chega, ele migra de `compras/desejos.yaml` para o arquivo de componentes da
-família certa, levando junto o bloco `compra`.
+família certa, levando junto o bloco `compra`. O id não muda na migração, então nenhum
+projeto precisa ser reescrito.
 
 ## Geradores
 
@@ -154,7 +160,10 @@ Além da listagem, calcula e mostra:
 - **o que falta por projeto** — `precisa` menos o que existe em `componentes/`;
 - **compras órfãs** — item em `desejos.yaml` que nenhum projeto do backlog pede;
 - **conflito de estoque** — componente com quantidade menor que a soma dos projetos que o
-  reservam.
+  reservam. Reserva todo status menos `ideia` — ideia é intenção, não compromisso. Projeto
+  `montado` ou `publicado` continua ocupando as peças fisicamente: publicar diz respeito ao
+  repositório, não à protoboard. Desmontar é o que libera, e se registra voltando o status
+  para `especificado`.
 
 Esses três cruzamentos são a razão de ter YAML com id em vez de planilha. Sem eles, a opção
 honesta seria manter o CSV.
@@ -194,7 +203,7 @@ existir um case real pedindo. Desenhar encaixe antes de ter caixa é inventar pr
 Verificado nesta máquina em 31/08/2026:
 
 | Ferramenta | Situação | Ação |
-|---|---|---|
+| --- | --- | --- |
 | git 2.54 | presente | — |
 | gh 2.96 | presente | — |
 | Python 3.12.10 | presente | — |
