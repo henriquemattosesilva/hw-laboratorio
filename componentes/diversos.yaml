@@ -1,0 +1,7 @@
+# Diversos — migrado do export do Notion.
+- id: cartao-sd
+  nome: "Módulo Cartão SD"
+  qtd: 1
+- id: rtc-ds1307
+  nome: "Real Time Clock RTC DS1307"
+  qtd: 1

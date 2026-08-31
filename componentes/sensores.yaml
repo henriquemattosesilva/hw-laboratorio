@@ -1,0 +1,43 @@
+# Sensores — migrado do export do Notion.
+- id: ldr-modulo
+  nome: "Módulo Sensor de Luminosidade LDR"
+  qtd: 1
+- id: pir-dypme003
+  nome: "Módulo Sensor de Presença e Movimento PIR DYP-ME003"
+  qtd: 1
+- id: touch-ttp223b
+  nome: "Sensor Touch Capacitivo TTP223B"
+  qtd: 1
+- id: sensor-chuva
+  nome: "Sensor de Chuva"
+  qtd: 1
+- id: tcs34725
+  nome: "Sensor de Cor RGB TCS34725 com Filtro IR"
+  qtd: 1
+- id: hc-sr04
+  nome: "Sensor de Distância Ultrassônico HC-SR04"
+  qtd: 2
+- id: sensor-cardiaco
+  nome: "Sensor de Frequência Cardíaca"
+  qtd: 1
+- id: ldr-5mm
+  nome: "Sensor de Luminosidade LDR 5mm"
+  qtd: 13
+- id: bmp280
+  nome: "Sensor de Pressão e Temperatura BMP280"
+  qtd: 1
+- id: ky-038
+  nome: "Sensor de Som Microfone KY-038"
+  qtd: 1
+- id: lm35
+  nome: "Sensor de Temperatura LM35DZ"
+  qtd: 1
+- id: ds18b20
+  nome: "Sensor de Temperatura a Prova D’água DS18B20"
+  qtd: 2
+- id: higrometro-solo
+  nome: "Sensor de Umidade do Solo Higrômetro"
+  qtd: 1
+- id: dht22
+  nome: "Sensor de Umidade e Temperatura AM3202 DHT22"
+  qtd: 1

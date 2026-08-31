@@ -1,0 +1,10 @@
+# Placas — migrado do export do Notion.
+- id: arduino-nano
+  nome: "Arduino Nano V3.0 ATmega328 5V"
+  qtd: 1
+- id: arduino-uno
+  nome: "Arduino Uno R3"
+  qtd: 1
+- id: esp8266-nodemcu
+  nome: "Módulo ESP8266 ESP-12E CH340G NodeMCU"
+  qtd: 1

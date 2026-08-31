@@ -1,0 +1,52 @@
+# Prototipagem — migrado do export do Notion.
+- id: cabo-usb-b-180
+  nome: "Cabo USB 2.0 AM para BM 180cm"
+  qtd: 1
+- id: cabo-usb-b-50
+  nome: "Cabo USB 2.0 AM para BM 50cm"
+  qtd: 1
+- id: cabo-usb-mini
+  nome: "Cabo USB Mini"
+  qtd: 1
+- id: jumper-ff-20
+  nome: "Jumper fêmea fêmea 20cm"
+  qtd: 50
+- id: jumper-mf-21
+  nome: "Jumper macho fêmea 21cm"
+  qtd: 80
+- id: jumper-mm-12
+  nome: "Jumper macho macho 12cm"
+  qtd: 31
+- id: jumper-mm-16
+  nome: "Jumper macho macho 16cm"
+  qtd: 7
+- id: jumper-mm-20
+  nome: "Jumper macho macho 20cm"
+  qtd: 4
+- id: jumper-mm-22
+  nome: "Jumper macho macho 22cm"
+  qtd: 34
+- id: jumper-mm-25
+  nome: "Jumper macho macho 25cm"
+  qtd: 4
+- id: knob-azul
+  nome: "Knob Azul para Potenciômetro"
+  qtd: 2
+- id: knob-laranja
+  nome: "Knob Laranja para Potenciômetro"
+  qtd: 3
+- id: knob-verde
+  nome: "Knob Verde para Potenciômetro"
+  qtd: 3
+- id: pinos-180
+  nome: "Pinos 180° macho macho"
+  qtd: 104
+- id: pinos-90
+  nome: "Pinos 90° macho macho"
+  qtd: 128
+- id: protoboard-400
+  nome: "Protoboard 400 Pontos"
+  qtd: 1
+- id: protoboard-830
+  nome: "Protoboard 830 Pontos"
+  qtd: 2

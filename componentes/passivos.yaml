@@ -1,0 +1,94 @@
+# Passivos — migrado do export do Notion.
+- id: chave-ss-sk22g50
+  nome: "Chave SS 2 Posições SK22G50"
+  qtd: 3
+- id: chave-tactil
+  nome: "Chave Táctil"
+  qtd: 19
+- id: chave-tactil-borr
+  nome: "Chave Táctil Emborrachada"
+  qtd: 4
+- id: chave-tactil-verm
+  nome: "Chave Táctil Vermelha"
+  qtd: 10
+- id: laser-diodo
+  nome: "Diodo Laser 5mW 5V"
+  qtd: 1
+- id: matriz-8x8-bicolor
+  nome: "Display LED Matriz de LED 8x8 Bicolor (Verde/Vermelho)"
+  qtd: 1
+- id: led-amarelo-cri
+  nome: "LED Amarelo 5mm Cristalino"
+  qtd: 10
+- id: led-amarelo-dif
+  nome: "LED Amarelo 5mm Difuso"
+  qtd: 9
+- id: led-azul-cri
+  nome: "LED Azul 5mm Cristalino"
+  qtd: 10
+- id: led-azul-dif
+  nome: "LED Azul 5mm Difuso"
+  qtd: 10
+- id: led-branco-cri
+  nome: "LED Branco 5mm Cristalino"
+  qtd: 10
+- id: led-branco-dif
+  nome: "LED Branco 5mm Difuso"
+  qtd: 10
+- id: led-laranja-cri
+  nome: "LED Laranja 5mm Cristalino"
+  qtd: 10
+- id: led-rgb
+  nome: "LED RGB 5mm Difuso"
+  qtd: 2
+- id: led-rosa-cri
+  nome: "LED Rosa 5mm Cristalino"
+  qtd: 10
+- id: led-uv
+  nome: "LED Ultra Violeta 5mm Cristalino"
+  qtd: 10
+- id: led-verde-cri
+  nome: "LED Verde 5mm Cristalino"
+  qtd: 10
+- id: led-verde-dif
+  nome: "LED Verde 5mm Difuso"
+  qtd: 10
+- id: led-vermelho-cri
+  nome: "LED Vermelho 5mm Cristalino"
+  qtd: 10
+- id: led-vermelho-dif
+  nome: "LED Vermelho 5mm Difuso"
+  qtd: 6
+- id: laser-modulo
+  nome: "Módulo Diodo Laser 5mW 5V 650nm 6mm"
+  qtd: 1
+- id: pot-100k
+  nome: "Potenciômetro Linear 100K"
+  qtd: 2
+- id: pot-10k
+  nome: "Potenciômetro Linear 10K"
+  qtd: 3
+- id: resistor-100k
+  nome: "Resistor 100KΩ"
+  qtd: 20
+- id: resistor-100r
+  nome: "Resistor 100Ω"
+  qtd: 100
+- id: resistor-10k
+  nome: "Resistor 10KΩ"
+  qtd: 19
+- id: resistor-150r
+  nome: "Resistor 150Ω"
+  qtd: 100
+- id: resistor-220r
+  nome: "Resistor 220Ω"
+  qtd: 18
+- id: resistor-330r
+  nome: "Resistor 330Ω"
+  qtd: 20
+- id: resistor-47r
+  nome: "Resistor 47Ω"
+  qtd: 15
+- id: transistor-c945
+  nome: "Transistor C945 NPN"
+  qtd: 10

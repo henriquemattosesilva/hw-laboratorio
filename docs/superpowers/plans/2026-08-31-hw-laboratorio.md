@@ -782,11 +782,9 @@ Este passo existe porque migração silenciosa é onde item some sem ninguém no
 compara nome a nome e quantidade a quantidade:
 
 ```bash
-cd /c/HENRIQUE/Claude/Arduino && python - <<'PY'
-import csv, sys
+cd /c/HENRIQUE/Claude/Arduino && cd /c/HENRIQUE/Claude/Arduino && python - <<'PY'
+import csv, yaml
 from pathlib import Path
-sys.path.insert(0, "ferramentas")
-from dados import carregar_componentes
 
 origem = Path("componentes/Componentes Arduino fa27f0eb0625482f8e40d345f5015ced.csv")
 esperado = {}
@@ -795,7 +793,13 @@ with open(origem, encoding="utf-8-sig", newline="") as f:
         if l["Componente"].strip():
             esperado[l["Componente"].strip()] = int(l["Qntd"]) if l["Qntd"].strip() else 1
 
-achado = {c.nome: c.qtd for c in carregar_componentes(Path("."))}
+# Le o YAML cru de proposito. A conferencia checa fidelidade de nome e
+# quantidade, e roda ANTES da curadoria dos ids — usar carregar_componentes
+# aqui falharia no limite de 28 caracteres antes de comparar coisa nenhuma.
+achado = {}
+for arq in sorted(Path("componentes").glob("*.yaml")):
+    for item in (yaml.safe_load(arq.read_text(encoding="utf-8")) or []):
+        achado[item["nome"]] = item["qtd"]
 faltam = sorted(set(esperado) - set(achado))
 sobram = sorted(set(achado) - set(esperado))
 difs = sorted(n for n in set(esperado) & set(achado) if esperado[n] != achado[n])

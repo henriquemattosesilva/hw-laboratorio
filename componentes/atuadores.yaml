@@ -1,0 +1,13 @@
+# Atuadores — migrado do export do Notion.
+- id: servo-sg90
+  nome: "Micro Servo 9g SG90"
+  qtd: 2
+- id: buzzer-ativo
+  nome: "Módulo Buzzer Ativo P15"
+  qtd: 1
+- id: rele-1ch
+  nome: "Módulo Relé 5V 1 canal"
+  qtd: 2
+- id: rele-2ch
+  nome: "Módulo Relé 5V 2 canais"
+  qtd: 1

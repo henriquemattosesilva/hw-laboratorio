@@ -1,0 +1,31 @@
+# Comunicacao — migrado do export do Notion.
+- id: rfid-cartao
+  nome: "Cartão RFID Programável Mifare 13,56MHz"
+  qtd: 8
+- id: controle-ir
+  nome: "Controle Remoto Infravermelho 38KHz"
+  qtd: 1
+- id: ir-emissor
+  nome: "Módulo Emissor Infravermelho"
+  qtd: 1
+- id: mfrc522
+  nome: "Módulo Leitor Rfid MFRC522 Mifare 13,56MHz"
+  qtd: 1
+- id: ir-rx-ky022
+  nome: "Módulo Receptor Infravermelho KY-022 38KHz"
+  qtd: 1
+- id: rf433-rx
+  nome: "Módulo Receptor Rádio Frequência 433MHz AM"
+  qtd: 1
+- id: rf433-tx
+  nome: "Módulo Transmissor Rádio Frequência 433MHz AM"
+  qtd: 1
+- id: ir-rx-vs1838b
+  nome: "Receptor Infravermelho VS1838B 38Khz"
+  qtd: 1
+- id: sensor-obstaculo-ir
+  nome: "Sensor de Obstáculo Infravermelho"
+  qtd: 2
+- id: rfid-chaveiro
+  nome: "Tag Chaveiro RFID Programável Mifare 13,56MHz"
+  qtd: 1

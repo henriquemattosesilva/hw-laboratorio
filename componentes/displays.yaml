@@ -1,0 +1,13 @@
+# Displays — migrado do export do Notion.
+- id: display-7seg
+  nome: "Display 7 Segmentos 1 Dígito Vermelho Cátodo Comum CD4511"
+  qtd: 2
+- id: lcd-16x2
+  nome: "Display LCD 16x2"
+  qtd: 1
+- id: nokia-5110
+  nome: "Display LCD Nokia 5110"
+  qtd: 1
+- id: matriz-max7219
+  nome: "Módulo Matriz de LED 8×8 com MAX7219"
+  qtd: 1
