@@ -1,0 +1,6 @@
+# O README.md e o index.html sao gerados por script, que sempre escreve LF.
+# Sem isto, numa maquina com outra configuracao de core.autocrlf o arquivo
+# inteiro apareceria como alterado a cada geracao.
+* text=auto eol=lf
+*.png binary
+*.stl binary

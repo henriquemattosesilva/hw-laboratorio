@@ -1,0 +1,16 @@
+# Os projetos sao repositorios proprios. Sem estas linhas o git da raiz
+# gravaria um gitlink e o conteudo sumiria do hw-laboratorio.
+codigo-morse/
+
+# saidas de compilacao do arduino-cli / IDE
+build/
+*.hex
+*.elf
+
+# python
+__pycache__/
+
+# sistema
+Thumbs.db
+desktop.ini
+.DS_Store
