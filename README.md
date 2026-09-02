@@ -8,6 +8,54 @@ Os projetos ficam em repositórios próprios, com prefixo `hw-`.
 
 **85 componentes distintos, 991 peças no total.**
 
+Página com busca: <https://henriquemattosesilva.github.io/hw-laboratorio/>
+
+## Referências
+
+- [Placas: o que serve para quê](referencias/placas.md)
+
+## Projetos
+
+| Projeto | Status | Falta |
+| --- | --- | --- |
+| Telégrafo sem fio em morse | especificado | nada |
+| Radar de ultrassom | ideia | nada |
+| Fechadura por cartão RFID | ideia | nada |
+| Controle universal de infravermelho | ideia | nada |
+| Jogo de reflexo | ideia | nada |
+| Termômetro registrador da geladeira | ideia | `resistor-4k7` |
+| Estação de clima da varanda | ideia | nada |
+| Sensor de porta aberta | ideia | `xiao-esp32c3`, `reed-switch`, `lipo-500mah` |
+| Tomada comandada por Wi-Fi | ideia | `esp32c3-supermini`, `conversor-nivel-8ch` |
+| Chaveiro que se acha | ideia | `xiao-esp32c3`, `lipo-500mah` |
+| Horta monitorada | ideia | `esp32c3-supermini`, `solo-capacitivo`, `lipo-1200mah`, `tp4056-usbc`, `resistor-4k7` |
+| Relógio de mesa | ideia | `esp32c3-supermini`, `matriz-max7219-4`, `ds3231` |
+| Nó Matter de teste | ideia | `esp32c6-supermini` |
+| Tanque de esteiras por rádio | ideia | `esp32c3-supermini`, `motor-dc-reducao`, `driver-drv8833`, `chassi-esteira`, `joystick-2eixos`, `lipo-2s-1500mah`, `oled-096` |
+
+## Lista de compras
+
+| Item | Qtd | Prioridade | Status | Motivo |
+| --- | --- | --- | --- | --- |
+| Bateria LiPo 3,7 V 500 mAh com proteção | 2 | alta | pesquisando | sensor-porta, chaveiro-achador |
+| Conversor de nível lógico bidirecional 8 canais | 2 | alta | pesquisando | tomada-wifi |
+| Placa ESP32-C3 SuperMini USB-C | 3 | alta | pesquisando | tomada-wifi, horta-monitorada, relogio-mesa, tanque-rc |
+| Reed switch com ímã (sensor magnético de porta) | 2 | alta | pesquisando | sensor-porta |
+| Resistor 4,7 kΩ | 10 | alta | pesquisando | termometro-geladeira, horta-monitorada |
+| Seeed Studio XIAO ESP32C3 | 2 | alta | pesquisando | sensor-porta, chaveiro-achador |
+| Sensor de umidade do solo capacitivo v1.2 | 1 | alta | pesquisando | horta-monitorada |
+| Bateria LiPo 2S 7,4 V 1500 mAh | 1 | baixa | pesquisando | tanque-rc |
+| Chassi com esteiras para robô | 1 | baixa | pesquisando | tanque-rc |
+| Driver de motor duplo DRV8833 (ou TB6612FNG) | 1 | baixa | pesquisando | tanque-rc |
+| Motor DC com caixa de redução (TT ou N20 6V) | 2 | baixa | pesquisando | tanque-rc |
+| Módulo Matriz de LED MAX7219 4 em 1 (32x8) | 1 | baixa | pesquisando | relogio-mesa |
+| Módulo joystick analógico 2 eixos com botão | 1 | baixa | pesquisando | tanque-rc |
+| Placa ESP32-C6 SuperMini USB-C | 1 | baixa | pesquisando | no-matter |
+| Bateria LiPo 3,7 V 1200 mAh com proteção | 1 | media | pesquisando | horta-monitorada |
+| Display OLED 0,96" I2C SSD1306 128x64 | 2 | media | pesquisando | tanque-rc |
+| Módulo carregador TP4056 USB-C com proteção | 2 | media | pesquisando | horta-monitorada |
+| Real Time Clock RTC DS3231 com compensação de temperatura | 1 | media | pesquisando | relogio-mesa |
+
 ## Componentes
 
 ### Placas

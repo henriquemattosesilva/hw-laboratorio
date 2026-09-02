@@ -12,6 +12,10 @@ param(
   [string]$Destino = "previa.png",
   [string]$Arquivo = "index.html",
   [int]$Porta = 9222,
+  # Expressao JS executada depois de carregar e antes de capturar. Serve para
+  # conferir estado que so existe depois de interagir — clicar num filtro,
+  # digitar na busca, abrir uma secao.
+  [string]$Antes = "",
   # Sem isto captura so a dobra, que e o que se olha. Com 85 cartoes a pagina
   # inteira vira uma tira de dezenas de milhares de pixels, ilegivel no olho.
   [switch]$Inteira
@@ -84,6 +88,12 @@ Enviar "Emulation.setDeviceMetricsOverride" @{
 } | Out-Null
 Enviar "Page.navigate" @{ url = $alvo } | Out-Null
 Start-Sleep -Milliseconds 1500
+
+if ($Antes) {
+  $r = Enviar "Runtime.evaluate" @{ expression = $Antes; returnByValue = $true }
+  if ($r.exceptionDetails) { throw "erro no -Antes: $($r.exceptionDetails.text)" }
+  Start-Sleep -Milliseconds 400
+}
 
 $medida = Enviar "Runtime.evaluate" @{
   expression = "JSON.stringify({larg: innerWidth, rolagem: document.documentElement.scrollWidth, pecas: document.querySelectorAll('.peca').length, secoes: document.querySelectorAll('section').length})"

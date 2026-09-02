@@ -1,4 +1,179 @@
-# Ideias e projetos. Ver docs/superpowers/specs para o formato.
+# Ideias e projetos.
+#
 # status: ideia | especificado | montado | publicado
-# precisa: mapa de id: quantidade
-[]
+#   ideia        — intenção, não reserva estoque
+#   especificado — assumido, reserva as peças
+#   montado      — existe fisicamente
+#   publicado    — repositório e página no ar (continua ocupando as peças)
+#
+# precisa: mapa de id: quantidade. Os ids são os de componentes/ e compras/.
+
+- id: codigo-morse
+  titulo: "Telégrafo sem fio em morse"
+  descricao: "Manipulador de um botão no Nano, rádio 433 MHz, LCD 16x2 no Uno decodificando"
+  status: especificado
+  repositorio: https://github.com/henriquemattosesilva/hw-codigo-morse
+  precisa:
+    arduino-nano: 1
+    arduino-uno: 1
+    rf433-tx: 1
+    rf433-rx: 1
+    lcd-16x2: 1
+    buzzer-ativo: 1
+    chave-tactil: 1
+    pot-10k: 1
+    resistor-220r: 2
+    protoboard-830: 2
+
+# --------------------------------------------------------------------------
+# Dá para montar hoje: o inventário cobre inteiro, sem comprar nada.
+# --------------------------------------------------------------------------
+
+- id: radar-ultrassom
+  titulo: "Radar de ultrassom"
+  descricao: "O servo varre 180° com o HC-SR04 e a matriz de LED desenha o que ele achou"
+  status: ideia
+  precisa:
+    arduino-uno: 1
+    servo-sg90: 1
+    hc-sr04: 1
+    matriz-max7219: 1
+    protoboard-400: 1
+
+- id: fechadura-rfid
+  titulo: "Fechadura por cartão RFID"
+  descricao: "Cartão aproximado libera o relé; LED verde e bipe confirmam, vermelho recusa"
+  status: ideia
+  precisa:
+    arduino-uno: 1
+    mfrc522: 1
+    rfid-cartao: 2
+    rele-1ch: 1
+    buzzer-ativo: 1
+    led-verde-dif: 1
+    led-vermelho-dif: 1
+    resistor-220r: 2
+
+- id: controle-universal-ir
+  titulo: "Controle universal de infravermelho"
+  descricao: "Aprende os códigos do seu controle e usa uma tecla livre para acionar o relé"
+  status: ideia
+  precisa:
+    arduino-nano: 1
+    ir-rx-ky022: 1
+    ir-emissor: 1
+    controle-ir: 1
+    rele-1ch: 1
+
+- id: jogo-reflexo
+  titulo: "Jogo de reflexo"
+  descricao: "A matriz acende, você aperta o botão certo, e ela mostra o tempo de reação"
+  status: ideia
+  precisa:
+    arduino-nano: 1
+    matriz-max7219: 1
+    chave-tactil: 4
+    buzzer-ativo: 1
+    resistor-10k: 4
+
+- id: termometro-geladeira
+  titulo: "Termômetro registrador da geladeira"
+  descricao: "Dois DS18B20 medindo geladeira e freezer, gravando no cartão SD com hora"
+  status: ideia
+  precisa:
+    arduino-nano: 1
+    ds18b20: 2
+    cartao-sd: 1
+    rtc-ds1307: 1
+    resistor-4k7: 1
+    lcd-16x2: 1
+
+- id: estacao-varanda
+  titulo: "Estação de clima da varanda"
+  descricao: "Temperatura, umidade, pressão e luz na varanda, enviados por Wi-Fi. Roda no NodeMCU que já existe"
+  status: ideia
+  precisa:
+    esp8266-nodemcu: 1
+    dht22: 1
+    bmp280: 1
+    ldr-5mm: 1
+    resistor-10k: 1
+
+# --------------------------------------------------------------------------
+# Puxam compra pequena: uma placa nova e a bateria.
+# --------------------------------------------------------------------------
+
+- id: sensor-porta
+  titulo: "Sensor de porta aberta"
+  descricao: "Avisa no celular quando a porta abre. Deep sleep, meses numa LiPo de 500 mAh"
+  status: ideia
+  precisa:
+    xiao-esp32c3: 1
+    reed-switch: 1
+    lipo-500mah: 1
+    resistor-100k: 2
+
+- id: tomada-wifi
+  titulo: "Tomada comandada por Wi-Fi"
+  descricao: "Liga e desliga um aparelho pelo celular. Fica na tomada, então não precisa de bateria"
+  status: ideia
+  precisa:
+    esp32c3-supermini: 1
+    rele-1ch: 1
+    conversor-nivel-8ch: 1
+
+- id: chaveiro-achador
+  titulo: "Chaveiro que se acha"
+  descricao: "Você chama pelo Bluetooth do celular e ele apita. Case 3D pequeno, LiPo"
+  status: ideia
+  precisa:
+    xiao-esp32c3: 1
+    buzzer-ativo: 1
+    lipo-500mah: 1
+    chave-tactil: 1
+
+- id: horta-monitorada
+  titulo: "Horta monitorada"
+  descricao: "Umidade do solo e temperatura da terra por semanas com bateria, avisando quando secar"
+  status: ideia
+  precisa:
+    esp32c3-supermini: 1
+    solo-capacitivo: 1
+    lipo-1200mah: 1
+    tp4056-usbc: 1
+    ds18b20: 1
+    resistor-4k7: 1
+
+- id: relogio-mesa
+  titulo: "Relógio de mesa"
+  descricao: "Hora em matriz de LED de 32 colunas, com RTC que não deriva, dentro de case 3D"
+  status: ideia
+  precisa:
+    esp32c3-supermini: 1
+    matriz-max7219-4: 1
+    ds3231: 1
+
+- id: no-matter
+  titulo: "Nó Matter de teste"
+  descricao: "Um sensor que aparece sozinho no Home Assistant e na Alexa, sem servidor no meio"
+  status: ideia
+  precisa:
+    esp32c6-supermini: 1
+    dht22: 1
+
+# --------------------------------------------------------------------------
+# A compra grande, e a única com peça mecânica.
+# --------------------------------------------------------------------------
+
+- id: tanque-rc
+  titulo: "Tanque de esteiras por rádio"
+  descricao: "Veículo de esteiras e controle de mão conversando por ESP-NOW, sem roteador no meio"
+  status: ideia
+  precisa:
+    esp32c3-supermini: 2
+    motor-dc-reducao: 2
+    driver-drv8833: 1
+    chassi-esteira: 1
+    joystick-2eixos: 1
+    lipo-2s-1500mah: 1
+    oled-096: 1

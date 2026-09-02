@@ -90,6 +90,18 @@ def montar_readme(base: Base) -> str:
 
     total = sum(c.qtd for c in base.componentes)
     p.append(f"**{len(base.componentes)} componentes distintos, {total} peças no total.**\n")
+    p.append("Página com busca: <https://henriquemattosesilva.github.io/hw-laboratorio/>\n")
+
+    referencias = sorted((BASE / "referencias").glob("*.md"))
+    if referencias:
+        p.append("## Referências\n")
+        for r in referencias:
+            # O titulo do link vem do proprio h1 do arquivo: renomear a secao la
+            # dentro renomeia o link aqui, sem tabela para manter em sincronia.
+            primeira = r.read_text(encoding="utf-8").splitlines()[0]
+            rotulo = primeira.lstrip("# ").strip() or r.stem
+            p.append(f"- [{rotulo}](referencias/{r.name})")
+        p.append("")
 
     problemas = alertas(base)
     if problemas:
@@ -141,9 +153,20 @@ def montar_html(base: Base) -> str:
     grupos = por_familia(base)
     componentes = [asdict(c) for familia in ORDEM for c in grupos[familia]]
 
+    # O que falta viaja junto com o projeto: e a informacao que se procura na
+    # pagina, e calcula-la no navegador seria repetir a regra em duas linguagens.
+    faltas = faltando_por_projeto(base.componentes, base.projetos)
+    projetos = []
+    for p in base.projetos:
+        bruto = asdict(p)
+        bruto["falta"] = faltas[p.id]
+        projetos.append(bruto)
+
     dados = {
         "titulos": TITULOS,
         "componentes": componentes,
+        "projetos": projetos,
+        "compras": [asdict(i) for i in base.compras],
         "alertas": alertas(base),
     }
     # </script> dentro do JSON encerraria a tag e quebraria a pagina inteira
@@ -151,7 +174,11 @@ def montar_html(base: Base) -> str:
     bruto = json.dumps(dados, ensure_ascii=False).replace("</", "<\\/")
 
     total = sum(c.qtd for c in base.componentes)
-    resumo = f"{len(base.componentes)} componentes distintos, {total} peças no total."
+    resumo = (f"{len(base.componentes)} componentes distintos, {total} peças. "
+              f"{len(base.projetos)} projetos no backlog, "
+              f"{len(base.compras)} itens para comprar. "
+              '<a href="https://github.com/henriquemattosesilva/hw-laboratorio">'
+              "repositório</a>")
 
     pagina = molde.replace("{{DADOS}}", bruto).replace("{{RESUMO}}", resumo)
     sobrou = [m for m in ("{{DADOS}}", "{{RESUMO}}") if m in pagina]

@@ -1,3 +1,178 @@
-# O que comprar. O id aqui e o MESMO que a peca tera em componentes/
-# quando chegar, e por isso um projeto pode pedir uma peca que ainda nao existe.
-[]
+# O que comprar.
+#
+# O id aqui é o MESMO que a peça terá em componentes/ quando chegar, e é por isso
+# que um projeto do backlog pode pedir uma peça que ainda não existe.
+#
+# Preços conferidos em 02/09/2026 e sujeitos a envelhecer. Ver
+# referencias/placas.md para o raciocínio por trás de cada escolha de placa.
+
+# --------------------------------------------------------------------------
+# As placas. O raciocínio inteiro está em referencias/placas.md.
+# --------------------------------------------------------------------------
+
+- id: xiao-esp32c3
+  nome: "Seeed Studio XIAO ESP32C3"
+  qtd: 2
+  motivo: [sensor-porta, chaveiro-achador]
+  prioridade: alta
+  status: pesquisando
+  preco: 110.00
+  link: https://www.robocore.net/seeed-studio/seeed-studio-xiao-esp32c3
+
+- id: esp32c3-supermini
+  nome: "Placa ESP32-C3 SuperMini USB-C"
+  qtd: 3
+  motivo: [tomada-wifi, horta-monitorada, relogio-mesa, tanque-rc]
+  prioridade: alta
+  status: pesquisando
+  preco: 40.00
+  link: https://curtocircuito.com.br/placa-super-mini-esp32-c3.html
+
+- id: esp32c6-supermini
+  nome: "Placa ESP32-C6 SuperMini USB-C"
+  qtd: 1
+  motivo: [no-matter]
+  prioridade: baixa
+  status: pesquisando
+  preco: 59.90
+  link: https://www.smartkits.com.br/placa-esp32-c6-super-mini-zigbee
+
+# --------------------------------------------------------------------------
+# O que faz as placas novas conviverem com o estoque atual.
+# --------------------------------------------------------------------------
+
+- id: conversor-nivel-8ch
+  nome: "Conversor de nível lógico bidirecional 8 canais"
+  qtd: 2
+  motivo: [tomada-wifi]
+  prioridade: alta
+  status: pesquisando
+  preco: 15.00
+
+- id: resistor-4k7
+  nome: "Resistor 4,7 kΩ"
+  qtd: 10
+  motivo: [termometro-geladeira, horta-monitorada]
+  prioridade: alta
+  status: pesquisando
+  preco: 5.00
+
+- id: oled-096
+  nome: "Display OLED 0,96\" I2C SSD1306 128x64"
+  qtd: 2
+  motivo: [tanque-rc]
+  prioridade: media
+  status: pesquisando
+  preco: 22.00
+
+# --------------------------------------------------------------------------
+# Energia.
+# --------------------------------------------------------------------------
+
+- id: lipo-500mah
+  nome: "Bateria LiPo 3,7 V 500 mAh com proteção"
+  qtd: 2
+  motivo: [sensor-porta, chaveiro-achador]
+  prioridade: alta
+  status: pesquisando
+  preco: 35.00
+
+- id: lipo-1200mah
+  nome: "Bateria LiPo 3,7 V 1200 mAh com proteção"
+  qtd: 1
+  motivo: [horta-monitorada]
+  prioridade: media
+  status: pesquisando
+  preco: 45.00
+
+- id: tp4056-usbc
+  nome: "Módulo carregador TP4056 USB-C com proteção"
+  qtd: 2
+  motivo: [horta-monitorada]
+  prioridade: media
+  status: pesquisando
+  preco: 12.00
+
+- id: lipo-2s-1500mah
+  nome: "Bateria LiPo 2S 7,4 V 1500 mAh"
+  qtd: 1
+  motivo: [tanque-rc]
+  prioridade: baixa
+  status: pesquisando
+  preco: 90.00
+
+# --------------------------------------------------------------------------
+# Sensores que faltam.
+# --------------------------------------------------------------------------
+
+- id: solo-capacitivo
+  nome: "Sensor de umidade do solo capacitivo v1.2"
+  qtd: 1
+  motivo: [horta-monitorada]
+  prioridade: alta
+  status: pesquisando
+  preco: 25.00
+
+- id: reed-switch
+  nome: "Reed switch com ímã (sensor magnético de porta)"
+  qtd: 2
+  motivo: [sensor-porta]
+  prioridade: alta
+  status: pesquisando
+  preco: 12.00
+
+# --------------------------------------------------------------------------
+# Display e relógio.
+# --------------------------------------------------------------------------
+
+- id: matriz-max7219-4
+  nome: "Módulo Matriz de LED MAX7219 4 em 1 (32x8)"
+  qtd: 1
+  motivo: [relogio-mesa]
+  prioridade: baixa
+  status: pesquisando
+  preco: 45.00
+
+- id: ds3231
+  nome: "Real Time Clock RTC DS3231 com compensação de temperatura"
+  qtd: 1
+  motivo: [relogio-mesa]
+  prioridade: media
+  status: pesquisando
+  preco: 20.00
+
+# --------------------------------------------------------------------------
+# O tanque. Única parte da lista com peça mecânica.
+# --------------------------------------------------------------------------
+
+- id: motor-dc-reducao
+  nome: "Motor DC com caixa de redução (TT ou N20 6V)"
+  qtd: 2
+  motivo: [tanque-rc]
+  prioridade: baixa
+  status: pesquisando
+  preco: 30.00
+
+- id: driver-drv8833
+  nome: "Driver de motor duplo DRV8833 (ou TB6612FNG)"
+  qtd: 1
+  motivo: [tanque-rc]
+  prioridade: baixa
+  status: pesquisando
+  preco: 25.00
+
+- id: chassi-esteira
+  nome: "Chassi com esteiras para robô"
+  qtd: 1
+  motivo: [tanque-rc]
+  prioridade: baixa
+  status: pesquisando
+  preco: 120.00
+
+- id: joystick-2eixos
+  nome: "Módulo joystick analógico 2 eixos com botão"
+  qtd: 1
+  motivo: [tanque-rc]
+  prioridade: baixa
+  status: pesquisando
+  preco: 15.00

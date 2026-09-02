@@ -96,6 +96,12 @@ suposição. Conferir na gaveta.
 um Pulse Sensor analógico ou um MAX30102 em I2C — são projetos completamente diferentes.
 Conferir a serigrafia.
 
+**Os preços da lista de compras** foram conferidos em 02/09/2026 e envelhecem. O raciocínio
+de `referencias/placas.md` não envelhece; os números, sim. Reconferir antes de comprar.
+
+**O XIAO ESP32C3 e o ESP32-C6 nunca foram usados aqui.** A recomendação de comprar 2 + 3 em
+vez de 5 de uma só existe justamente por isso: são placas escolhidas na leitura, não no uso.
+
 **O `arduino-cli` não está no PATH.** Só existe `~/.arduinoIDE/`. Resolver no primeiro
 projeto que precisar compilar.
 
