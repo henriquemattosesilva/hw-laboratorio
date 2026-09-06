@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1000 unidades por polegada. Furo de 35 mil e anel de 75 mil. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="1.18110in" height="0.55118in" viewBox="0 0 1181.10 551.18">
+ <g id="copper1">
+  <g id="copper0">
+   <circle id="connector0pin" cx="128.7"  cy="500.0" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector1pin" cx="228.7"  cy="500.0" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector2pin" cx="328.7"  cy="500.0" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector3pin" cx="428.7"  cy="500.0" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector4pin" cx="1082.7" cy="157.5" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+  </g>
+ </g>
+ <g id="silkscreen">
+  <rect x="5" y="5" width="1171.10" height="541.18" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+  <circle cx="128.7" cy="425" r="14" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+  <text x="700" y="250" font-family="OCR-Fritzing-mono" font-size="70" fill="#f0f0f0" text-anchor="middle">MX-05V</text>
+  <text x="700" y="340" font-family="OCR-Fritzing-mono" font-size="55" fill="#f0f0f0" text-anchor="middle">433MHz RX</text>
+ </g>
+</svg>

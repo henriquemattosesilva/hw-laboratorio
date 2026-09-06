@@ -202,3 +202,26 @@ def test_transmissor_tem_a_ordem_de_pinos_conferida_na_plaquinha():
         ["connector0", "connector1", "connector2"],
     )
     assert ordem == ["DATA", "VCC", "GND"]
+
+
+def test_receptor_nao_tem_queixa():
+    assert validar.problemas(RAIZ / "fritzing" / "rf433-rx") == []
+
+
+def test_receptor_tem_a_ordem_espelhada_da_serigrafia():
+    """De cima e VCC DATA DATA GND. A serigrafia fica no verso, e ler o verso
+    sem espelhar troca alimentacao com terra."""
+    ordem = ordem_da_barra(
+        "rf433-rx",
+        "rf433_rx_breadboard.svg",
+        ["connector0", "connector1", "connector2", "connector3"],
+    )
+    assert ordem == ["VCC", "DATA", "DATA2", "GND"]
+
+
+def test_receptor_liga_os_dois_data_em_barramento():
+    """Sao o mesmo ponto na placa. Sem o barramento o Fritzing acusa
+    conexao faltando quando so um DATA e usado."""
+    fzp = ElementTree.parse(RAIZ / "fritzing" / "rf433-rx" / "part.fzp").getroot()
+    membros = {m.get("connectorId") for m in fzp.iter("nodeMember")}
+    assert membros == {"connector1", "connector2"}

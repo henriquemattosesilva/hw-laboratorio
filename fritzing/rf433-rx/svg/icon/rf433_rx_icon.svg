@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="0.32in" height="0.32in" viewBox="0 0 23.04 23.04">
+ <g id="icon">
+  <rect x="0" y="0" width="23.04" height="23.04" rx="1.4" fill="#1f7a34"/>
+  <rect x="2.4" y="3.2" width="7.4" height="6.0" rx="0.5" fill="#1a1a1a"/>
+  <rect x="11.4" y="3.0" width="6.4" height="6.4" rx="0.5" fill="#7fd4d4"/>
+  <circle cx="14.6" cy="6.2" r="2.0" fill="#d4af37"/>
+  <ellipse cx="20.2" cy="6.2" rx="1.2" ry="3.0" fill="none" stroke="#b87333" stroke-width="1.2"/>
+  <rect x="2.0" y="19.2" width="18.0" height="3.2" fill="#1a1a1a"/>
+  <text x="11.52" y="17.0" font-family="Noto Sans" font-size="6"
+        fill="#ffffff" text-anchor="middle">433</text>
+ </g>
+</svg>
