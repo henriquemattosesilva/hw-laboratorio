@@ -72,8 +72,10 @@ python -m pytest                          # 38 testes
 python ferramentas/gerar-pagina.py        # sempre, depois de mexer em qualquer YAML
 python ferramentas/novo-projeto.py nome "Título"
 pwsh ferramentas/previa.ps1 -Largura 390 -Destino previa-390.png
-python fritzing/empacotar.py              # sempre, depois de mexer numa SVG de peca
-python fritzing/instalar.py               # atualiza a peca no Fritzing (com ele fechado)
+python fritzing/ferramentas/nova-peca.py <id> --mm 45x20 --pinos VCC,SIG,GND
+python fritzing/ferramentas/previa.py     # folha de contato das SVGs
+python fritzing/ferramentas/empacotar.py  # sempre, depois de mexer numa SVG de peca
+python fritzing/ferramentas/instalar.py   # atualiza no Fritzing (com ele fechado)
 ```
 
 ## Peças Fritzing
@@ -81,6 +83,12 @@ python fritzing/instalar.py               # atualiza a peca no Fritzing (com ele
 `fritzing/` guarda peças próprias do Fritzing, para módulos que o core do programa não
 traz. Hoje são duas, o transmissor FS1000A e o receptor MX-05V de 433 MHz. Os `id` são os
 mesmos do inventário, `rf433-tx` e `rf433-rx`.
+
+**Peça nova sai do `nova-peca.py`**, que recebe as cotas em mm e os nomes dos pinos e já
+emite as quatro vistas com a geometria certa — resta desenhar o ornamento. As ferramentas
+descobrem as peças sozinhas: peça é pasta com `part.fzp` dentro de `fritzing/pecas/`, e
+não há lista para manter. O `fritzing/CONVENCOES.md` guarda o que o Fritzing cobra e por
+quê, lido dos verificadores dele, não de memória.
 
 **Reimportar o `.fzpz` mostra um erro que engana.** O Fritzing diz *"Part module ID must
 be unique"* e *"Part load error"*, mas a essa altura já copiou os arquivos novos para o

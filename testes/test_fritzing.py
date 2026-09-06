@@ -1,4 +1,5 @@
 """Testes das pecas Fritzing: o validador e as duas pecas reais."""
+import importlib.util
 import sys
 import zipfile
 from pathlib import Path
@@ -7,11 +8,20 @@ from xml.etree import ElementTree
 import pytest
 
 RAIZ = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(RAIZ / "fritzing"))
+sys.path.insert(0, str(RAIZ / "fritzing" / "ferramentas"))
 
 import empacotar  # noqa: E402
 import instalar  # noqa: E402
+import pecas  # noqa: E402
+import previa  # noqa: E402
 import validar  # noqa: E402
+
+# O gerador se chama nova-peca.py, com hifen, como novo-projeto.py em
+# ferramentas/. Hifen nao passa por import, entao vem pelo importlib.
+nova_peca = importlib.util.module_from_spec(
+    importlib.util.spec_from_file_location(
+        "nova_peca", RAIZ / "fritzing" / "ferramentas" / "nova-peca.py"))
+nova_peca.__loader__.exec_module(nova_peca)
 
 
 def escrever(caminho, texto):
@@ -183,8 +193,9 @@ def test_acusa_passo_fora_da_grade_no_breadboard(peca):
 
 def ordem_da_barra(pasta, svg, conectores):
     """Nomes dos pinos da barra, da esquerda para a direita na vista de cima."""
-    fzp = ElementTree.parse(RAIZ / "fritzing" / pasta / "part.fzp").getroot()
-    bb = ElementTree.parse(RAIZ / "fritzing" / pasta / "svg" / "breadboard" / svg).getroot()
+    peca = RAIZ / "fritzing" / "pecas" / pasta
+    fzp = ElementTree.parse(peca / "part.fzp").getroot()
+    bb = ElementTree.parse(peca / "svg" / "breadboard" / svg).getroot()
     # Os furos sao circulos, entao a posicao vem de cx e nao de x.
     x_de = {e.get("id"): float(e.get("cx")) for e in bb.iter() if e.get("cx") and e.get("id")}
     nome_de = {c.get("id"): c.get("name") for c in fzp.iter("connector")}
@@ -192,7 +203,7 @@ def ordem_da_barra(pasta, svg, conectores):
 
 
 def test_transmissor_nao_tem_queixa():
-    assert validar.problemas(RAIZ / "fritzing" / "rf433-tx") == []
+    assert validar.problemas(RAIZ / "fritzing" / "pecas" / "rf433-tx") == []
 
 
 def test_transmissor_tem_a_ordem_de_pinos_conferida_na_plaquinha():
@@ -207,7 +218,7 @@ def test_transmissor_tem_a_ordem_de_pinos_conferida_na_plaquinha():
 
 
 def test_receptor_nao_tem_queixa():
-    assert validar.problemas(RAIZ / "fritzing" / "rf433-rx") == []
+    assert validar.problemas(RAIZ / "fritzing" / "pecas" / "rf433-rx") == []
 
 
 def test_receptor_tem_a_ordem_espelhada_da_serigrafia():
@@ -224,7 +235,7 @@ def test_receptor_tem_a_ordem_espelhada_da_serigrafia():
 def test_receptor_liga_os_dois_data_em_barramento():
     """Sao o mesmo ponto na placa. Sem o barramento o Fritzing acusa
     conexao faltando quando so um DATA e usado."""
-    fzp = ElementTree.parse(RAIZ / "fritzing" / "rf433-rx" / "part.fzp").getroot()
+    fzp = ElementTree.parse(RAIZ / "fritzing" / "pecas" / "rf433-rx" / "part.fzp").getroot()
     membros = {m.get("connectorId") for m in fzp.iter("nodeMember")}
     assert membros == {"connector1", "connector2"}
 
@@ -254,21 +265,21 @@ def _lf(dados):
 def test_os_fzpz_publicados_estao_em_dia_com_os_fontes():
     """Editar uma SVG e esquecer de rodar empacotar.py deixa dist/ velho em
     silencio: o zip continua la, com o desenho antigo dentro."""
-    for pasta, nome in empacotar.PECAS.items():
-        publicado = zipfile.ZipFile(RAIZ / "fritzing" / "dist" / nome)
+    for origem in pecas.descobrir():
+        nome = pecas.nome_do_pacote(origem)
+        publicado = zipfile.ZipFile(pecas.DIST / nome)
         conteudo = {n: _lf(publicado.read(n)) for n in publicado.namelist()}
 
         # O .gitattributes normaliza os fontes para LF, mas o .fzpz e binario
         # e guarda os bytes como estavam. Comparar sem normalizar faria o teste
         # falhar num clone novo, sem nenhuma peca ter mudado.
-        origem = RAIZ / "fritzing" / pasta
         fzp = origem / "part.fzp"
-        module_id = ElementTree.parse(fzp).getroot().get("moduleId")
-        fonte = {f"part.{module_id}.fzp": _lf(fzp.read_bytes())}
+        fonte = {f"part.{pecas.module_id(origem)}.fzp": _lf(fzp.read_bytes())}
         for arquivo in (origem / "svg").rglob("*.svg"):
             fonte[f"svg.{arquivo.parent.name}.{arquivo.name}"] = _lf(arquivo.read_bytes())
 
-        assert conteudo == fonte, f"{nome} esta velho; rode python fritzing/empacotar.py"
+        assert conteudo == fonte, (
+            f"{nome} esta velho; rode python fritzing/ferramentas/empacotar.py")
 
 
 def test_instala_no_layout_de_pastas_da_biblioteca_do_fritzing(tmp_path, peca):
@@ -289,3 +300,73 @@ def test_instalar_recusa_peca_com_problema(tmp_path, peca):
     (peca / "svg" / "icon" / "ic.svg").unlink()
     with pytest.raises(ValueError, match="icon/ic.svg"):
         instalar.instalar(peca, tmp_path)
+
+
+# ------------------------------------------------------------ gerador de peca
+
+
+def test_peca_gerada_nasce_valida(tmp_path):
+    """O gerador so vale a pena se o que ele cospe passa no validador sem
+    ninguem tocar. E o unico teste que importa de verdade aqui."""
+    pasta = nova_peca.criar("hc-sr04", 45, 20, ["VCC", "TRIG", "ECHO", "GND"], tmp_path)
+    assert validar.problemas(pasta) == []
+
+
+def test_gerador_poe_os_furos_no_passo_de_um_decimo_de_polegada(tmp_path):
+    pasta = nova_peca.criar("tres-pinos", 20, 20, ["A", "B", "C"], tmp_path)
+    bb = ElementTree.parse(
+        pasta / "svg" / "breadboard" / "tres_pinos_breadboard.svg").getroot()
+    cx = sorted(float(e.get("cx")) for e in bb.iter()
+                if e.get("id", "").startswith("connector"))
+    assert [round(b - a, 3) for a, b in zip(cx, cx[1:])] == [7.2, 7.2]
+
+
+def test_gerador_liga_pino_repetido_em_barramento(tmp_path):
+    """Nome repetido quer dizer o mesmo ponto na placa. Foi a licao do MX-05V,
+    e agora o gerador ja nasce sabendo."""
+    pasta = nova_peca.criar("rx-generico", 30, 14,
+                            ["VCC", "DATA", "DATA", "GND"], tmp_path)
+    fzp = ElementTree.parse(pasta / "part.fzp").getroot()
+    nomes = [c.get("name") for c in fzp.iter("connector")]
+    assert nomes == ["VCC", "DATA", "DATA2", "GND"]
+    assert {m.get("connectorId") for m in fzp.iter("nodeMember")} == {
+        "connector1", "connector2"}
+    assert validar.problemas(pasta) == []
+
+
+def test_gerador_recusa_placa_pequena_demais_para_os_pinos(tmp_path):
+    with pytest.raises(ValueError, match="nao cabem"):
+        nova_peca.criar("apertada", 8, 10, ["A", "B", "C", "D"], tmp_path)
+
+
+def test_gerador_recusa_sobrescrever_peca_existente(tmp_path):
+    nova_peca.criar("repetida", 20, 20, ["A", "B"], tmp_path)
+    with pytest.raises(ValueError, match="ja existe"):
+        nova_peca.criar("repetida", 20, 20, ["A", "B"], tmp_path)
+
+
+def test_peca_gerada_empacota_e_instala(tmp_path):
+    """Fecha o circuito: o que o gerador cria passa pelas outras ferramentas."""
+    pasta = nova_peca.criar("ponta-a-ponta", 25, 15, ["VCC", "SIG", "GND"], tmp_path)
+    zip_ = empacotar.empacotar(pasta, tmp_path / "saida" / "P.fzpz")
+    assert len(zipfile.ZipFile(zip_).namelist()) == 5
+    assert len(instalar.instalar(pasta, tmp_path / "biblioteca")) == 5
+
+
+def test_previa_lista_todas_as_pecas(tmp_path):
+    destino = tmp_path / "previa.html"
+    _, quantas = previa.gerar(destino)
+    pagina = destino.read_text(encoding="utf-8")
+    assert quantas == len(pecas.descobrir())
+    for peca in pecas.descobrir():
+        assert f'src="pecas/{peca.name}/svg/breadboard/' in pagina
+
+
+def test_previa_tira_o_tamanho_do_proprio_svg(tmp_path):
+    """Escrever os pixels a mao era errar em silencio, mostrando o desenho
+    esticado. Agora eles saem do width e height declarados."""
+    destino = tmp_path / "previa.html"
+    previa.gerar(destino)
+    pagina = destino.read_text(encoding="utf-8")
+    # rf433-tx tem 0,74803 pol de lado e o breadboard vai ampliado 4x.
+    assert f'width="{round(0.74803 * 96 * 4)}" height="{round(0.74803 * 96 * 4)}"' in pagina
