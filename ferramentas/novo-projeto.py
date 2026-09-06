@@ -2,6 +2,8 @@
 
     python ferramentas/novo-projeto.py sensor-porta "Sensor de porta aberta"
 
+A pasta nasce em projetos/, ao lado do backlog.yaml que lista os projetos.
+
 Faz tres coisas que sempre esquecem de fazer a mao: substitui as marcas do
 modelo, roda git init, e acrescenta a pasta ao .gitignore da raiz. Essa ultima
 e a que mais importa: sem ela o git do hw-laboratorio grava um gitlink e o
@@ -36,7 +38,7 @@ def main(argv: list[str]) -> int:
               file=sys.stderr)
         return 1
 
-    destino = BASE / nome
+    destino = BASE / "projetos" / nome
     if destino.exists():
         print(f"ERRO: {destino} ja existe", file=sys.stderr)
         return 1
@@ -63,12 +65,12 @@ def main(argv: list[str]) -> int:
 
     ignore = BASE / ".gitignore"
     linhas = ignore.read_text(encoding="utf-8").splitlines()
-    if f"{nome}/" not in linhas:
+    if f"projetos/{nome}/" not in linhas:
         with open(ignore, "a", encoding="utf-8", newline="\n") as f:
-            f.write(f"{nome}/\n")
+            f.write(f"projetos/{nome}/\n")
 
-    print(f"{nome}/ criado, git init feito, e {nome}/ acrescentado ao .gitignore da raiz")
-    print(f"proximo passo: escrever o sketch em {nome}/{nome}/{nome}.ino")
+    print(f"projetos/{nome}/ criado, git init feito, e a pasta entrou no .gitignore")
+    print(f"proximo passo: escrever o sketch em projetos/{nome}/{nome}/{nome}.ino")
     return 0
 
 

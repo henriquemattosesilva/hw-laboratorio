@@ -1,6 +1,7 @@
-# Os projetos sao repositorios proprios. Sem estas linhas o git da raiz
-# gravaria um gitlink e o conteudo sumiria do hw-laboratorio.
-codigo-morse/
+# Os projetos sao repositorios proprios, e moram em projetos/, ao lado do
+# backlog.yaml que os lista. Sem estas linhas o git da raiz gravaria um
+# gitlink e o conteudo sumiria do hw-laboratorio.
+projetos/codigo-morse/
 
 # saidas de compilacao do arduino-cli / IDE
 build/

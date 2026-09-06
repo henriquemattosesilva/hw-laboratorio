@@ -1,7 +1,8 @@
 # hw-laboratorio — a bancada
 
 Inventário de componentes, backlog de projetos e lista de compras. Os projetos ficam em
-repositórios próprios com prefixo `hw-`, dentro desta pasta e ignorados por este git.
+repositórios próprios com prefixo `hw-`, em **`projetos/`**, ao lado do `backlog.yaml` que
+os lista — e ignorados por este git.
 
 Repositório público em `https://github.com/henriquemattosesilva/hw-laboratorio`,
 página em `https://henriquemattosesilva.github.io/hw-laboratorio/`.
@@ -24,7 +25,13 @@ alteração na próxima geração.
 
 Repositório dentro de repositório faz o git de fora gravar um *gitlink* — um ponteiro para
 um commit — que parece funcionar e some com o conteúdo. Por isso `novo-projeto.py`
-acrescenta a pasta ao `.gitignore` sozinho. Criando projeto sem o script, fazer isso à mão.
+acrescenta a pasta ao `.gitignore` sozinho, como `projetos/<nome>/`. Criando projeto sem o
+script, fazer isso à mão.
+
+**Os projetos moram em `projetos/`** desde 06/09/2026 — antes ficavam soltos na raiz. A
+pasta é a mesma do `backlog.yaml`, o que é de propósito: a lista dos projetos e os
+projetos em si ficam no mesmo lugar. Quem move ou cria projeto fora do script precisa
+mexer nas duas pontas, a pasta e a linha do `.gitignore`.
 
 ## Como as três bases se ligam
 
