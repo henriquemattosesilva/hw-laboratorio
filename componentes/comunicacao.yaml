@@ -10,6 +10,7 @@
     É meio-duplex e sem confirmação: o transmissor não sabe se chegou. Quem quer confiabilidade repete a mensagem.
     A serigrafia varia entre versões — conferir DATA / VCC / GND na plaquinha antes de ligar.
     Já usado no hw-codigo-morse.
+    Tem peça Fritzing própria em fritzing/rf433-tx/, que o core do programa não traz.
 
 - id: rf433-rx
   nome: "Módulo Receptor Rádio Frequência 433MHz AM"
@@ -21,6 +22,8 @@
     Os receptores baratos são superregenerativos: pegam ruído o tempo todo e o alcance decepciona. O superheteródino custa pouco mais e é outro mundo.
     Também precisa dos 17,3 cm de antena.
     Tem quatro pinos, dois deles DATA ligados internamente — usar qualquer um.
+    Vista de cima a ordem é VCC DATA DATA GND; a serigrafia fica no verso e lá se lê o inverso.
+    Tem peça Fritzing própria em fritzing/rf433-rx/, que o core do programa não traz.
 
 - id: mfrc522
   nome: "Módulo Leitor Rfid MFRC522 Mifare 13,56MHz"

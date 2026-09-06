@@ -61,11 +61,29 @@ página.
 
 ```text
 python -m pip install -r requisitos.txt   # PyYAML e pytest
-python -m pytest                          # 18 testes
+python -m pytest                          # 38 testes
 python ferramentas/gerar-pagina.py        # sempre, depois de mexer em qualquer YAML
 python ferramentas/novo-projeto.py nome "Título"
 pwsh ferramentas/previa.ps1 -Largura 390 -Destino previa-390.png
+python fritzing/empacotar.py              # sempre, depois de mexer numa SVG de peca
 ```
+
+## Peças Fritzing
+
+`fritzing/` guarda peças próprias do Fritzing, para módulos que o core do programa não
+traz. Hoje são duas, o transmissor FS1000A e o receptor MX-05V de 433 MHz. Os `id` são os
+mesmos do inventário, `rf433-tx` e `rf433-rx`.
+
+**Os `.fzpz` em `fritzing/dist/` são gerados.** Saem de `python fritzing/empacotar.py`, a
+partir do FZP e das SVGs. Mexer numa SVG sem reempacotar deixa o zip com o desenho antigo
+dentro, em silêncio — há teste para isso, e ele já pegou o erro uma vez.
+
+**A pinagem do receptor é espelhada entre as duas faces.** A serigrafia fica no verso,
+onde se lê GND DATA DATA VCC; vista de cima, que é como o Fritzing desenha, a ordem é
+**VCC DATA DATA GND**. Ler o verso sem espelhar troca alimentação com terra. As duas
+ordens têm teste.
+
+Detalhes de instalação, coordenadas e conferência em `fritzing/README.md`.
 
 ## Impressão 3D
 
