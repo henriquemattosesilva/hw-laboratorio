@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Transmissor RF 433 MHz FS1000A / MX-FS-03V, vista de cima.
+     72 unidades por polegada: 1 mm = 2,834646 u e o passo de 0,1" = 7,2 u.
+     Placa de 19 x 19 mm; os pinos sao DATA VCC GND da esquerda para a direita. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="0.74803in" height="0.88976in" viewBox="0 0 53.858 64.063">
+ <g id="breadboard">
+
+  <rect x="0" y="0" width="53.858" height="53.858" rx="1.5" fill="#1f7a34"/>
+  <rect x="0.4" y="0.4" width="53.058" height="53.058" rx="1.2"
+        fill="none" stroke="#14562a" stroke-width="0.8"/>
+
+  <ellipse cx="7.37"  cy="32.60" rx="1.98" ry="4.25" fill="none" stroke="#b87333" stroke-width="1.3"/>
+  <ellipse cx="10.77" cy="32.60" rx="1.98" ry="4.25" fill="none" stroke="#b87333" stroke-width="1.3"/>
+  <ellipse cx="14.17" cy="32.60" rx="1.98" ry="4.25" fill="none" stroke="#c98a4b" stroke-width="1.3"/>
+  <ellipse cx="17.58" cy="32.60" rx="1.98" ry="4.25" fill="none" stroke="#b87333" stroke-width="1.3"/>
+  <ellipse cx="20.98" cy="32.60" rx="1.98" ry="4.25" fill="none" stroke="#b87333" stroke-width="1.3"/>
+
+  <circle cx="18.43" cy="15.59" r="9.64" fill="#9a9a9a"/>
+  <circle cx="18.43" cy="15.59" r="8.60" fill="#cfcfcf"/>
+  <circle cx="18.43" cy="15.59" r="5.20" fill="#bcbcbc"/>
+  <path d="M13.5 11.2 A 8.6 8.6 0 0 1 20.6 7.3" fill="none" stroke="#eeeeee" stroke-width="1.1"/>
+
+  <rect x="32.6" y="26.9" width="5.1" height="5.1" rx="0.4" fill="#1a1a1a"/>
+  <rect x="31.9" y="25.6" width="1.5" height="1.4" fill="#b0b0b0"/>
+  <rect x="36.9" y="25.6" width="1.5" height="1.4" fill="#b0b0b0"/>
+  <rect x="34.4" y="31.9" width="1.5" height="1.4" fill="#b0b0b0"/>
+
+  <rect x="31.2" y="35.4" width="4.5" height="2.3" fill="#4d4d4d"/>
+  <rect x="38.3" y="35.4" width="4.5" height="2.3" fill="#c7b299"/>
+  <rect x="41.1" y="22.7" width="2.3" height="4.5" fill="#c7b299"/>
+  <rect x="31.2" y="40.3" width="4.5" height="2.3" fill="#c7b299"/>
+  <rect x="46.8" y="26.9" width="4.5" height="2.3" fill="#4d4d4d"/>
+
+  <circle id="connector3pin" cx="45.354" cy="14.173" r="2.6" fill="#c0c0c0" stroke="none"/>
+  <circle cx="45.354" cy="14.173" r="1.2" fill="#1f7a34"/>
+
+  <text x="45.354" y="21.6" font-family="Noto Sans" font-size="2.8"
+        fill="#ffffff" text-anchor="middle">ANT</text>
+  <text x="41.0" y="48.5" font-family="Noto Sans" font-size="3.2"
+        fill="#ffffff" text-anchor="middle">FS1000A</text>
+
+  <text x="9.836"  y="45.3" font-family="Noto Sans" font-size="2.5"
+        fill="#ffffff" text-anchor="middle">DATA</text>
+  <text x="17.036" y="45.3" font-family="Noto Sans" font-size="2.5"
+        fill="#ffffff" text-anchor="middle">VCC</text>
+  <text x="24.236" y="45.3" font-family="Noto Sans" font-size="2.5"
+        fill="#ffffff" text-anchor="middle">GND</text>
+
+  <rect x="6.236" y="46.771" width="21.6" height="7.087" fill="#1a1a1a"/>
+  <rect x="6.236" y="46.771" width="21.6" height="1.2" fill="#333333"/>
+
+  <rect id="connector0pin" x="8.929"  y="53.858" width="1.814" height="10.205" fill="#8c8c8c" stroke="none"/>
+  <rect id="connector1pin" x="16.129" y="53.858" width="1.814" height="10.205" fill="#8c8c8c" stroke="none"/>
+  <rect id="connector2pin" x="23.329" y="53.858" width="1.814" height="10.205" fill="#8c8c8c" stroke="none"/>
+ </g>
+</svg>

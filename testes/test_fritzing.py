@@ -178,3 +178,27 @@ def test_acusa_passo_fora_da_grade_no_breadboard(peca):
     texto = BB_MINIMO.replace('x="14.3"', 'x="13.0"')
     escrever(peca / "svg" / "breadboard" / "bb.svg", texto)
     assert any("passo" in p for p in validar.problemas(peca))
+
+
+def ordem_da_barra(pasta, svg, conectores):
+    """Nomes dos pinos da barra, da esquerda para a direita na vista de cima."""
+    fzp = ElementTree.parse(RAIZ / "fritzing" / pasta / "part.fzp").getroot()
+    bb = ElementTree.parse(RAIZ / "fritzing" / pasta / "svg" / "breadboard" / svg).getroot()
+    x_de = {e.get("id"): float(e.get("x")) for e in bb.iter() if e.get("x") and e.get("id")}
+    nome_de = {c.get("id"): c.get("name") for c in fzp.iter("connector")}
+    return [nome_de[c] for c in sorted(conectores, key=lambda c: x_de[c + "pin"])]
+
+
+def test_transmissor_nao_tem_queixa():
+    assert validar.problemas(RAIZ / "fritzing" / "rf433-tx") == []
+
+
+def test_transmissor_tem_a_ordem_de_pinos_conferida_na_plaquinha():
+    """DATA VCC GND da esquerda para a direita, vista de cima. Trocar isto
+    liga alimentacao no lugar errado."""
+    ordem = ordem_da_barra(
+        "rf433-tx",
+        "rf433_tx_breadboard.svg",
+        ["connector0", "connector1", "connector2"],
+    )
+    assert ordem == ["DATA", "VCC", "GND"]

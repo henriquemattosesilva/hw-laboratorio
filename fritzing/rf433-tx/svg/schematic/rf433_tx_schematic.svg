@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 72 unidades por polegada. Pinos de 14,4 u (0,2") e terminais em multiplo
+     de 7,2 u, que e a grade de 0,1" do esquema do Fritzing. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="1.1in" height="1.0in" viewBox="0 0 79.2 72">
+ <g id="schematic">
+  <rect x="14.4" y="14.4" width="50.4" height="43.2"
+        fill="none" stroke="#000000" stroke-width="0.9"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect id="connector0pin" connectorName="DATA" x="0"     y="28.45" width="14.4" height="0.7"  fill="#787878" stroke="none"/>
+  <rect id="connector1pin" connectorName="VCC"  x="35.65" y="0"     width="0.7"  height="14.4" fill="#787878" stroke="none"/>
+  <rect id="connector2pin" connectorName="GND"  x="35.65" y="57.6"  width="0.7"  height="14.4" fill="#787878" stroke="none"/>
+  <rect id="connector3pin" connectorName="ANT"  x="64.8"  y="28.45" width="14.4" height="0.7"  fill="#787878" stroke="none"/>
+
+  <text x="17.4" y="30.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">DATA</text>
+  <text x="61.8" y="30.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="end">ANT</text>
+  <text x="36.0" y="20.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">VCC</text>
+  <text x="36.0" y="54.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">GND</text>
+
+  <text x="39.6" y="40.0" font-family="Noto Sans" font-size="5" fill="#000000" text-anchor="middle">FS1000A</text>
+  <text x="39.6" y="47.5" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">433 MHz TX</text>
+ </g>
+</svg>
