@@ -19,7 +19,7 @@
   <circle cx="18.43" cy="15.59" r="9.64" fill="#9a9a9a"/>
   <circle cx="18.43" cy="15.59" r="8.60" fill="#cfcfcf"/>
   <circle cx="18.43" cy="15.59" r="5.20" fill="#bcbcbc"/>
-  <path d="M13.5 11.2 A 8.6 8.6 0 0 1 20.6 7.3" fill="none" stroke="#eeeeee" stroke-width="1.1"/>
+  <path d="M13.5 11.2 A 8.6 8.6 0 0 1 20.6 7.3" fill="none" stroke="#e6e6e6" stroke-width="0.7"/>
 
   <rect x="32.6" y="26.9" width="5.1" height="5.1" rx="0.4" fill="#1a1a1a"/>
   <rect x="31.9" y="25.6" width="1.5" height="1.4" fill="#b0b0b0"/>

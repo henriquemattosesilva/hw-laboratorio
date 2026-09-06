@@ -243,3 +243,20 @@ def test_recusa_empacotar_peca_com_problema(tmp_path, peca):
     (peca / "svg" / "icon" / "ic.svg").unlink()
     with pytest.raises(ValueError, match="icon/ic.svg"):
         empacotar.empacotar(peca, tmp_path / "Peca.fzpz")
+
+
+def test_os_fzpz_publicados_estao_em_dia_com_os_fontes():
+    """Editar uma SVG e esquecer de rodar empacotar.py deixa dist/ velho em
+    silencio: o zip continua la, com o desenho antigo dentro."""
+    for pasta, nome in empacotar.PECAS.items():
+        publicado = zipfile.ZipFile(RAIZ / "fritzing" / "dist" / nome)
+        conteudo = {n: publicado.read(n) for n in publicado.namelist()}
+
+        origem = RAIZ / "fritzing" / pasta
+        fzp = origem / "part.fzp"
+        module_id = ElementTree.parse(fzp).getroot().get("moduleId")
+        fonte = {f"part.{module_id}.fzp": fzp.read_bytes()}
+        for arquivo in (origem / "svg").rglob("*.svg"):
+            fonte[f"svg.{arquivo.parent.name}.{arquivo.name}"] = arquivo.read_bytes()
+
+        assert conteudo == fonte, f"{nome} esta velho; rode python fritzing/empacotar.py"

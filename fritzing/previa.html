@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<title>Peças Fritzing RF 433 MHz — folha de contato</title>
+<!--
+  Folha de contato das oito SVGs. Nenhum teste pega desenho torto, e o desenho
+  e o produto — entao ele se confere olhando.
+
+    pwsh ferramentas/previa.ps1 -Arquivo fritzing/previa.html -Largura 1100 \
+         -Altura 1400 -Destino previa-fritzing.png -Inteira
+
+  Fundo cinza medio de proposito: no branco some a serigrafia, no preto some a
+  placa. As ampliacoes estao anotadas em cada quadro, porque a peca no tamanho
+  real fica do tamanho de uma unha na tela.
+-->
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0; padding: 28px 32px 40px;
+    background: #6f6f6f; color: #f2f2f2;
+    font: 14px/1.5 "Segoe UI", system-ui, sans-serif;
+  }
+  h1 { font-size: 19px; font-weight: 600; margin: 0 0 4px; letter-spacing: .01em; }
+  .sub { color: #d0d0d0; font-size: 13px; margin: 0 0 26px; }
+  h2 {
+    font-size: 15px; font-weight: 600; margin: 30px 0 12px;
+    padding-bottom: 6px; border-bottom: 1px solid #8b8b8b;
+  }
+  h2 span { color: #cfcfcf; font-weight: 400; }
+  .linha { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+  figure {
+    margin: 0; background: #e8e8e8; border: 1px solid #cfcfcf;
+    border-radius: 6px; padding: 12px; display: flex;
+    flex-direction: column; align-items: center; gap: 10px;
+  }
+  /* So o PCB fica no escuro: a serigrafia e branca e sumiria no claro. */
+  figure.escuro { background: #4a4a4a; border-color: #6d6d6d; }
+  figcaption {
+    font-size: 11px; color: #3a3a3a; text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  figure.escuro figcaption { color: #efefef; }
+  figcaption b { display: block; font-weight: 600; font-size: 12px; }
+  img { display: block; image-rendering: auto; }
+</style>
+
+<h1>Peças Fritzing — módulos RF 433 MHz AM</h1>
+<p class="sub">
+  Transmissor MX-FS-03V (FS1000A) e receptor MX-05V. Oito SVGs, quatro vistas cada.
+  Fundo claro como a tela do Fritzing; só o PCB vai no escuro, porque a serigrafia é branca.
+</p>
+
+<h2>Transmissor <span>— FS1000A, placa de 19 × 19 mm, pinos DATA · VCC · GND</span></h2>
+<div class="linha">
+  <figure>
+    <img src="rf433-tx/svg/breadboard/rf433_tx_breadboard.svg" width="287" height="342">
+    <figcaption><b>breadboard</b>0,748 × 0,890 pol · 4×</figcaption>
+  </figure>
+  <figure>
+    <img src="rf433-tx/svg/schematic/rf433_tx_schematic.svg" width="264" height="240">
+    <figcaption><b>schematic</b>1,10 × 1,00 pol · 2,5×</figcaption>
+  </figure>
+  <figure class="escuro">
+    <img src="rf433-tx/svg/pcb/rf433_tx_pcb.svg" width="180" height="180">
+    <figcaption><b>pcb</b>0,748 × 0,748 pol · 2,5×</figcaption>
+  </figure>
+  <figure>
+    <img src="rf433-tx/svg/icon/rf433_tx_icon.svg" width="123" height="123">
+    <figcaption><b>icon</b>0,32 × 0,32 pol · 4×</figcaption>
+  </figure>
+</div>
+
+<h2>Receptor <span>— MX-05V, placa de 30 × 14 mm, pinos VCC · DATA · DATA · GND</span></h2>
+<div class="linha">
+  <figure>
+    <img src="rf433-rx/svg/breadboard/rf433_rx_breadboard.svg" width="454" height="266">
+    <figcaption><b>breadboard</b>1,181 × 0,693 pol · 4×</figcaption>
+  </figure>
+  <figure>
+    <img src="rf433-rx/svg/schematic/rf433_rx_schematic.svg" width="264" height="264">
+    <figcaption><b>schematic</b>1,10 × 1,10 pol · 2,5×</figcaption>
+  </figure>
+  <figure class="escuro">
+    <img src="rf433-rx/svg/pcb/rf433_rx_pcb.svg" width="283" height="132">
+    <figcaption><b>pcb</b>1,181 × 0,551 pol · 2,5×</figcaption>
+  </figure>
+  <figure>
+    <img src="rf433-rx/svg/icon/rf433_rx_icon.svg" width="123" height="123">
+    <figcaption><b>icon</b>0,32 × 0,32 pol · 4×</figcaption>
+  </figure>
+</div>
+</html>

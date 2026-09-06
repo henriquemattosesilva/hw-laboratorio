@@ -2,16 +2,16 @@
 <!-- 72 unidades por polegada. O tracinho vertical entre os dois DATA e o
      barramento desenhado: na placa os dois pinos sao o mesmo ponto. -->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-     width="1.1in" height="1.0in" viewBox="0 0 79.2 72">
+     width="1.1in" height="1.1in" viewBox="0 0 79.2 79.2">
  <g id="schematic">
-  <rect x="14.4" y="14.4" width="50.4" height="43.2"
+  <rect x="14.4" y="14.4" width="50.4" height="50.4"
         fill="none" stroke="#000000" stroke-width="0.9"
         stroke-linecap="round" stroke-linejoin="round"/>
 
   <rect id="connector0pin" connectorName="VCC"   x="35.65" y="0"     width="0.7"  height="14.4" fill="#787878" stroke="none"/>
   <rect id="connector1pin" connectorName="DATA"  x="0"     y="28.45" width="14.4" height="0.7"  fill="#787878" stroke="none"/>
   <rect id="connector2pin" connectorName="DATA2" x="0"     y="42.85" width="14.4" height="0.7"  fill="#787878" stroke="none"/>
-  <rect id="connector3pin" connectorName="GND"   x="35.65" y="57.6"  width="0.7"  height="14.4" fill="#787878" stroke="none"/>
+  <rect id="connector3pin" connectorName="GND"   x="35.65" y="64.8"  width="0.7"  height="14.4" fill="#787878" stroke="none"/>
   <rect id="connector4pin" connectorName="ANT"   x="64.8"  y="35.65" width="14.4" height="0.7"  fill="#787878" stroke="none"/>
 
   <line x1="19.5" y1="28.8" x2="19.5" y2="43.2" stroke="#000000" stroke-width="0.7" stroke-linecap="round"/>
@@ -22,10 +22,10 @@
 
   <text x="22.5" y="37.4" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">DATA</text>
   <text x="61.8" y="37.8" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="end">ANT</text>
-  <text x="36.0" y="20.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">VCC</text>
-  <text x="36.0" y="54.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">GND</text>
+  <text x="38.0" y="9.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">VCC</text>
+  <text x="38.0" y="72.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">GND</text>
 
-  <text x="44.0" y="27.0" font-family="Noto Sans" font-size="5" fill="#000000" text-anchor="middle">MX-05V</text>
-  <text x="44.0" y="49.5" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">433 MHz RX</text>
+  <text x="44.5" y="25.0" font-family="Noto Sans" font-size="5" fill="#000000" text-anchor="middle">MX-05V</text>
+  <text x="44.5" y="55.5" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">433 MHz RX</text>
  </g>
 </svg>

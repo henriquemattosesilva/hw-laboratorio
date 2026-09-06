@@ -15,10 +15,10 @@
 
   <text x="17.4" y="30.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">DATA</text>
   <text x="61.8" y="30.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="end">ANT</text>
-  <text x="36.0" y="20.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">VCC</text>
-  <text x="36.0" y="54.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">GND</text>
+  <text x="38.0" y="9.6" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">VCC</text>
+  <text x="38.0" y="65.4" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">GND</text>
 
-  <text x="39.6" y="40.0" font-family="Noto Sans" font-size="5" fill="#000000" text-anchor="middle">FS1000A</text>
-  <text x="39.6" y="47.5" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">433 MHz TX</text>
+  <text x="39.6" y="41.0" font-family="Noto Sans" font-size="5" fill="#000000" text-anchor="middle">FS1000A</text>
+  <text x="39.6" y="48.5" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="middle">433 MHz TX</text>
  </g>
 </svg>
