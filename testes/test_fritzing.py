@@ -245,18 +245,25 @@ def test_recusa_empacotar_peca_com_problema(tmp_path, peca):
         empacotar.empacotar(peca, tmp_path / "Peca.fzpz")
 
 
+def _lf(dados):
+    return dados.replace(b"\r\n", b"\n")
+
+
 def test_os_fzpz_publicados_estao_em_dia_com_os_fontes():
     """Editar uma SVG e esquecer de rodar empacotar.py deixa dist/ velho em
     silencio: o zip continua la, com o desenho antigo dentro."""
     for pasta, nome in empacotar.PECAS.items():
         publicado = zipfile.ZipFile(RAIZ / "fritzing" / "dist" / nome)
-        conteudo = {n: publicado.read(n) for n in publicado.namelist()}
+        conteudo = {n: _lf(publicado.read(n)) for n in publicado.namelist()}
 
+        # O .gitattributes normaliza os fontes para LF, mas o .fzpz e binario
+        # e guarda os bytes como estavam. Comparar sem normalizar faria o teste
+        # falhar num clone novo, sem nenhuma peca ter mudado.
         origem = RAIZ / "fritzing" / pasta
         fzp = origem / "part.fzp"
         module_id = ElementTree.parse(fzp).getroot().get("moduleId")
-        fonte = {f"part.{module_id}.fzp": fzp.read_bytes()}
+        fonte = {f"part.{module_id}.fzp": _lf(fzp.read_bytes())}
         for arquivo in (origem / "svg").rglob("*.svg"):
-            fonte[f"svg.{arquivo.parent.name}.{arquivo.name}"] = arquivo.read_bytes()
+            fonte[f"svg.{arquivo.parent.name}.{arquivo.name}"] = _lf(arquivo.read_bytes())
 
         assert conteudo == fonte, f"{nome} esta velho; rode python fritzing/empacotar.py"
