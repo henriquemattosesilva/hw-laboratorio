@@ -88,6 +88,11 @@ protoboard, sentando por cima como qualquer placa de desenvolvimento. Trocar par
 deixaria o desenho igual e tiraria essa capacidade, sem ganhar nada: a ponta de fio do
 Fritzing é macho e entra nos dois casos.
 
+**Fronteira de módulo vai tracejada; fio vai em linha cheia.** Quando o esquemático
+desenha o circuito interno, o contorno sólido do módulo fecha retângulo com os fios e o
+desenho lê como caixa dentro de caixa. Tracejado é a convenção de sub-conjunto e desfaz a
+confusão de graça.
+
 **No esquema, VCC em cima, GND embaixo, sinal à esquerda, antena à direita** — e os
 rótulos de VCC e GND **fora** da caixa, ao lado do próprio pino. Dentro eles disputam
 espaço com o título e o desenho fica apertado. Enfileirar tudo de um lado só polui o

@@ -24,8 +24,12 @@ coordenadas da outra peça, e as três coisas dão erro silencioso: a peça pare
 Fritzing recusa importar, ou pior, importa e não encaixa.
 
 O gerador resolve unidade do viewBox, passo dos furos, ordem dos conectores e barramento.
-O que ele **não** faz é o ornamento — o desenho dos componentes da placa. Cada SVG de
-breadboard traz um comentário no ponto onde ele entra.
+O que ele **não** faz é o desenho: o ornamento do breadboard, e o esquemático além de uma
+caixa vazia com o nome dentro. Peça cujo símbolo diz o que ela faz — buzzer, LED, sensor —
+merece o esquemático refeito à mão, com o circuito de verdade entre os pinos. O
+`buzzer-ativo` é assim: nasceu do gerador e teve as quatro vistas reescritas.
+
+Cada SVG de breadboard traz um comentário no ponto onde o ornamento entra.
 
 ## Regra que não pode ser esquecida: dist/ e previa.html são gerados
 

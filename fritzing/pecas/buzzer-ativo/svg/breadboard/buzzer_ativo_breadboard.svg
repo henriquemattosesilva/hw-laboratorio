@@ -2,7 +2,7 @@
 <!-- Modulo Buzzer Ativo P15 (GBK), vista de cima. Placa de 32 x 15 mm, conectores na borda de esquerda.
      72 unidades por polegada: 1 mm = 2,834646 u e o passo de 0,1" = 7,2 u.
      Furo de encaixe, sem pino saindo: e assim que o fio entra.
-     Geometria e conectores gerados por nova-peca.py; o ornamento e desenhado a mao. -->
+     Desenhada a mao, conferida contra as fotos da placa. -->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
      width="1.25984in" height="0.59055in" viewBox="0 0 90.709 42.520">
  <g id="breadboard">

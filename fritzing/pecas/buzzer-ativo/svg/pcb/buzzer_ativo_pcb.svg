@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 1000 unidades por polegada, que e a escala das pecas THT do core.
-     Furo de 35 mil e anel de 75 mil: r 27,5 com traco de 20. -->
+<!-- Modulo Buzzer Ativo P15 (GBK) — PCB desenhado a mao.
+     1000 unidades por polegada, que e a escala das pecas THT do core.
+     Furo de 35 mil e anel de 75 mil: r 27,5 com traco de 20.
+     Placa de 32 x 15 mm; os dois furos ficam na ponta esquerda, no passo de
+     0,1", com GND em cima. A serigrafia marca o corpo do buzzer, que tem 12 mm
+     e e o que decide se a peca cabe onde se pretende poe-la. -->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-     width="1.25984in" height="0.59055in" viewBox="0 0 1259.843 590.552">
-  <g id="copper1">
-   <g id="copper0">
+     width="1.25984in" height="0.59055in" viewBox="0 0 1259.843 590.551">
+ <g id="copper1">
+  <g id="copper0">
    <circle id="connector0pin" cx="86.6" cy="245.3" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
    <circle id="connector1pin" cx="86.6" cy="345.3" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
-   </g>
   </g>
-  <g id="silkscreen">
-   <rect x="5" y="5" width="1249.8" height="580.6" fill="none" stroke="#f0f0f0" stroke-width="10"/>
-   <circle cx="161.6" cy="245.3" r="14" fill="none" stroke="#f0f0f0" stroke-width="10"/>
-   <text x="629.9" y="295.3" font-family="OCR-Fritzing-mono" font-size="70" fill="#f0f0f0" text-anchor="middle">P15 BUZZER</text>
-  </g>
+ </g>
+ <g id="silkscreen">
+  <rect x="5" y="5" width="1249.843" height="580.551" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+  <circle cx="161.6" cy="245.3" r="14" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+  <circle cx="964.6" cy="295.3" r="236.2" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+  <circle cx="661.4" cy="295.3" r="55.1" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+  <text x="420" y="240" font-family="OCR-Fritzing-mono" font-size="70" fill="#f0f0f0" text-anchor="middle">P15</text>
+  <text x="420" y="330" font-family="OCR-Fritzing-mono" font-size="55" fill="#f0f0f0" text-anchor="middle">BUZZER</text>
+ </g>
 </svg>

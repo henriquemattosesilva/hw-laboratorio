@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 72 unidades por polegada. Pino de 14,4 u (0,2") e terminais em
-     multiplo de 7,2 u, que e a grade de 0,1" do esquema do Fritzing. -->
+<!-- Modulo Buzzer Ativo P15 (GBK) — esquematico desenhado a mao.
+     72 unidades por polegada. Pino de 14,4 u (0,2") e terminais em multiplo de
+     7,2 u, que e a grade de 0,1" do esquema do Fritzing.
+
+     A caixa e o modulo; dentro dela vai o circuito de verdade, do SINAL ate o
+     GND passando pelo transdutor. Caixa vazia com o nome escrito nao diz o que
+     a peca faz, e e o unico desenho que um gerador consegue produzir.
+
+     O transdutor fica em pe, com a base reta no eixo x=36: e a mesma coluna do
+     pino de GND, entao o caminho desce reto e nao vira um labirinto de curvas. -->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
      width="1.10000in" height="1.00000in" viewBox="0 0 79.200 72.000">
  <g id="schematic">
   <rect x="14.4" y="14.4" width="50.4" height="43.2"
-        fill="none" stroke="#000000" stroke-width="0.9"
-        stroke-linecap="round" stroke-linejoin="round"/>
+        fill="none" stroke="#000000" stroke-width="0.7"
+        stroke-dasharray="2.6 1.9" stroke-linecap="butt"/>
 
-  <rect id="connector1pin" connectorName="SINAL" x="0.0" y="28.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
-  <text x="17.4" y="30.20" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">SINAL</text>
-  <rect id="connector0pin" connectorName="GND" x="35.65" y="57.6" width="0.7" height="14.4" fill="#787878" stroke="none"/>
-  <text x="38.0" y="65.4" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">GND</text>
+  <rect id="connector1pin" connectorName="SINAL" x="0.0" y="28.45"
+        width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <rect id="connector0pin" connectorName="GND" x="35.65" y="57.6"
+        width="0.7" height="14.4" fill="#787878" stroke="none"/>
 
-  <text x="39.6" y="44.9" font-family="Noto Sans" font-size="4.80" fill="#000000" text-anchor="middle">P15 BUZZER</text>
+  <path d="M 14.4,28.8 H 36 V 32" fill="none" stroke="#000000"
+        stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 36,46 V 57.6" fill="none" stroke="#000000"
+        stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Sonorizador: base reta com o domo saindo dela -->
+  <path d="M 36,32 A 7,7 0 0 1 36,46 Z" fill="none" stroke="#000000"
+        stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <line x1="38.9" y1="29.0" x2="42.1" y2="29.0" stroke="#000000" stroke-width="0.8"/>
+  <line x1="40.5" y1="27.4" x2="40.5" y2="30.6" stroke="#000000" stroke-width="0.8"/>
+
+  <text x="17.4" y="27.2" font-family="Noto Sans" font-size="4"
+        fill="#000000" text-anchor="start">SINAL</text>
+  <text x="38.6" y="53.8" font-family="Noto Sans" font-size="4"
+        fill="#000000" text-anchor="start">GND</text>
+
+  <text x="39.6" y="20.4" font-family="Noto Sans" font-size="4.2"
+        fill="#000000" text-anchor="middle">P15 BUZZER</text>
  </g>
 </svg>
