@@ -106,7 +106,7 @@ biblioteca de cópias, cada uma parecendo uma peça diferente.
 
 ```text
 PYTHONIOENCODING=utf-8 python \
-  ~/AppData/Local/Programs/Fritzing/fritzing-parts/fzp_checker.py fritzing/dist/*.fzpz
+  ~/AppData/Local/Programs/Fritzing/fritzing-parts/fzp_checker.py fritzing/pecas/*/*.fzpz
 ```
 
 Ele descompacta o pacote e confere as SVGs de dentro: 52 verificações por peça, contra as

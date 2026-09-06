@@ -8,7 +8,6 @@ from xml.etree import ElementTree
 
 FRITZING = Path(__file__).resolve().parent.parent
 PASTA = FRITZING / "pecas"
-DIST = FRITZING / "dist"
 
 # Sufixo do moduleId, para as pecas daqui nao colidirem com as de outra origem
 # na biblioteca do Fritzing.
@@ -31,3 +30,16 @@ def nome_do_pacote(peca):
     if ident.endswith(SUFIXO):
         ident = ident[: -len(SUFIXO)]
     return f"{ident.upper()}.fzpz"
+
+
+def pacote(peca):
+    """O .fzpz mora DENTRO da pasta da peca, ao lado do part.fzp.
+
+    E o arquivo que o Fritzing importa por Arquivo > Abrir — o part.fzp sozinho
+    nao serve, porque cita as SVGs por caminho relativo que o programa nao
+    resolve de uma pasta qualquer. Guardar os dois juntos e o que faz a pasta
+    da peca ser autossuficiente: quem abre ela acha o que precisa sem saber
+    que existe uma pasta de distribuicao em outro lugar.
+    """
+    peca = Path(peca)
+    return peca / nome_do_pacote(peca)

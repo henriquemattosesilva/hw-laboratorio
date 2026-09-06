@@ -68,7 +68,7 @@ página.
 
 ```text
 python -m pip install -r requisitos.txt   # PyYAML e pytest
-python -m pytest                          # 52 testes
+python -m pytest                          # 53 testes
 python ferramentas/gerar-pagina.py        # sempre, depois de mexer em qualquer YAML
 python ferramentas/novo-projeto.py nome "Título"
 pwsh ferramentas/previa.ps1 -Largura 390 -Destino previa-390.png
@@ -96,8 +96,9 @@ disco: fechar e reabrir o programa mostra a peça atualizada. O caminho limpo é
 `python fritzing/ferramentas/instalar.py`, com o Fritzing fechado — nos dois casos ele precisa
 reiniciar para reler a biblioteca.
 
-**Os `.fzpz` em `fritzing/dist/` são gerados.** Saem de `python fritzing/ferramentas/empacotar.py`, a
-partir do FZP e das SVGs. Mexer numa SVG sem reempacotar deixa o zip com o desenho antigo
+**O `.fzpz` de cada peça é gerado** e mora dentro da pasta dela, ao lado do `part.fzp` —
+é o arquivo que o Fritzing importa, e o `part.fzp` sozinho não serve. Sai de
+`python fritzing/ferramentas/empacotar.py`, a partir do FZP e das SVGs. Mexer numa SVG sem reempacotar deixa o zip com o desenho antigo
 dentro, em silêncio — há teste para isso, e ele já pegou o erro uma vez.
 
 **A pinagem do receptor é espelhada entre as duas faces.** A serigrafia fica no verso,

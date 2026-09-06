@@ -31,11 +31,15 @@ merece o esquemático refeito à mão, com o circuito de verdade entre os pinos.
 
 Cada SVG de breadboard traz um comentário no ponto onde o ornamento entra.
 
-## Regra que não pode ser esquecida: dist/ e previa.html são gerados
+## Regra que não pode ser esquecida: o .fzpz e a previa.html são gerados
 
-Como o `README.md` e o `index.html` da raiz do repositório. Os `.fzpz` saem de
+Como o `README.md` e o `index.html` da raiz do repositório. O `.fzpz` de cada peça sai de
 `empacotar.py` e a folha de contato sai de `previa.py`. Editar à mão significa perder na
 próxima geração — e no caso do `.fzpz`, significa um zip com desenho diferente do fonte.
+
+**O `.fzpz` mora dentro da pasta da peça**, ao lado do `part.fzp`. É ele que o Fritzing
+importa; o `part.fzp` sozinho não serve, porque cita as SVGs por caminho relativo. Os dois
+juntos fazem a pasta da peça ser autossuficiente.
 
 Existe teste para isso (`test_os_fzpz_publicados_estao_em_dia_com_os_fontes`), e ele já
 pegou o erro de verdade duas vezes.
@@ -72,14 +76,14 @@ pwsh ferramentas/previa.ps1 -Arquivo fritzing/previa.html -Largura 1400 -Altura 
 ## Comandos
 
 ```text
-python -m pytest                              # 52 testes, 34 deles desta pasta
+python -m pytest                              # 53 testes, 35 deles desta pasta
 python fritzing/ferramentas/nova-peca.py ...  # peça nova
 python fritzing/ferramentas/previa.py         # folha de contato
 python fritzing/ferramentas/empacotar.py      # os .fzpz
 python fritzing/ferramentas/instalar.py       # biblioteca do Fritzing (fechado)
 
 PYTHONIOENCODING=utf-8 python \
-  ~/AppData/Local/Programs/Fritzing/fritzing-parts/fzp_checker.py fritzing/dist/*.fzpz
+  ~/AppData/Local/Programs/Fritzing/fritzing-parts/fzp_checker.py fritzing/pecas/*/*.fzpz
 ```
 
 O `PYTHONIOENCODING` não é enfeite: sem ele o verificador quebra ao imprimir o ✓ no

@@ -1,10 +1,13 @@
 """Zipa cada peca no .fzpz que o Fritzing importa por Arquivo > Abrir.
 
+O pacote fica DENTRO da pasta da peca, ao lado do part.fzp. O part.fzp sozinho
+nao importa: ele cita as SVGs por caminho relativo, e quem junta tudo e o zip.
+
 O .fzpz e um zip plano: part.<moduleid>.fzp e svg.<vista>.<nome>.svg. O FZP la dentro
 continua citando 'breadboard/nome.svg'; quem faz a traducao e o Fritzing na importacao,
 entao aqui so o nome do arquivo muda.
 
-  python fritzing/ferramentas/empacotar.py     empacota tudo em fritzing/dist/
+  python fritzing/ferramentas/empacotar.py     reescreve o .fzpz de cada peca
 """
 import sys
 import zipfile
@@ -36,7 +39,7 @@ def main():
         print(f"Nenhuma peca em {pecas.PASTA}.")
         return 1
     for peca in encontradas:
-        destino = empacotar(peca, pecas.DIST / pecas.nome_do_pacote(peca))
+        destino = empacotar(peca, pecas.pacote(peca))
         print(destino.relative_to(pecas.FRITZING.parent))
     return 0
 

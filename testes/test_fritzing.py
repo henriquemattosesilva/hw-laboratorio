@@ -267,7 +267,7 @@ def test_os_fzpz_publicados_estao_em_dia_com_os_fontes():
     silencio: o zip continua la, com o desenho antigo dentro."""
     for origem in pecas.descobrir():
         nome = pecas.nome_do_pacote(origem)
-        publicado = zipfile.ZipFile(pecas.DIST / nome)
+        publicado = zipfile.ZipFile(pecas.pacote(origem))
         conteudo = {n: _lf(publicado.read(n)) for n in publicado.namelist()}
 
         # O .gitattributes normaliza os fontes para LF, mas o .fzpz e binario
@@ -407,3 +407,13 @@ def test_gerador_pinta_a_placa(tmp_path):
     pasta = nova_peca.criar("azulzinha", 20, 20, ["A", "B"], tmp_path, cor="azul")
     bb = (pasta / "svg" / "breadboard" / "azulzinha_breadboard.svg").read_text("utf-8")
     assert "#1c4f8c" in bb and "#1f7a34" not in bb
+
+
+def test_o_pacote_importavel_fica_dentro_da_pasta_da_peca():
+    """O part.fzp sozinho nao importa no Fritzing: ele cita as SVGs por caminho
+    relativo, e quem junta tudo e o .fzpz. Os dois ficam lado a lado para quem
+    abre a pasta da peca achar o que precisa sem procurar em outro lugar."""
+    for peca in pecas.descobrir():
+        pacote = pecas.pacote(peca)
+        assert pacote.parent == peca, f"{pacote} devia estar dentro de {peca}"
+        assert pacote.exists(), f"{pacote.name} nao existe; rode empacotar.py"

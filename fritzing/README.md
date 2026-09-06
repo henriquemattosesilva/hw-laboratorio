@@ -15,8 +15,7 @@ fritzing/
     empacotar.py     gera os .fzpz
     instalar.py      copia para a biblioteca do Fritzing
     pecas.py         onde as peças moram; fonte única do layout
-  pecas/             uma pasta por peça
-  dist/              os .fzpz, gerados
+  pecas/             uma pasta por peça: os fontes e o .fzpz para importar
   previa.html        a folha de contato, gerada
 ```
 
@@ -72,18 +71,22 @@ E o verificador do próprio Fritzing, que descompacta o pacote e confere as SVGs
 
 ```text
 PYTHONIOENCODING=utf-8 python \
-  ~/AppData/Local/Programs/Fritzing/fritzing-parts/fzp_checker.py fritzing/dist/*.fzpz
+  ~/AppData/Local/Programs/Fritzing/fritzing-parts/fzp_checker.py fritzing/pecas/*/*.fzpz
 ```
 
 ## Publicar e instalar
 
 ```text
-python fritzing/ferramentas/empacotar.py   # escreve os .fzpz em dist/
+python fritzing/ferramentas/empacotar.py   # reescreve o .fzpz de cada peça
 python fritzing/ferramentas/instalar.py    # copia para a biblioteca (Fritzing fechado)
 ```
 
-**Na primeira vez** dá para instalar pela interface: **Arquivo > Abrir** apontando para o
-`.fzpz`. A peça entra no bin *Minhas Peças*.
+**O `.fzpz` fica dentro da pasta da peça**, ao lado do `part.fzp` — é o arquivo que o
+Fritzing importa. O `part.fzp` sozinho não serve: ele cita as SVGs por caminho relativo,
+e quem junta tudo é o zip.
+
+**Na primeira vez** dá para instalar pela interface: **Arquivo > Abrir** apontando para
+`pecas/<peça>/<NOME>.fzpz`. A peça entra no bin *Minhas Peças*.
 
 **Da segunda em diante** o Fritzing reclama:
 
@@ -109,7 +112,7 @@ python fritzing/ferramentas/empacotar.py
 python fritzing/ferramentas/instalar.py
 ```
 
-Esquecer de reempacotar deixa o `dist/` desatualizado em silêncio, com o desenho antigo
+Esquecer de reempacotar deixa o `.fzpz` desatualizado em silêncio, com o desenho antigo
 dentro do zip. Existe teste para isso justamente porque aconteceu.
 
 ## As peças de hoje
