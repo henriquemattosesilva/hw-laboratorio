@@ -22,16 +22,22 @@ oferece trocar transmissor por receptor na lista de variantes.
 
 ## Atualizar, da segunda vez em diante
 
-**Importar o `.fzpz` de novo não funciona.** O Fritzing recusa com
+Reimportar o `.fzpz` faz o Fritzing reclamar:
 
 ```text
 Part module ID must be unique.
 Part load error
 ```
 
-porque a peça com aquele `moduleId` já está na biblioteca, e ele não oferece substituir.
+**O erro engana.** Ele acontece ao registrar o `moduleId`, que já está carregado na
+memória — mas nesse ponto os arquivos novos **já foram copiados para o disco**. Fechar e
+reabrir o Fritzing basta: ao iniciar ele relê a biblioteca e a peça aparece atualizada.
+Verificado em 06/09/2026, comparando os arquivos instalados com os fontes.
+
 Manter o mesmo `moduleId` é proposital: trocá-lo a cada correção encheria a biblioteca de
-cópias, cada uma parecendo uma peça diferente. Atualizar é trocar os arquivos:
+cópias, cada uma parecendo uma peça diferente.
+
+O caminho limpo, sem caixa de erro e sem depender desse efeito colateral:
 
 ```text
 # feche o Fritzing antes — ele lê a biblioteca ao iniciar
@@ -40,7 +46,7 @@ python fritzing/instalar.py
 
 O script copia o FZP para `parts/user/<moduleid>.fzp` e as SVGs para
 `parts/svg/user/<vista>/`, valida antes de copiar e se recusa a rodar com o programa
-aberto.
+aberto. Nos dois caminhos o Fritzing precisa ser reiniciado.
 
 **Nem isso atualiza sketch já salvo.** O Fritzing guarda uma cópia da peça dentro do
 `.fzz`. No sketch antigo é preciso apagar a peça e colocar de novo.

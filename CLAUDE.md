@@ -75,10 +75,11 @@ python fritzing/instalar.py               # atualiza a peca no Fritzing (com ele
 traz. Hoje são duas, o transmissor FS1000A e o receptor MX-05V de 433 MHz. Os `id` são os
 mesmos do inventário, `rf433-tx` e `rf433-rx`.
 
-**Reimportar o `.fzpz` não atualiza peça já instalada.** O Fritzing recusa com *"Part
-module ID must be unique"*, porque o id já está na biblioteca — e o id é mantido de
-propósito, senão cada correção viraria uma peça nova. Atualizar é rodar
-`python fritzing/instalar.py`, com o Fritzing fechado.
+**Reimportar o `.fzpz` mostra um erro que engana.** O Fritzing diz *"Part module ID must
+be unique"* e *"Part load error"*, mas a essa altura já copiou os arquivos novos para o
+disco: fechar e reabrir o programa mostra a peça atualizada. O caminho limpo é
+`python fritzing/instalar.py`, com o Fritzing fechado — nos dois casos ele precisa
+reiniciar para reler a biblioteca.
 
 **Os `.fzpz` em `fritzing/dist/` são gerados.** Saem de `python fritzing/empacotar.py`, a
 partir do FZP e das SVGs. Mexer numa SVG sem reempacotar deixa o zip com o desenho antigo
