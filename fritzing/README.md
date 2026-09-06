@@ -48,6 +48,11 @@ peça vista de cima, então é a coluna da direita que vale — e ela tem teste.
 Os dois DATA do receptor são o mesmo ponto na placa e estão declarados como `<bus>` no
 FZP. Sem isso o Fritzing acusaria conexão faltando ao usar só um deles.
 
+O desenho mostra **furos de encaixe, sem pino saindo da placa** — é como o NodeMCU e o
+WeMos do core são desenhados, e é como o fio realmente entra. O tipo elétrico continua
+`male`, então a peça também continua encaixando na protoboard se você quiser: ela senta
+por cima, como qualquer placa de desenvolvimento.
+
 Cada peça tem ainda um conector `ANT`, o furo da antena. Um fio reto de 17,3 cm é um
 quarto de onda em 433,92 MHz; sem antena o alcance é de centímetros.
 
@@ -92,7 +97,7 @@ físico errado e não encaixar no passo de 0,1 polegada.
 
 ## O que não foi conferido
 
-**A posição da barra de pinos ao longo da borda**, nas duas peças, e a orientação do
+**A posição da fileira de furos ao longo da borda**, nas duas peças, e a orientação do
 desenho do receptor. Saiu de foto de catálogo, não da placa. Não afeta a ligação: se
 estiver espelhado, o conserto é no ornamento, e a ordem dos pinos não muda.
 

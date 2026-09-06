@@ -184,7 +184,8 @@ def ordem_da_barra(pasta, svg, conectores):
     """Nomes dos pinos da barra, da esquerda para a direita na vista de cima."""
     fzp = ElementTree.parse(RAIZ / "fritzing" / pasta / "part.fzp").getroot()
     bb = ElementTree.parse(RAIZ / "fritzing" / pasta / "svg" / "breadboard" / svg).getroot()
-    x_de = {e.get("id"): float(e.get("x")) for e in bb.iter() if e.get("x") and e.get("id")}
+    # Os furos sao circulos, entao a posicao vem de cx e nao de x.
+    x_de = {e.get("id"): float(e.get("cx")) for e in bb.iter() if e.get("cx") and e.get("id")}
     nome_de = {c.get("id"): c.get("name") for c in fzp.iter("connector")}
     return [nome_de[c] for c in sorted(conectores, key=lambda c: x_de[c + "pin"])]
 

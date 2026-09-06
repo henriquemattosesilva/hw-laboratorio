@@ -62,6 +62,12 @@ memória.
 
 ## As peças
 
+> **Revisto em 06/09/2026, depois de ver as peças em uso.** As duas placas passaram a
+> ser desenhadas com **furo de encaixe, sem pino saindo** — como o NodeMCU do core. O fio
+> entra igual, o desenho fica mais limpo e a placa não invade o espaço abaixo dela. O
+> tipo elétrico continua `male`, então nada se perde: a peça segue encaixando na
+> protoboard. O que segue descreve o desenho original, com barra de pinos.
+
 ### Transmissor — 19 × 19 mm, 3 pinos
 
 Breadboard: placa verde, ressonador SAW prateado deitado, bobina de cobre, SOT-23,
