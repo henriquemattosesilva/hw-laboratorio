@@ -36,6 +36,8 @@
     Ativo quer dizer que o oscilador está dentro: toca uma nota só, e o código apenas liga e desliga. Para tocar melodia seria preciso um passivo, que não temos.
     A polaridade de acionamento NÃO foi verificada. Vários módulos P15 tocam com nível BAIXO. Se apitar parado e calar ao acionar, é isso.
     O hw-codigo-morse assume acionamento em nível ALTO e registra isso como não verificado.
+    Placa de 32 x 15 x 11 mm, dois pinos numa das pontas: GND em cima e sinal embaixo, com a serigrafia legível.
+    Tem peça Fritzing própria em fritzing/pecas/buzzer-ativo/, que o core do programa não traz.
 
 - id: laser-modulo
   nome: "Módulo Diodo Laser 5mW 5V 650nm 6mm"

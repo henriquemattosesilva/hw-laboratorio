@@ -9,6 +9,7 @@ As regras saem de fritzing-parts/scripts/checks/svg_checkers.py e explain_errors
 do proprio Fritzing. O desenho em si nao tem conferencia automatica: para isso existe
 a folha de contato em previa.html.
 """
+import math
 from pathlib import Path
 from xml.etree import ElementTree
 
@@ -124,7 +125,7 @@ def _conferir_conectores(raiz_fzp, arquivo, tag, vista):
     raiz_svg = ElementTree.parse(arquivo).getroot()
     por_id = {e.get("id"): e for e in raiz_svg.iter() if e.get("id")}
 
-    esquerdas = []
+    centros = []
     for conector in raiz_fzp.iter("connector"):
         vista_no = conector.find(f"views/{tag}")
         for p in [] if vista_no is None else list(vista_no):
@@ -136,11 +137,11 @@ def _conferir_conectores(raiz_fzp, arquivo, tag, vista):
             if _invisivel(elemento):
                 achados.append(f"{vista}: {alvo} nao desenha nada; conector invisivel")
             if vista == "breadboard":
-                x = _numero(elemento, "x", "cx")
-                if x is not None:
-                    esquerdas.append(x)
+                centro = _centro(elemento)
+                if centro is not None:
+                    centros.append(centro)
 
-    achados += _conferir_passo(esquerdas, vista)
+    achados += _conferir_passo(centros, vista)
     return achados
 
 
@@ -154,6 +155,13 @@ def _invisivel(elemento):
     return True
 
 
+def _centro(elemento):
+    """Posicao do conector. Circulo tem cx/cy, retangulo tem x/y — o canto
+    serve igual, porque a conferencia olha a distancia entre conectores."""
+    x, y = _numero(elemento, "cx", "x"), _numero(elemento, "cy", "y")
+    return None if x is None or y is None else (x, y)
+
+
 def _numero(elemento, *atributos):
     for atributo in atributos:
         valor = elemento.get(atributo)
@@ -165,18 +173,21 @@ def _numero(elemento, *atributos):
     return None
 
 
-def _conferir_passo(esquerdas, vista):
-    """Os conectores da barra ficam num passo constante de 0,1 polegada.
+def _conferir_passo(centros, vista):
+    """Os conectores da fileira ficam num passo constante de 0,1 polegada.
 
-    Peca com ANT tem um conector solto fora da barra, entao a conferencia olha os
-    espacamentos consecutivos e so reclama do que esta perto de um passo mas errado.
+    A distancia e medida em linha reta, nao no eixo x: modulo com o conector na
+    ponta tem a fileira correndo na vertical, e medir so em x veria zero.
+
+    Peca com ANT tem um conector solto fora da fileira, entao a conferencia olha
+    os pares consecutivos e so reclama do que esta perto de um passo mas errado.
     """
     achados = []
-    esquerdas = sorted(esquerdas)
-    for anterior, seguinte in zip(esquerdas, esquerdas[1:]):
-        distancia = seguinte - anterior
+    centros = sorted(centros)
+    for (x1, y1), (x2, y2) in zip(centros, centros[1:]):
+        distancia = math.hypot(x2 - x1, y2 - y1)
         if distancia > PASSO * 1.5:
-            continue  # conector solto, fora da barra
+            continue  # conector solto, fora da fileira
         if abs(distancia - PASSO) > FOLGA:
             achados.append(
                 f"{vista}: passo de {distancia:.2f} u entre pinos, esperado {PASSO}"

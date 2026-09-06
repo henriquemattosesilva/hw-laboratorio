@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1000 unidades por polegada, que e a escala das pecas THT do core.
+     Furo de 35 mil e anel de 75 mil: r 27,5 com traco de 20. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="1.25984in" height="0.59055in" viewBox="0 0 1259.843 590.552">
+  <g id="copper1">
+   <g id="copper0">
+   <circle id="connector0pin" cx="86.6" cy="245.3" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector1pin" cx="86.6" cy="345.3" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   </g>
+  </g>
+  <g id="silkscreen">
+   <rect x="5" y="5" width="1249.8" height="580.6" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+   <circle cx="161.6" cy="245.3" r="14" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+   <text x="629.9" y="295.3" font-family="OCR-Fritzing-mono" font-size="70" fill="#f0f0f0" text-anchor="middle">P15 BUZZER</text>
+  </g>
+</svg>

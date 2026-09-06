@@ -45,8 +45,15 @@ foi o caso do MX-05V.
 **Nome repetido vira barramento.** `--pinos VCC,DATA,DATA,GND` cria `DATA` e `DATA2` e os
 declara ligados, porque nome repetido quer dizer o mesmo ponto na placa.
 
-Outras opções: `--familia` (peças da mesma família viram variantes uma da outra no
-Inspector) e `--ant` (acrescenta um conector de antena fora da barra).
+Outras opções:
+
+| opção | para quê |
+|---|---|
+| `--lado baixo\|cima\|esquerda\|direita` | borda onde fica a fileira de furos. Nas bordas curtas ela corre na vertical, e aí `--pinos` vai de cima para baixo |
+| `--alinhar inicio\|centro\|fim` | onde a fileira encosta na borda. Header longo costuma ser `inicio`; conector de dois pinos na ponta, `centro` |
+| `--cor verde\|azul\|vermelha\|preta\|branca\|amarela` | cor da placa, com a borda e a tinta da serigrafia junto |
+| `--familia` | peças da mesma família viram variantes uma da outra no Inspector |
+| `--ant` | acrescenta um conector de antena fora da fileira |
 
 ## Conferir
 
@@ -110,6 +117,7 @@ dentro do zip. Existe teste para isso justamente porque aconteceu.
 |---|---|---|
 | `rf433-tx` | Transmissor 433 MHz FS1000A (MX-FS-03V), 19 × 19 mm | DATA · VCC · GND · ANT |
 | `rf433-rx` | Receptor 433 MHz MX-05V, 30 × 14 mm | VCC · DATA · DATA · GND · ANT |
+| `buzzer-ativo` | Buzzer ativo GBK P15, 32 × 15 mm | GND · SINAL, na ponta esquerda |
 
 A serigrafia do receptor fica **no verso**, onde se lê GND · DATA · DATA · VCC. Ler o
 verso sem espelhar troca alimentação com terra. As duas ordens têm teste.
@@ -126,7 +134,8 @@ quem confirma que a peça senta na protoboard é o programa aberto.
 **A cota de 19 × 19 mm do transmissor** veio do anúncio, não de paquímetro. Só importa na
 vista de PCB.
 
-**O gerador nunca foi usado numa peça que foi até o fim.** Ele foi exercitado de ponta a
-ponta e o resultado passa nas 52 verificações do Fritzing, mas as duas peças que existem
-são anteriores a ele e foram escritas à mão. A primeira peça de verdade feita pelo
-gerador vai revelar o que falta.
+**A polaridade de acionamento do buzzer.** Vários módulos P15 tocam com nível BAIXO, e a
+deste não foi medida. Está registrado no inventário e na `description` da peça. Não muda o
+desenho, muda o código de quem usar.
+
+**As cotas do buzzer** vieram da ficha do fabricante, não de paquímetro.

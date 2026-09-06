@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Modulo Buzzer Ativo P15 (GBK), vista de cima. Placa de 32 x 15 mm, conectores na borda de esquerda.
+     72 unidades por polegada: 1 mm = 2,834646 u e o passo de 0,1" = 7,2 u.
+     Furo de encaixe, sem pino saindo: e assim que o fio entra.
+     Geometria e conectores gerados por nova-peca.py; o ornamento e desenhado a mao. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="1.25984in" height="0.59055in" viewBox="0 0 90.709 42.520">
+ <g id="breadboard">
+  <rect x="0" y="0" width="90.709" height="42.520" rx="1.5" fill="#1c4f8c"/>
+  <rect x="0.4" y="0.4" width="89.909" height="41.720" rx="1.2"
+        fill="none" stroke="#123566" stroke-width="0.8"/>
+
+  <!-- LED verde, com o anel de serigrafia que a placa tem em volta dele -->
+  <circle cx="26.93" cy="12.19" r="7.09" fill="none" stroke="#8fa6c4" stroke-width="0.7"/>
+  <circle cx="26.93" cy="12.19" r="4.82" fill="#1f9c33"/>
+  <circle cx="26.93" cy="12.19" r="3.60" fill="#37c94c"/>
+  <circle cx="25.60" cy="10.70" r="1.30" fill="#8ff2a0"/>
+
+  <!-- R1, resistor axial em pe -->
+  <line x1="38.27" y1="3.60" x2="38.27" y2="25.60" stroke="#a8a8a8" stroke-width="0.9"/>
+  <rect x="35.58" y="7.08" width="5.39" height="14.17" rx="1.6" fill="#c9b088"/>
+  <rect x="35.58" y="9.20" width="5.39" height="1.90" fill="#4a3423"/>
+  <rect x="35.58" y="13.20" width="5.39" height="1.90" fill="#1a1a1a"/>
+  <rect x="35.58" y="17.20" width="5.39" height="1.90" fill="#8a5a2b"/>
+
+  <!-- Furo de fixacao, sem cobre -->
+  <circle cx="47.62" cy="21.26" r="3.97" fill="#eef1f5"/>
+
+  <!-- Buzzer ativo de 12 mm, com o adesivo branco e a marca de polaridade -->
+  <circle cx="69.45" cy="21.26" r="16.44" fill="#141414"/>
+  <circle cx="69.45" cy="21.26" r="15.10" fill="#262626"/>
+  <circle cx="69.45" cy="21.26" r="12.47" fill="#f2f4f7"/>
+  <circle cx="69.45" cy="21.26" r="12.47" fill="none" stroke="#c9d2dd" stroke-width="0.5"/>
+  <line x1="60.90" y1="13.60" x2="64.10" y2="13.60" stroke="#2b5ea8" stroke-width="0.8"/>
+  <line x1="62.50" y1="12.00" x2="62.50" y2="15.20" stroke="#2b5ea8" stroke-width="0.8"/>
+  <text x="69.45" y="20.10" font-family="Noto Sans" font-size="3.4"
+        fill="#2b5ea8" text-anchor="middle">DC 5V</text>
+  <text x="69.45" y="25.40" font-family="Noto Sans" font-size="3.4"
+        fill="#2b5ea8" text-anchor="middle">BUZZER</text>
+
+  <text x="9.836" y="18.660" font-family="Noto Sans" font-size="2.4" fill="#ffffff" text-anchor="start">GND</text>
+  <circle id="connector0pin" cx="6.236" cy="17.660" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="6.236" cy="17.660" r="1.15" fill="#3a3a3a"/>
+  <text x="9.836" y="25.860" font-family="Noto Sans" font-size="2.4" fill="#ffffff" text-anchor="start">SINAL</text>
+  <circle id="connector1pin" cx="6.236" cy="24.860" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="6.236" cy="24.860" r="1.15" fill="#3a3a3a"/>
+
+  <text x="35.43" y="34.60" font-family="Noto Sans" font-size="3.2"
+        fill="#ffffff" text-anchor="middle">P15</text>
+  <text x="35.43" y="38.60" font-family="Noto Sans" font-size="2.2"
+        fill="#a9c0dd" text-anchor="middle">gbk</text>
+ </g>
+</svg>

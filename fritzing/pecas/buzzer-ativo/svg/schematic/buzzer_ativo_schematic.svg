@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 72 unidades por polegada. Pino de 14,4 u (0,2") e terminais em
+     multiplo de 7,2 u, que e a grade de 0,1" do esquema do Fritzing. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="1.10000in" height="1.00000in" viewBox="0 0 79.200 72.000">
+ <g id="schematic">
+  <rect x="14.4" y="14.4" width="50.4" height="43.2"
+        fill="none" stroke="#000000" stroke-width="0.9"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect id="connector1pin" connectorName="SINAL" x="0.0" y="28.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="30.20" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">SINAL</text>
+  <rect id="connector0pin" connectorName="GND" x="35.65" y="57.6" width="0.7" height="14.4" fill="#787878" stroke="none"/>
+  <text x="38.0" y="65.4" font-family="Noto Sans" font-size="4" fill="#000000" text-anchor="start">GND</text>
+
+  <text x="39.6" y="44.9" font-family="Noto Sans" font-size="4.80" fill="#000000" text-anchor="middle">P15 BUZZER</text>
+ </g>
+</svg>

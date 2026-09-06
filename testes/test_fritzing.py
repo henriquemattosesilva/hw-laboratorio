@@ -370,3 +370,40 @@ def test_previa_tira_o_tamanho_do_proprio_svg(tmp_path):
     pagina = destino.read_text(encoding="utf-8")
     # rf433-tx tem 0,74803 pol de lado e o breadboard vai ampliado 4x.
     assert f'width="{round(0.74803 * 96 * 4)}" height="{round(0.74803 * 96 * 4)}"' in pagina
+
+
+def test_gerador_poe_a_fileira_na_borda_curta(tmp_path):
+    """Modulo com o conector na ponta, como o buzzer P15: a fileira corre na
+    vertical, e o passo passa a valer em y."""
+    pasta = nova_peca.criar("na-ponta", 32, 15, ["GND", "SINAL"], tmp_path,
+                            lado="esquerda")
+    bb = ElementTree.parse(
+        pasta / "svg" / "breadboard" / "na_ponta_breadboard.svg").getroot()
+    furos = [(float(e.get("cx")), float(e.get("cy"))) for e in bb.iter()
+             if (e.get("id") or "").startswith("connector")]
+    assert len({x for x, _ in furos}) == 1, "os furos deviam estar na mesma coluna"
+    ys = sorted(y for _, y in furos)
+    assert round(ys[1] - ys[0], 3) == 7.2
+    assert validar.problemas(pasta) == []
+
+
+def test_validador_mede_o_passo_em_linha_reta(tmp_path, peca):
+    """Medir so no eixo x veria zero na fileira vertical e deixaria passar
+    qualquer espacamento errado."""
+    torto = BB_MINIMO.replace('x="7.1" y="20"', 'x="7.1" y="20"').replace(
+        'x="14.3" y="20"', 'x="7.1" y="26.0"')
+    escrever(peca / "svg" / "breadboard" / "bb.svg", torto)
+    assert any("passo" in p for p in validar.problemas(peca))
+
+
+def test_gerador_recusa_lado_e_cor_desconhecidos(tmp_path):
+    with pytest.raises(ValueError, match="lado"):
+        nova_peca.criar("x1", 20, 20, ["A"], tmp_path, lado="diagonal")
+    with pytest.raises(ValueError, match="cor"):
+        nova_peca.criar("x2", 20, 20, ["A"], tmp_path, cor="roxa")
+
+
+def test_gerador_pinta_a_placa(tmp_path):
+    pasta = nova_peca.criar("azulzinha", 20, 20, ["A", "B"], tmp_path, cor="azul")
+    bb = (pasta / "svg" / "breadboard" / "azulzinha_breadboard.svg").read_text("utf-8")
+    assert "#1c4f8c" in bb and "#1f7a34" not in bb

@@ -68,7 +68,7 @@ página.
 
 ```text
 python -m pip install -r requisitos.txt   # PyYAML e pytest
-python -m pytest                          # 38 testes
+python -m pytest                          # 52 testes
 python ferramentas/gerar-pagina.py        # sempre, depois de mexer em qualquer YAML
 python ferramentas/novo-projeto.py nome "Título"
 pwsh ferramentas/previa.ps1 -Largura 390 -Destino previa-390.png
@@ -81,8 +81,8 @@ python fritzing/ferramentas/instalar.py   # atualiza no Fritzing (com ele fechad
 ## Peças Fritzing
 
 `fritzing/` guarda peças próprias do Fritzing, para módulos que o core do programa não
-traz. Hoje são duas, o transmissor FS1000A e o receptor MX-05V de 433 MHz. Os `id` são os
-mesmos do inventário, `rf433-tx` e `rf433-rx`.
+traz. Hoje são três: o transmissor FS1000A, o receptor MX-05V de 433 MHz e o buzzer ativo
+GBK P15. Os `id` são os mesmos do inventário — `rf433-tx`, `rf433-rx` e `buzzer-ativo`.
 
 **Peça nova sai do `nova-peca.py`**, que recebe as cotas em mm e os nomes dos pinos e já
 emite as quatro vistas com a geometria certa — resta desenhar o ornamento. As ferramentas
@@ -93,10 +93,10 @@ quê, lido dos verificadores dele, não de memória.
 **Reimportar o `.fzpz` mostra um erro que engana.** O Fritzing diz *"Part module ID must
 be unique"* e *"Part load error"*, mas a essa altura já copiou os arquivos novos para o
 disco: fechar e reabrir o programa mostra a peça atualizada. O caminho limpo é
-`python fritzing/instalar.py`, com o Fritzing fechado — nos dois casos ele precisa
+`python fritzing/ferramentas/instalar.py`, com o Fritzing fechado — nos dois casos ele precisa
 reiniciar para reler a biblioteca.
 
-**Os `.fzpz` em `fritzing/dist/` são gerados.** Saem de `python fritzing/empacotar.py`, a
+**Os `.fzpz` em `fritzing/dist/` são gerados.** Saem de `python fritzing/ferramentas/empacotar.py`, a
 partir do FZP e das SVGs. Mexer numa SVG sem reempacotar deixa o zip com o desenho antigo
 dentro, em silêncio — há teste para isso, e ele já pegou o erro uma vez.
 

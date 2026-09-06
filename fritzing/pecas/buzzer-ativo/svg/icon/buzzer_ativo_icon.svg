@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Icone do bin. Sem conector: icone nao tem. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="0.32000in" height="0.32000in" viewBox="0 0 23.040 23.040">
+ <g id="icon">
+  <rect x="1.00" y="6.59" width="21.04" height="9.86" rx="1.4" fill="#1c4f8c"/>
+  <circle cx="17.40" cy="11.52" r="3.80" fill="#141414"/>
+  <circle cx="17.40" cy="11.52" r="2.80" fill="#f2f4f7"/>
+  <circle cx="17.40" cy="11.52" r="0.95" fill="#2b5ea8"/>
+  <circle cx="3.20" cy="9.12" r="1.30" fill="#c9c9c9"/><circle cx="3.20" cy="9.12" r="0.60" fill="#3a3a3a"/>
+  <circle cx="3.20" cy="13.92" r="1.30" fill="#c9c9c9"/><circle cx="3.20" cy="13.92" r="0.60" fill="#3a3a3a"/>
+  <text x="8.80" y="13.00" font-family="Noto Sans" font-size="4.00"
+        fill="#ffffff" text-anchor="middle">P15</text>
+ </g>
+</svg>

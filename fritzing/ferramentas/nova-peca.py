@@ -31,12 +31,52 @@ PASSO_MM = 2.54  # 0,1 polegada
 BORDA_MM = 2.2   # do centro do furo ate a borda da placa
 MARGEM_MM = 3.2  # da borda esquerda ate o primeiro furo
 
-VERDE, VERDE_BORDA = "#1f7a34", "#14562a"
 METAL, FURO = "#c9c9c9", "#3a3a3a"
+
+# Cor da placa, com a borda mais escura e a tinta da serigrafia.
+CORES = {
+    "verde": ("#1f7a34", "#14562a", "#ffffff"),
+    "azul": ("#1c4f8c", "#123566", "#ffffff"),
+    "vermelha": ("#8c2020", "#5e1414", "#ffffff"),
+    "preta": ("#1e1e1e", "#000000", "#e8e8e8"),
+    "branca": ("#e4e4e4", "#b0b0b0", "#333333"),
+    "amarela": ("#b8901c", "#856612", "#ffffff"),
+}
+
+LADOS = ("baixo", "cima", "esquerda", "direita")
+ALINHAMENTOS = ("inicio", "centro", "fim")
 
 ALIMENTACAO = {"VCC", "VDD", "V+", "5V", "3V3", "3.3V", "VIN", "VBAT"}
 TERRA = {"GND", "GROUND", "VSS", "0V", "-"}
 DIREITA = {"ANT", "ANTENNA", "RF"}
+
+
+def posicoes(larg, alt, n, lado, alinhar="inicio"):
+    """Centro de cada furo em milimetros, na ordem em que os pinos foram dados.
+
+    Fileira em cima ou embaixo corre da esquerda para a direita; nas bordas
+    curtas corre de cima para baixo. E a ordem em que se le a serigrafia.
+
+    `alinhar` decide onde a fileira encosta na borda. Header longo em borda
+    longa costuma ficar encostado no comeco, que e o padrao; conector de dois
+    pinos na ponta da placa costuma ficar centrado.
+    """
+    corrida = (n - 1) * PASSO_MM
+    if lado in ("baixo", "cima"):
+        livre, fixo = larg, (alt - BORDA_MM if lado == "baixo" else BORDA_MM)
+    else:
+        livre, fixo = alt, (BORDA_MM if lado == "esquerda" else larg - BORDA_MM)
+
+    if alinhar == "centro" or MARGEM_MM * 2 + corrida > livre:
+        a0 = (livre - corrida) / 2
+    elif alinhar == "fim":
+        a0 = livre - MARGEM_MM - corrida
+    else:
+        a0 = MARGEM_MM
+
+    if lado in ("baixo", "cima"):
+        return [(a0 + i * PASSO_MM, fixo) for i in range(n)]
+    return [(fixo, a0 + i * PASSO_MM) for i in range(n)]
 
 
 # ---------------------------------------------------------------- conectores
@@ -63,26 +103,33 @@ def barramentos(originais, nomeados):
 
 def breadboard(cfg):
     larg, alt = cfg["larg"] * MM, cfg["alt"] * MM
-    passo, r_pad, r_furo = PASSO_MM * MM, 2.4, 1.15
-    cy = alt - BORDA_MM * MM
-    largura_barra = (len(cfg["pinos"]) - 1) * passo
-    margem = MARGEM_MM * MM
-    x0 = margem if margem * 2 + largura_barra <= larg else (larg - largura_barra) / 2
+    r_pad, r_furo, tam_rotulo = 2.4, 1.15, 2.4
+    lado, tinta = cfg["lado"], cfg["tinta"]
+    furos = [(x * MM, y * MM) for x, y in cfg["furos"]]
 
     corpo = [
-        f'  <rect x="0" y="0" width="{larg:.3f}" height="{alt:.3f}" rx="1.5" fill="{VERDE}"/>',
+        f'  <rect x="0" y="0" width="{larg:.3f}" height="{alt:.3f}" rx="1.5"'
+        f' fill="{cfg["placa"]}"/>',
         f'  <rect x="0.4" y="0.4" width="{larg - 0.8:.3f}" height="{alt - 0.8:.3f}" rx="1.2"',
-        f'        fill="none" stroke="{VERDE_BORDA}" stroke-width="0.8"/>',
+        f'        fill="none" stroke="{cfg["borda"]}" stroke-width="0.8"/>',
         "",
         "  <!-- O ornamento entra aqui: os componentes da placa, sem id nenhum para",
         "       nao colidir com os conectores. Ver CONVENCOES.md. -->",
         "",
     ]
-    for i, nome in enumerate(cfg["pinos"]):
-        cx = x0 + i * passo
+
+    # O rotulo do pino sai para o lado de dentro da placa, seja qual for a
+    # borda em que a fileira esta.
+    desloca = {"baixo": (0, -4.6, "middle"), "cima": (0, 6.6, "middle"),
+               "esquerda": (r_pad + 1.2, 1.0, "start"),
+               "direita": (-r_pad - 1.2, 1.0, "end")}[lado]
+
+    for i, (nome, (cx, cy)) in enumerate(zip(cfg["pinos"], furos)):
+        dx, dy, ancora = desloca
         corpo += [
-            f'  <text x="{cx:.3f}" y="{cy - 4.6:.3f}" font-family="Noto Sans" font-size="2.4"'
-            f' fill="#ffffff" text-anchor="middle">{nome}</text>',
+            f'  <text x="{cx + dx:.3f}" y="{cy + dy:.3f}" font-family="Noto Sans"'
+            f' font-size="{tam_rotulo}" fill="{tinta}"'
+            f' text-anchor="{ancora}">{nome}</text>',
             f'  <circle id="connector{i}pin" cx="{cx:.3f}" cy="{cy:.3f}" r="{r_pad}"'
             f' fill="{METAL}" stroke="none"/>',
             f'  <circle cx="{cx:.3f}" cy="{cy:.3f}" r="{r_furo}" fill="{FURO}"/>',
@@ -95,30 +142,47 @@ def breadboard(cfg):
             f' fill="{METAL}" stroke="none"/>',
             f'  <circle cx="{cx:.3f}" cy="{cy_ant:.3f}" r="{r_furo}" fill="{FURO}"/>',
             f'  <text x="{cx:.3f}" y="{cy_ant + 7.2:.3f}" font-family="Noto Sans"'
-            f' font-size="2.8" fill="#ffffff" text-anchor="middle">ANT</text>',
+            f' font-size="2.8" fill="{tinta}" text-anchor="middle">ANT</text>',
         ]
 
-    # A folga se mede da borda do ultimo furo, nao do centro dele: medindo do
-    # centro, o rotulo encosta no furo em placa estreita.
-    livre = x0 + largura_barra + r_pad + 2.5
-    sobra = larg - livre - 2.0
-    rotulo = cfg["rotulo"]
-    if sobra >= 14:
-        tam = min(3.2, sobra / (len(rotulo) * 0.62))
-        corpo.append(
-            f'  <text x="{livre + sobra / 2:.3f}" y="{cy + 1.0:.3f}"'
-            f' font-family="Noto Sans" font-size="{tam:.2f}" fill="#ffffff"'
-            f' text-anchor="middle">{rotulo}</text>')
-    else:
-        corpo.append(
-            f'  <text x="{larg / 2:.3f}" y="{cy - 9.0:.3f}" font-family="Noto Sans"'
-            f' font-size="3.0" fill="#ffffff" text-anchor="middle">{rotulo}</text>')
+    corpo += rotulo_da_placa(cfg, larg, alt, furos, r_pad, tam_rotulo)
 
     cabeca = (f'<!-- {cfg["titulo"]}, vista de cima. Placa de {cfg["larg"]:g} x '
-              f'{cfg["alt"]:g} mm.\n'
+              f'{cfg["alt"]:g} mm, conectores na borda de {lado}.\n'
               f'     72 unidades por polegada: 1 mm = 2,834646 u e o passo de 0,1" = 7,2 u.\n'
               f'     Furo de encaixe, sem pino saindo: e assim que o fio entra. -->')
     return svg(cabeca, larg, alt, "breadboard", corpo)
+
+
+def rotulo_da_placa(cfg, larg, alt, furos, r_pad, tam_rotulo):
+    """Poe o nome da peca no espaco que a fileira de furos deixou livre.
+
+    A folga se mede da borda do furo e do fim do rotulo do pino, nao do centro
+    do furo: medindo do centro, o nome encosta nos furos em placa estreita.
+    """
+    nome = cfg["rotulo"]
+    largo_rotulos = max(len(p) for p in cfg["pinos"]) * 0.62 * tam_rotulo
+    xs = [x for x, _ in furos]
+
+    if cfg["lado"] in ("baixo", "cima"):
+        x0, x1 = max(xs) + r_pad + 2.5, larg - 2.0
+        cy = furos[0][1] + 1.0
+    elif cfg["lado"] == "esquerda":
+        x0, x1 = max(xs) + r_pad + 1.2 + largo_rotulos + 2.0, larg - 2.0
+        cy = alt / 2 + 1.0
+    else:
+        x0, x1 = 2.0, min(xs) - r_pad - 1.2 - largo_rotulos - 2.0
+        cy = alt / 2 + 1.0
+
+    sobra = x1 - x0
+    if sobra < 14:
+        return [f'  <text x="{larg / 2:.3f}" y="{alt / 2 + 1.2:.3f}"'
+                f' font-family="Noto Sans" font-size="3.0" fill="{cfg["tinta"]}"'
+                f' text-anchor="middle">{nome}</text>']
+    tam = min(3.2, sobra / (len(nome) * 0.62))
+    return [f'  <text x="{(x0 + x1) / 2:.3f}" y="{cy:.3f}" font-family="Noto Sans"'
+            f' font-size="{tam:.2f}" fill="{cfg["tinta"]}"'
+            f' text-anchor="middle">{nome}</text>']
 
 
 def _fatia_schematic(cfg):
@@ -190,10 +254,17 @@ def schematic(cfg):
             f' fill="#000000" text-anchor="start">{nome}</text>',
         ]
 
+    # O titulo vai para o maior vao livre da caixa. Fixo no topo, ele encosta no
+    # rotulo do primeiro pino quando a peca tem poucos pinos — e sobra a metade
+    # de baixo da caixa vazia.
+    tam = min(4.8, (caixa_w - 8) / (len(cfg["rotulo"]) * 0.62))
+    ultimo = caixa_y + passo * linhas
+    folga = caixa_y + caixa_h - ultimo
+    ty = (ultimo + folga / 2 + tam * 0.36) if folga >= 12 else caixa_y + 10.0
     corpo += [
         "",
-        f'  <text x="{caixa_x + caixa_w / 2:.1f}" y="{caixa_y + 10.0:.1f}"'
-        f' font-family="Noto Sans" font-size="4.8" fill="#000000"'
+        f'  <text x="{caixa_x + caixa_w / 2:.1f}" y="{ty:.1f}"'
+        f' font-family="Noto Sans" font-size="{tam:.2f}" fill="#000000"'
         f' text-anchor="middle">{cfg["rotulo"]}</text>',
     ]
 
@@ -204,29 +275,29 @@ def schematic(cfg):
 
 def pcb(cfg):
     larg, alt = cfg["larg"] * MIL, cfg["alt"] * MIL
-    passo, cy = PASSO_MM * MIL, alt - BORDA_MM * MIL
-    largura_barra = (len(cfg["pinos"]) - 1) * passo
-    margem = MARGEM_MM * MIL
-    x0 = margem if margem * 2 + largura_barra <= larg else (larg - largura_barra) / 2
+    pos = [(x * MIL, y * MIL) for x, y in cfg["furos"]]
 
-    furos = []
-    for i in range(len(cfg["pinos"])):
-        furos.append(f'   <circle id="connector{i}pin" cx="{x0 + i * passo:.1f}"'
-                     f' cy="{cy:.1f}" r="27.5" fill="none" stroke="rgb(255, 191, 0)"'
-                     f' stroke-width="20"/>')
+    furos = [f'   <circle id="connector{i}pin" cx="{cx:.1f}" cy="{cy:.1f}" r="27.5"'
+             f' fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>'
+             for i, (cx, cy) in enumerate(pos)]
     if cfg["ant"]:
         furos.append(f'   <circle id="connector{len(cfg["pinos"])}pin"'
                      f' cx="{larg - 4.0 * MIL:.1f}" cy="{4.0 * MIL:.1f}" r="27.5"'
                      f' fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>')
 
+    # Marca do pino 1, deslocada para dentro da placa.
+    marca = {"baixo": (0, -75), "cima": (0, 75),
+             "esquerda": (75, 0), "direita": (-75, 0)}[cfg["lado"]]
+    tam = min(70.0, (larg - 120) / (len(cfg["rotulo"]) * 0.62))
+
     corpo = ['  <g id="copper1">', '   <g id="copper0">'] + furos + ["   </g>", "  </g>",
              '  <g id="silkscreen">',
              f'   <rect x="5" y="5" width="{larg - 10:.1f}" height="{alt - 10:.1f}"'
              f' fill="none" stroke="#f0f0f0" stroke-width="10"/>',
-             f'   <circle cx="{x0:.1f}" cy="{cy - 75:.1f}" r="14" fill="none"'
-             f' stroke="#f0f0f0" stroke-width="10"/>',
+             f'   <circle cx="{pos[0][0] + marca[0]:.1f}" cy="{pos[0][1] + marca[1]:.1f}"'
+             f' r="14" fill="none" stroke="#f0f0f0" stroke-width="10"/>',
              f'   <text x="{larg / 2:.1f}" y="{alt / 2:.1f}"'
-             f' font-family="OCR-Fritzing-mono" font-size="70" fill="#f0f0f0"'
+             f' font-family="OCR-Fritzing-mono" font-size="{tam:.0f}" fill="#f0f0f0"'
              f' text-anchor="middle">{cfg["rotulo"]}</text>',
              "  </g>"]
 
@@ -236,41 +307,57 @@ def pcb(cfg):
 
 
 def icon(cfg):
-    lado = 23.04
+    quadro = 23.04
     proporcao = cfg["larg"] / cfg["alt"]
-    larg_placa = lado - 2 if proporcao >= 1 else (lado - 2) * proporcao
-    alt_placa = (lado - 2) / proporcao if proporcao >= 1 else lado - 2
-    alt_placa = min(alt_placa, lado - 2)
-    x0, y0 = (lado - larg_placa) / 2, (lado - alt_placa) / 2
+    larg_placa = quadro - 2 if proporcao >= 1 else (quadro - 2) * proporcao
+    alt_placa = min((quadro - 2) / proporcao if proporcao >= 1 else quadro - 2,
+                    quadro - 2)
+    x0, y0 = (quadro - larg_placa) / 2, (quadro - alt_placa) / 2
 
     n = len(cfg["pinos"])
-    passo = min(4.8, (larg_placa - 4) / max(n - 1, 1))
-    inicio = x0 + (larg_placa - passo * (n - 1)) / 2
-    r_pad = min(1.5, alt_placa / 6)
-    cy = y0 + alt_placa - r_pad - 1.0
+    vertical = cfg["lado"] in ("esquerda", "direita")
+    corrida = alt_placa if vertical else larg_placa
+    r_pad = min(1.5, (larg_placa if vertical else alt_placa) / 6)
+    passo = min(4.8, (corrida - 3) / max(n - 1, 1))
+    inicio = (y0 if vertical else x0) + (corrida - passo * (n - 1)) / 2
+    fixo = {"baixo": y0 + alt_placa - r_pad - 1.0,
+            "cima": y0 + r_pad + 1.0,
+            "esquerda": x0 + r_pad + 1.0,
+            "direita": x0 + larg_placa - r_pad - 1.0}[cfg["lado"]]
 
     corpo = [f'  <rect x="{x0:.2f}" y="{y0:.2f}" width="{larg_placa:.2f}"'
-             f' height="{alt_placa:.2f}" rx="1.4" fill="{VERDE}"/>']
+             f' height="{alt_placa:.2f}" rx="1.4" fill="{cfg["placa"]}"/>']
     for i in range(n):
-        cx = inicio + i * passo
+        p = inicio + i * passo
+        cx, cy = (fixo, p) if vertical else (p, fixo)
         corpo.append(f'  <circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r_pad:.2f}"'
                      f' fill="{METAL}"/>'
                      f'<circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r_pad * 0.47:.2f}"'
                      f' fill="{FURO}"/>')
 
-    # Placa achatada deixa pouca altura acima dos furos, e texto de tamanho fixo
-    # vaza para fora do icone. O tamanho sai do espaco que sobrou, nos dois eixos.
+    # Placa achatada deixa pouco espaco livre, e texto de tamanho fixo vaza para
+    # fora do icone. O tamanho sai do que sobrou, nos dois eixos.
     texto = cfg["icone"]
-    topo_furos = cy - r_pad
-    espaco = topo_furos - y0 - 1.0
-    tam = max(2.0, min(6.0, (larg_placa - 2) / (len(texto) * 0.62), espaco))
-    corpo.append(f'  <text x="{lado / 2:.2f}"'
-                 f' y="{(y0 + topo_furos) / 2 + tam * 0.36:.2f}"'
-                 f' font-family="Noto Sans" font-size="{tam:.2f}" fill="#ffffff"'
+    if vertical:
+        borda = fixo + r_pad if cfg["lado"] == "esquerda" else fixo - r_pad
+        tx0, tx1 = ((borda + 0.6, x0 + larg_placa - 0.6) if cfg["lado"] == "esquerda"
+                    else (x0 + 0.6, borda - 0.6))
+        vao_larg, vao_alt = tx1 - tx0, alt_placa - 2.0
+        cx_texto, cy_centro = (tx0 + tx1) / 2, y0 + alt_placa / 2
+    else:
+        topo = fixo - r_pad if cfg["lado"] == "baixo" else fixo + r_pad
+        vao_larg = larg_placa - 2.0
+        vao_alt = (topo - y0 - 1.0) if cfg["lado"] == "baixo" else (y0 + alt_placa - topo - 1.0)
+        cx_texto = quadro / 2
+        cy_centro = (y0 + topo) / 2 if cfg["lado"] == "baixo" else (topo + y0 + alt_placa) / 2
+
+    tam = max(2.0, min(6.0, vao_larg / (len(texto) * 0.62), vao_alt))
+    corpo.append(f'  <text x="{cx_texto:.2f}" y="{cy_centro + tam * 0.36:.2f}"'
+                 f' font-family="Noto Sans" font-size="{tam:.2f}" fill="{cfg["tinta"]}"'
                  f' text-anchor="middle">{texto}</text>')
 
     return svg("<!-- Icone do bin. Sem conector: icone nao tem. -->",
-               lado, lado, "icon", corpo)
+               quadro, quadro, "icon", corpo)
 
 
 def svg(cabeca, larg, alt, camada, corpo, mil=False):
@@ -358,24 +445,35 @@ def fzp(cfg):
 # --------------------------------------------------------------------- criar
 
 def criar(ident, larg, alt, pinos, destino, titulo=None, familia=None,
-          ant=False, data="2026-09-06"):
+          ant=False, lado="baixo", cor="verde", alinhar="inicio",
+          data="2026-09-06"):
     """Escreve a peca em `destino`/<ident>. Devolve a pasta criada."""
     brutos = [p.strip().upper() for p in pinos if p.strip()]
     if not brutos:
         raise ValueError("a peca precisa de pelo menos um pino")
+    if lado not in LADOS:
+        raise ValueError(f"lado precisa ser um de {', '.join(LADOS)}")
+    if cor not in CORES:
+        raise ValueError(f"cor precisa ser uma de {', '.join(CORES)}")
+    if alinhar not in ALINHAMENTOS:
+        raise ValueError(f"alinhar precisa ser um de {', '.join(ALINHAMENTOS)}")
     nomeados = nomear(brutos)
 
     passo_total = (len(nomeados) - 1) * PASSO_MM
-    if passo_total + 2 * BORDA_MM > larg:
+    extensao = larg if lado in ("baixo", "cima") else alt
+    if passo_total + 2 * BORDA_MM > extensao:
         raise ValueError(
-            f"{len(nomeados)} pinos ocupam {passo_total:.1f} mm e nao cabem numa "
-            f"placa de {larg:g} mm")
+            f"{len(nomeados)} pinos ocupam {passo_total:.1f} mm e nao cabem na "
+            f"borda de {lado}, que tem {extensao:g} mm")
 
+    placa, borda, tinta = CORES[cor]
     slug = ident.replace("-", "_")
     rotulo = ident.upper()
     cfg = {
         "id": ident, "slug": slug, "larg": larg, "alt": alt,
-        "pinos": nomeados, "ant": ant,
+        "pinos": nomeados, "ant": ant, "lado": lado,
+        "furos": posicoes(larg, alt, len(nomeados), lado, alinhar),
+        "placa": placa, "borda": borda, "tinta": tinta,
         "barramentos": barramentos(brutos, nomeados),
         "titulo": titulo or ident, "rotulo": rotulo,
         "icone": re.sub(r"[^A-Z0-9]", "", rotulo)[:4] or "?",
@@ -412,8 +510,17 @@ def main():
     ap.add_argument("--mm", required=True, metavar="LxA",
                     help="cotas da placa em milimetros, ex.: 45x20")
     ap.add_argument("--pinos", required=True,
-                    help="nomes da esquerda para a direita VISTA DE CIMA, "
-                         "separados por virgula. Nome repetido vira barramento.")
+                    help="nomes na ordem em que aparecem VISTA DE CIMA, separados "
+                         "por virgula: da esquerda para a direita nas bordas de "
+                         "cima e de baixo, de cima para baixo nas bordas curtas. "
+                         "Nome repetido vira barramento.")
+    ap.add_argument("--lado", default="baixo", choices=LADOS,
+                    help="borda onde fica a fileira de furos (padrao: baixo)")
+    ap.add_argument("--cor", default="verde", choices=sorted(CORES),
+                    help="cor da placa (padrao: verde)")
+    ap.add_argument("--alinhar", default="inicio", choices=ALINHAMENTOS,
+                    help="onde a fileira encosta na borda (padrao: inicio). "
+                         "Conector de poucos pinos na ponta costuma ser centro.")
     ap.add_argument("--titulo", help="titulo legivel, mostrado no Fritzing")
     ap.add_argument("--familia", help="family do Inspector; pecas da mesma familia "
                                       "viram variantes uma da outra")
@@ -433,7 +540,8 @@ def main():
     try:
         pasta = criar(args.id, float(casado[1]), float(casado[2]),
                       args.pinos.split(","), pecas.PASTA,
-                      titulo=args.titulo, familia=args.familia, ant=args.ant)
+                      titulo=args.titulo, familia=args.familia, ant=args.ant,
+                      lado=args.lado, cor=args.cor, alinhar=args.alinhar)
     except ValueError as erro:
         print(erro)
         return 1
