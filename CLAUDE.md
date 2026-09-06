@@ -66,6 +66,7 @@ python ferramentas/gerar-pagina.py        # sempre, depois de mexer em qualquer 
 python ferramentas/novo-projeto.py nome "Título"
 pwsh ferramentas/previa.ps1 -Largura 390 -Destino previa-390.png
 python fritzing/empacotar.py              # sempre, depois de mexer numa SVG de peca
+python fritzing/instalar.py               # atualiza a peca no Fritzing (com ele fechado)
 ```
 
 ## Peças Fritzing
@@ -73,6 +74,11 @@ python fritzing/empacotar.py              # sempre, depois de mexer numa SVG de 
 `fritzing/` guarda peças próprias do Fritzing, para módulos que o core do programa não
 traz. Hoje são duas, o transmissor FS1000A e o receptor MX-05V de 433 MHz. Os `id` são os
 mesmos do inventário, `rf433-tx` e `rf433-rx`.
+
+**Reimportar o `.fzpz` não atualiza peça já instalada.** O Fritzing recusa com *"Part
+module ID must be unique"*, porque o id já está na biblioteca — e o id é mantido de
+propósito, senão cada correção viraria uma peça nova. Atualizar é rodar
+`python fritzing/instalar.py`, com o Fritzing fechado.
 
 **Os `.fzpz` em `fritzing/dist/` são gerados.** Saem de `python fritzing/empacotar.py`, a
 partir do FZP e das SVGs. Mexer numa SVG sem reempacotar deixa o zip com o desenho antigo

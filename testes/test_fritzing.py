@@ -10,6 +10,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ / "fritzing"))
 
 import empacotar  # noqa: E402
+import instalar  # noqa: E402
 import validar  # noqa: E402
 
 
@@ -268,3 +269,23 @@ def test_os_fzpz_publicados_estao_em_dia_com_os_fontes():
             fonte[f"svg.{arquivo.parent.name}.{arquivo.name}"] = _lf(arquivo.read_bytes())
 
         assert conteudo == fonte, f"{nome} esta velho; rode python fritzing/empacotar.py"
+
+
+def test_instala_no_layout_de_pastas_da_biblioteca_do_fritzing(tmp_path, peca):
+    """O Fritzing procura o FZP em parts/user/<moduleid>.fzp e as SVGs em
+    parts/svg/user/<vista>/. Fora desse layout ele nao acha a peca."""
+    escritos = instalar.instalar(peca, tmp_path)
+    relativos = sorted(str(c.relative_to(tmp_path)).replace("\\", "/") for c in escritos)
+    assert relativos == [
+        "svg/user/breadboard/bb.svg",
+        "svg/user/icon/ic.svg",
+        "svg/user/pcb/pcb.svg",
+        "svg/user/schematic/sc.svg",
+        "user/peca-teste.fzp",
+    ]
+
+
+def test_instalar_recusa_peca_com_problema(tmp_path, peca):
+    (peca / "svg" / "icon" / "ic.svg").unlink()
+    with pytest.raises(ValueError, match="icon/ic.svg"):
+        instalar.instalar(peca, tmp_path)

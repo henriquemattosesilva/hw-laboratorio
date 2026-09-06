@@ -7,7 +7,7 @@ com um retângulo genérico no lugar dos módulos.
 Os `id` são os mesmos do inventário: `rf433-tx` e `rf433-rx` em
 `componentes/comunicacao.yaml`.
 
-## Instalar
+## Instalar, na primeira vez
 
 Abrir o Fritzing e ir em **Arquivo > Abrir**, apontando para o `.fzpz`:
 
@@ -20,14 +20,36 @@ A peça entra no bin **Minhas Peças** e passa a viver em
 `Documentos/Fritzing/parts/user`. As duas compartilham a mesma `family`, então o Inspector
 oferece trocar transmissor por receptor na lista de variantes.
 
-**Reimportar não atualiza sketch antigo.** O Fritzing guarda uma cópia da peça dentro do
-`.fzz`. Corrigido um desenho, o sketch já salvo continua com o desenho velho — é preciso
-apagar a peça do sketch e colocar de novo.
+## Atualizar, da segunda vez em diante
+
+**Importar o `.fzpz` de novo não funciona.** O Fritzing recusa com
+
+```text
+Part module ID must be unique.
+Part load error
+```
+
+porque a peça com aquele `moduleId` já está na biblioteca, e ele não oferece substituir.
+Manter o mesmo `moduleId` é proposital: trocá-lo a cada correção encheria a biblioteca de
+cópias, cada uma parecendo uma peça diferente. Atualizar é trocar os arquivos:
+
+```text
+# feche o Fritzing antes — ele lê a biblioteca ao iniciar
+python fritzing/instalar.py
+```
+
+O script copia o FZP para `parts/user/<moduleid>.fzp` e as SVGs para
+`parts/svg/user/<vista>/`, valida antes de copiar e se recusa a rodar com o programa
+aberto.
+
+**Nem isso atualiza sketch já salvo.** O Fritzing guarda uma cópia da peça dentro do
+`.fzz`. No sketch antigo é preciso apagar a peça e colocar de novo.
 
 ## Regerar depois de mexer num SVG
 
 ```text
 python fritzing/empacotar.py     # reescreve os dois .fzpz em fritzing/dist/
+python fritzing/instalar.py      # atualiza a biblioteca do Fritzing
 python -m pytest                 # entre eles, o teste que pega .fzpz velho
 ```
 
@@ -59,6 +81,7 @@ quarto de onda em 433,92 MHz; sem antena o alcance é de centímetros.
 ## Como está montado
 
 ```text
+instalar.py    copia as peças para a biblioteca do Fritzing; é como se atualiza
 validar.py     confere a peça por leitura: SVG citada que não existe, conector sem
                elemento, passo fora da grade de 0,1", fonte proibida, id repetido,
                propriedade vazia, barramento órfão, terminalId declarado à mão
