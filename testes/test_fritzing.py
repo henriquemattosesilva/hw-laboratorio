@@ -225,3 +225,21 @@ def test_receptor_liga_os_dois_data_em_barramento():
     fzp = ElementTree.parse(RAIZ / "fritzing" / "rf433-rx" / "part.fzp").getroot()
     membros = {m.get("connectorId") for m in fzp.iter("nodeMember")}
     assert membros == {"connector1", "connector2"}
+
+
+def test_empacota_com_os_nomes_planos_que_o_fritzing_espera(tmp_path, peca):
+    destino = empacotar.empacotar(peca, tmp_path / "Peca.fzpz")
+    nomes = set(zipfile.ZipFile(destino).namelist())
+    assert nomes == {
+        "part.peca-teste.fzp",
+        "svg.breadboard.bb.svg",
+        "svg.schematic.sc.svg",
+        "svg.pcb.pcb.svg",
+        "svg.icon.ic.svg",
+    }
+
+
+def test_recusa_empacotar_peca_com_problema(tmp_path, peca):
+    (peca / "svg" / "icon" / "ic.svg").unlink()
+    with pytest.raises(ValueError, match="icon/ic.svg"):
+        empacotar.empacotar(peca, tmp_path / "Peca.fzpz")
