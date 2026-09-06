@@ -6,6 +6,7 @@ pasta é onde as que faltam são feitas. Os `id` são os mesmos do inventário e
 
 ```text
 fritzing/
+  CLAUDE.md          as regras que quebram o trabalho quando esquecidas
   CONVENCOES.md      o que o Fritzing cobra de uma peça, e as decisões desta pasta
   ferramentas/
     nova-peca.py     cria peça nova com a geometria já certa

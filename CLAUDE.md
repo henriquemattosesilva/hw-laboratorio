@@ -105,7 +105,8 @@ onde se lê GND DATA DATA VCC; vista de cima, que é como o Fritzing desenha, a 
 **VCC DATA DATA GND**. Ler o verso sem espelhar troca alimentação com terra. As duas
 ordens têm teste.
 
-Detalhes de instalação, coordenadas e conferência em `fritzing/README.md`.
+A pasta tem documento vivo próprio em `fritzing/CLAUDE.md`, com as regras que
+quebram o trabalho quando esquecidas; o como-fazer está em `fritzing/README.md`.
 
 ## Impressão 3D
 
