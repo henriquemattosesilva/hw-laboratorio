@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 72 unidades por polegada. Pino de 14,4 u (0,2") e terminais em
+     multiplo de 7,2 u, que e a grade de 0,1" do esquema do Fritzing. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="1.30000in" height="2.70000in" viewBox="0 0 93.600 194.400">
+ <g id="schematic">
+  <rect x="14.4" y="14.4" width="64.8" height="165.6"
+        fill="none" stroke="#000000" stroke-width="0.9"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect id="connector0pin" connectorName="GND" x="0.0" y="21.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="22.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">GND</text>
+  <rect id="connector1pin" connectorName="TX" x="0.0" y="28.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="29.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">TX</text>
+  <rect id="connector2pin" connectorName="RX" x="0.0" y="35.65" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="37.12" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">RX</text>
+  <rect id="connector3pin" connectorName="1" x="0.0" y="42.85" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="44.32" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">1</text>
+  <rect id="connector4pin" connectorName="2" x="0.0" y="50.05" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="51.52" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">2</text>
+  <rect id="connector5pin" connectorName="42" x="0.0" y="57.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="58.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">42</text>
+  <rect id="connector6pin" connectorName="41" x="0.0" y="64.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="65.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">41</text>
+  <rect id="connector7pin" connectorName="40" x="0.0" y="71.65" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="73.12" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">40</text>
+  <rect id="connector8pin" connectorName="39" x="0.0" y="78.85" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="80.32" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">39</text>
+  <rect id="connector9pin" connectorName="38" x="0.0" y="86.05" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="87.52" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">38</text>
+  <rect id="connector10pin" connectorName="37" x="0.0" y="93.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="94.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">37</text>
+  <rect id="connector11pin" connectorName="36" x="0.0" y="100.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="101.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">36</text>
+  <rect id="connector12pin" connectorName="35" x="0.0" y="107.65" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="109.12" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">35</text>
+  <rect id="connector13pin" connectorName="0" x="0.0" y="114.85" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="116.32" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">0</text>
+  <rect id="connector14pin" connectorName="45" x="0.0" y="122.05" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="123.52" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">45</text>
+  <rect id="connector15pin" connectorName="48" x="0.0" y="129.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="130.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">48</text>
+  <rect id="connector16pin" connectorName="47" x="0.0" y="136.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="137.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">47</text>
+  <rect id="connector17pin" connectorName="21" x="0.0" y="143.65" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="145.12" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">21</text>
+  <rect id="connector18pin" connectorName="20" x="0.0" y="150.85" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="152.32" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">20</text>
+  <rect id="connector19pin" connectorName="19" x="0.0" y="158.05" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="159.52" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">19</text>
+  <rect id="connector20pin" connectorName="GND2" x="0.0" y="165.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="166.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">GND2</text>
+  <rect id="connector21pin" connectorName="GND3" x="0.0" y="172.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="17.4" y="173.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="start">GND3</text>
+  <rect id="connector22pin" connectorName="3V3" x="79.2" y="21.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="22.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">3V3</text>
+  <rect id="connector23pin" connectorName="3V32" x="79.2" y="28.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="29.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">3V32</text>
+  <rect id="connector24pin" connectorName="RST" x="79.2" y="35.65" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="37.12" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">RST</text>
+  <rect id="connector25pin" connectorName="4" x="79.2" y="42.85" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="44.32" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">4</text>
+  <rect id="connector26pin" connectorName="5" x="79.2" y="50.05" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="51.52" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">5</text>
+  <rect id="connector27pin" connectorName="6" x="79.2" y="57.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="58.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">6</text>
+  <rect id="connector28pin" connectorName="7" x="79.2" y="64.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="65.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">7</text>
+  <rect id="connector29pin" connectorName="15" x="79.2" y="71.65" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="73.12" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">15</text>
+  <rect id="connector30pin" connectorName="16" x="79.2" y="78.85" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="80.32" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">16</text>
+  <rect id="connector31pin" connectorName="17" x="79.2" y="86.05" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="87.52" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">17</text>
+  <rect id="connector32pin" connectorName="18" x="79.2" y="93.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="94.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">18</text>
+  <rect id="connector33pin" connectorName="8" x="79.2" y="100.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="101.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">8</text>
+  <rect id="connector34pin" connectorName="3" x="79.2" y="107.65" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="109.12" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">3</text>
+  <rect id="connector35pin" connectorName="46" x="79.2" y="114.85" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="116.32" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">46</text>
+  <rect id="connector36pin" connectorName="9" x="79.2" y="122.05" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="123.52" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">9</text>
+  <rect id="connector37pin" connectorName="10" x="79.2" y="129.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="130.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">10</text>
+  <rect id="connector38pin" connectorName="11" x="79.2" y="136.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="137.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">11</text>
+  <rect id="connector39pin" connectorName="12" x="79.2" y="143.65" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="145.12" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">12</text>
+  <rect id="connector40pin" connectorName="13" x="79.2" y="150.85" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="152.32" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">13</text>
+  <rect id="connector41pin" connectorName="14" x="79.2" y="158.05" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="159.52" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">14</text>
+  <rect id="connector42pin" connectorName="5VIN" x="79.2" y="165.25" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="166.72" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">5VIN</text>
+  <rect id="connector43pin" connectorName="GND4" x="79.2" y="172.45" width="14.4" height="0.7" fill="#787878" stroke="none"/>
+  <text x="76.2" y="173.92" font-family="Noto Sans" font-size="3.2" fill="#000000" text-anchor="end">GND4</text>
+
+  <text x="46.8" y="10.9" font-family="Noto Sans" font-size="4.80" fill="#000000" text-anchor="middle">ESP32-S3-N16R8</text>
+ </g>
+</svg>

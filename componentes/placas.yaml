@@ -33,3 +33,19 @@
     A placa da gaveta é a LoLin v3, de 59 x 31 mm, com as fileiras a 1,1 polegada: ela cobre a protoboard inteira e não deixa coluna livre.
     O terceiro pino de baixo é VU, os 5 V do USB. Na Amica, que é a versão estreita, esse mesmo pino é RSV e não tem ligação nenhuma.
     Tem peça Fritzing própria em fritzing/pecas/nodemcu-lolin-v3/, porque a do core do programa é a Amica.
+
+- id: esp32-s3-n16r8
+  nome: "Placa ESP32-S3 N16R8 (ESP32-S3-WROOM-1, USB-C dupla)"
+  qtd: 1
+  tensao: "3,3 V nos pinos; 5 V no 5Vin ou por qualquer uma das duas USB-C"
+  interface: "Wi-Fi 2,4 GHz e Bluetooth LE 5; 44 pinos em duas fileiras a 0,9 polegada"
+  notas: |
+    Xtensa LX7 de dois núcleos a 240 MHz, 16 MB de flash e 8 MB de PSRAM: é isso que o N16R8 quer dizer.
+    GPIO 35, 36 e 37 estão ligados à PSRAM octal e NÃO podem ser usados, embora venham nos headers.
+    Os pinos não são tolerantes a 5 V.
+    As duas USB-C são portas diferentes: COM passa pelo conversor serial, USB é a nativa do S3 e faz CDC, JTAG e OTG.
+    GPIO 19 e 20 são o D- e o D+ dessa USB nativa: usá-los como GPIO derruba a porta.
+    BOOT é o GPIO0: segurar BOOT e dar um toque no RST põe a placa em modo de gravação.
+    Tem LED RGB endereçável a bordo, no GPIO48 na maioria destas placas — confirmar com um blink antes de contar com isso.
+    Com as fileiras a 0,9 polegada sobra uma coluna livre de cada lado na protoboard, ao contrário da NodeMCU LoLin v3.
+    Tem peça Fritzing própria em fritzing/pecas/esp32-s3-n16r8/.

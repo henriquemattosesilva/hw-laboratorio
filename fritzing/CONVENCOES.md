@@ -98,6 +98,11 @@ rótulos de VCC e GND **fora** da caixa, ao lado do próprio pino. Dentro eles d
 espaço com o título e o desenho fica apertado. Enfileirar tudo de um lado só polui o
 traçado de quem usa a peça.
 
+**Serigrafia do verso pode aparecer na vista de cima, quando decide alguma coisa.** A
+ESP32-S3 tem duas USB-C iguais por fora e diferentes por dentro, e o que diz qual é qual
+— `USB` e `COM` — está escrito no verso. Foi trazido para a vista de cima porque é ali
+que se escolhe a porta. Fora esse caso, o desenho segue a face de cima.
+
 **`moduleId` termina em `-hwlab`.** Marca a origem e evita colidir com peça de terceiro na
 biblioteca. E **nunca muda** depois de publicado: trocar o id a cada correção encheria a
 biblioteca de cópias, cada uma parecendo uma peça diferente.

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1000 unidades por polegada, que e a escala das pecas THT do core.
+     Furo de 35 mil e anel de 75 mil: r 27,5 com traco de 20. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="2.24410in" height="1.10236in" viewBox="0 0 2244.096 1102.363">
+  <g id="copper1">
+   <g id="copper0">
+   <circle id="connector0pin" cx="72.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector1pin" cx="172.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector2pin" cx="272.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector3pin" cx="372.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector4pin" cx="472.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector5pin" cx="572.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector6pin" cx="672.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector7pin" cx="772.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector8pin" cx="872.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector9pin" cx="972.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector10pin" cx="1072.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector11pin" cx="1172.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector12pin" cx="1272.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector13pin" cx="1372.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector14pin" cx="1472.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector15pin" cx="1572.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector16pin" cx="1672.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector17pin" cx="1772.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector18pin" cx="1872.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector19pin" cx="1972.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector20pin" cx="2072.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector21pin" cx="2172.0" cy="101.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector22pin" cx="72.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector23pin" cx="172.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector24pin" cx="272.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector25pin" cx="372.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector26pin" cx="472.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector27pin" cx="572.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector28pin" cx="672.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector29pin" cx="772.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector30pin" cx="872.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector31pin" cx="972.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector32pin" cx="1072.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector33pin" cx="1172.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector34pin" cx="1272.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector35pin" cx="1372.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector36pin" cx="1472.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector37pin" cx="1572.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector38pin" cx="1672.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector39pin" cx="1772.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector40pin" cx="1872.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector41pin" cx="1972.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector42pin" cx="2072.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector43pin" cx="2172.0" cy="1001.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   </g>
+  </g>
+  <g id="silkscreen">
+   <rect x="5" y="5" width="2234.1" height="1092.4" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+   <circle cx="72.0" cy="176.2" r="14" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+   <text x="1122.0" y="551.2" font-family="OCR-Fritzing-mono" font-size="70" fill="#f0f0f0" text-anchor="middle">ESP32-S3-N16R8</text>
+  </g>
+</svg>

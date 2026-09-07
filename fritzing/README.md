@@ -125,6 +125,7 @@ dentro do zip. Existe teste para isso justamente porque aconteceu.
 | `rf433-rx` | Receptor 433 MHz MX-05V, 30 × 14 mm | VCC · DATA · DATA · GND · ANT |
 | `buzzer-ativo` | Buzzer ativo GBK P15, 32 × 15 mm | GND · SINAL, na ponta esquerda |
 | `nodemcu-lolin-v3` | NodeMCU ESP8266 LoLin v3, 59 × 31 mm | 15 + 15, fileiras a 1,1 pol |
+| `esp32-s3-n16r8` | ESP32-S3-WROOM-1 N16R8, USB-C dupla, 57 × 28 mm | 22 + 22, fileiras a 0,9 pol |
 
 O `nodemcu-lolin-v3` é a exceção à regra de o `id` ser o mesmo do inventário: lá a placa
 está como `esp8266-nodemcu`, nome genérico que serve para qualquer NodeMCU. Aqui o id
@@ -146,6 +147,17 @@ quem confirma que a peça senta na protoboard é o programa aberto.
 
 **A cota de 19 × 19 mm do transmissor** veio do anúncio, não de paquímetro. Só importa na
 vista de PCB.
+
+**O vão de 0,9 polegada entre as fileiras da ESP32-S3.** Henrique mediu a placa, 57 × 28 mm,
+mas não a distância entre as fileiras. 0,9 pol é o único múltiplo de 0,1" que cabe em 28 mm
+com furo dentro da placa, e é o padrão da DevKitC-1 — mas é dedução, não régua. **Esta é a
+cota que decide se a peça encaixa na protoboard**, e é a primeira coisa a conferir.
+
+**O GPIO do LED RGB da ESP32-S3.** É o 48 na maioria destas placas e o 38 em algumas
+DevKitC-1 v1.1. A serigrafia só diz RGB. Um blink resolve.
+
+**A posição dos componentes miúdos da ESP32-S3** — regulador, capacitores, LED — saiu da
+foto a olho. Módulo, botões, LED e as duas USB-C estão no lugar; o resto é aproximação.
 
 **A ficha do vendedor da LoLin v3 dizia 49 × 25,5 mm**, que é de outra variante. As cotas
 usadas — 59 × 31 mm, fileiras a 1,1 polegada — vieram da régua de Henrique. Com a ficha,

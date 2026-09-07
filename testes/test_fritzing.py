@@ -240,6 +240,49 @@ def test_receptor_liga_os_dois_data_em_barramento():
     assert membros == {"connector1", "connector2"}
 
 
+ESP32_S3_CIMA = ["GND", "TX", "RX", "1", "2", "42", "41", "40", "39", "38", "37",
+                 "36", "35", "0", "45", "48", "47", "21", "20", "19", "GND2", "GND3"]
+ESP32_S3_BAIXO = ["3V3", "3V32", "RST", "4", "5", "6", "7", "15", "16", "17", "18",
+                  "8", "3", "46", "9", "10", "11", "12", "13", "14", "5VIN", "GND4"]
+
+
+def test_esp32_s3_nao_tem_queixa():
+    assert validar.problemas(RAIZ / "fritzing" / "pecas" / "esp32-s3-n16r8") == []
+
+
+def test_esp32_s3_tem_a_pinagem_lida_na_serigrafia():
+    """Os 44 nomes foram lidos na placa e conferidos um a um. E o dado mais caro
+    da peca: sao dois GPIO seguidos que nao querem dizer nada um para o outro, e
+    um erro de uma posicao poe 5 V onde deveria entrar sinal."""
+    arquivo = "esp32_s3_n16r8_breadboard.svg"
+    cima = ordem_da_barra("esp32-s3-n16r8", arquivo,
+                          [f"connector{i}" for i in range(22)])
+    baixo = ordem_da_barra("esp32-s3-n16r8", arquivo,
+                           [f"connector{i}" for i in range(22, 44)])
+    assert cima == ESP32_S3_CIMA
+    assert baixo == ESP32_S3_BAIXO
+
+
+def test_esp32_s3_tem_as_fileiras_a_0_9_polegada():
+    """0,9 pol e o que deixa uma coluna livre de cada lado na protoboard. A
+    LoLin v3, a 1,1 pol, nao deixa nenhuma — e a diferenca que se sente."""
+    bb = ElementTree.parse(
+        RAIZ / "fritzing" / "pecas" / "esp32-s3-n16r8" / "svg" / "breadboard"
+        / "esp32_s3_n16r8_breadboard.svg").getroot()
+    y = {e.get("id"): float(e.get("cy")) for e in bb.iter() if e.get("cy") and e.get("id")}
+    assert round(y["connector22pin"] - y["connector0pin"], 3) == 64.8
+
+
+def test_esp32_s3_liga_os_gnd_e_os_3v3_em_barramento():
+    """Quatro GND e dois 3V3, todos o mesmo ponto na placa."""
+    fzp = ElementTree.parse(
+        RAIZ / "fritzing" / "pecas" / "esp32-s3-n16r8" / "part.fzp").getroot()
+    barras = {b.get("id"): {m.get("connectorId") for m in b.iter("nodeMember")}
+              for b in fzp.iter("bus")}
+    assert barras["gnd"] == {"connector0", "connector20", "connector21", "connector43"}
+    assert barras["3v3"] == {"connector22", "connector23"}
+
+
 def test_empacota_com_os_nomes_planos_que_o_fritzing_espera(tmp_path, peca):
     destino = empacotar.empacotar(peca, tmp_path / "Peca.fzpz")
     nomes = set(zipfile.ZipFile(destino).namelist())
@@ -337,6 +380,15 @@ def test_gerador_liga_pino_repetido_em_barramento(tmp_path):
 def test_gerador_recusa_placa_pequena_demais_para_os_pinos(tmp_path):
     with pytest.raises(ValueError, match="nao cabem"):
         nova_peca.criar("apertada", 8, 10, ["A", "B", "C", "D"], tmp_path)
+
+
+def test_gerador_aceita_fileira_que_quase_lota_a_borda(tmp_path):
+    """A ESP32-S3 poe 22 furos numa borda de 57 mm e sobra 1,8 mm de cada ponta,
+    menos que o recuo padrao da fileira. E a cota da placa de verdade: o que
+    reprova e o furo sair da placa, nao o recuo ficar folgado."""
+    pasta = nova_peca.criar("quase-lotada", 57, 28, [str(i) for i in range(22)],
+                            tmp_path)
+    assert validar.problemas(pasta) == []
 
 
 def test_gerador_recusa_sobrescrever_peca_existente(tmp_path):

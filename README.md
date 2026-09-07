@@ -6,7 +6,7 @@ Os projetos ficam em repositórios próprios, com prefixo `hw-`.
 > **Este arquivo é gerado.** Edite os YAML em `componentes/`, `projetos/` e
 > `compras/` e rode `python ferramentas/gerar-pagina.py`.
 
-**85 componentes distintos, 991 peças no total.**
+**86 componentes distintos, 992 peças no total.**
 
 Página com busca: <https://henriquemattosesilva.github.io/hw-laboratorio/>
 
@@ -65,6 +65,7 @@ Página com busca: <https://henriquemattosesilva.github.io/hw-laboratorio/>
 | Arduino Nano V3.0 ATmega328 5V | 1 | 5 V lógico | mini-USB; 14 digitais (6 com PWM), 8 analógicas | Mesmo micro do Uno, no mesmo relógio, num terço do tamanho. |
 | Arduino Uno R3 | 1 | 5 V lógico; alimentação 7–12 V no jack ou pela USB | USB-B; 14 digitais (6 com PWM), 6 analógicas | ATmega328P a 16 MHz: 32 KB de flash (menos o bootloader), 2 KB de RAM. |
 | Módulo ESP8266 ESP-12E CH340G NodeMCU | 1 | 3,3 V nos pinos; alimentação pela micro-USB | Wi-Fi 2,4 GHz; sem Bluetooth | Os pinos NÃO são tolerantes a 5 V. Ligar direto num sensor de 5 V queima. |
+| Placa ESP32-S3 N16R8 (ESP32-S3-WROOM-1, USB-C dupla) | 1 | 3,3 V nos pinos; 5 V no 5Vin ou por qualquer uma das duas USB-C | Wi-Fi 2,4 GHz e Bluetooth LE 5; 44 pinos em duas fileiras a 0,9 polegada | Xtensa LX7 de dois núcleos a 240 MHz, 16 MB de flash e 8 MB de PSRAM: é isso que o N16R8 quer dizer. |
 
 ### Sensores
 

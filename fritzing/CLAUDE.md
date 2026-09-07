@@ -76,7 +76,7 @@ pwsh ferramentas/previa.ps1 -Arquivo fritzing/previa.html -Largura 1400 -Altura 
 ## Comandos
 
 ```text
-python -m pytest                              # 56 testes, 38 deles desta pasta
+python -m pytest                              # 61 testes, 43 deles desta pasta
 python fritzing/ferramentas/nova-peca.py ...  # peça nova
 python fritzing/ferramentas/previa.py         # folha de contato
 python fritzing/ferramentas/empacotar.py      # os .fzpz
@@ -97,16 +97,18 @@ console do Windows, e o que aparece é o *help* do programa, o que engana.
 | `rf433-rx` | **VCC · DATA · DATA · GND** · ANT — espelhado da serigrafia, que fica no verso |
 | `buzzer-ativo` | GND · SINAL, empilhados na ponta esquerda |
 | `nodemcu-lolin-v3` | 15 + 15 pinos, fileiras a 1,1 pol — cobre a protoboard inteira |
+| `esp32-s3-n16r8` | 22 + 22 pinos, fileiras a 0,9 pol. **GPIO 35, 36 e 37 são da PSRAM e não servem** |
 
-As três primeiras com `id` igual ao do inventário em `componentes/`. A NodeMCU é a
+Todas com `id` igual ao do inventário em `componentes/`, menos uma. A NodeMCU é a
 exceção: no inventário ela é `esp8266-nodemcu`, nome genérico, e aqui o id diz a variante
 porque a Amica já existe no core do Fritzing e difere em dois pinos.
 
 ## O que ainda não foi verificado
 
 **O encaixe no passo de 0,1" dentro do Fritzing.** O teste confere o passo no SVG, mas
-quem confirma que a peça senta na protoboard é o programa aberto. Nenhuma das quatro foi
-conferida assim.
+quem confirma que a peça senta na protoboard é o programa aberto. Nenhuma das cinco foi
+conferida assim — e na ESP32-S3 isso pesa mais, porque o vão de 0,9 polegada entre as
+fileiras foi deduzido da largura da placa, não medido.
 
 **A orientação do desenho do receptor MX-05V** e a posição da fileira de furos ao longo
 da borda, nas duas peças de 433 MHz. Saiu de foto de catálogo. Não afeta a ligação.

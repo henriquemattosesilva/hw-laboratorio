@@ -40,7 +40,8 @@ import validar
 MM = 2.834646    # unidades por milimetro no breadboard, esquema e icone (72/pol)
 MIL = 39.3701    # unidades por milimetro no pcb (1000/pol)
 PASSO_MM = 2.54  # 0,1 polegada
-BORDA_MM = 2.2   # do centro do furo ate a borda da placa
+BORDA_MM = 2.2   # recuo padrao da fileira, do centro do furo ate a borda
+MIN_BORDA_MM = 1.2  # o minimo fisico: menos que isso o furo sai da placa
 MARGEM_MM = 3.2  # da borda ate o primeiro furo
 
 METAL, FURO = "#c9c9c9", "#3a3a3a"
@@ -544,7 +545,7 @@ def criar(ident, larg, alt, pinos, destino, titulo=None, familia=None,
     for ld, nomes in fileiras:
         corrida = (len(nomes) - 1) * PASSO_MM
         extensao = larg if ld in ("baixo", "cima") else alt
-        if corrida + 2 * BORDA_MM > extensao:
+        if corrida + 2 * MIN_BORDA_MM > extensao:
             raise ValueError(
                 f"{len(nomes)} pinos ocupam {corrida:.1f} mm e nao cabem na "
                 f"borda de {ld}, que tem {extensao:g} mm")
