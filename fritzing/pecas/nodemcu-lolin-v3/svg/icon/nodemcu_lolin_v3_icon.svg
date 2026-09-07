@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Icone do bin, desenhado a mao. Sem conector: icone nao tem. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="0.32000in" height="0.32000in" viewBox="0 0 23.040 23.040">
+ <g id="icon">
+  <rect x="1.00" y="5.99" width="21.04" height="11.06" rx="1.4" fill="#1e1e1e"/>
+  <rect x="2.50" y="7.37" width="18.04" height="2.25" rx="1.12" fill="#c9c9c9"/>
+  <rect x="2.50" y="13.43" width="18.04" height="2.25" rx="1.12" fill="#c9c9c9"/>
+  <rect x="2.60" y="10.00" width="7.40" height="3.00" rx="0.5" fill="#6b5327"/>
+  <rect x="4.70" y="10.00" width="5.30" height="3.00" rx="0.4" fill="#33373b"/>
+  <text x="16.10" y="12.70" font-family="Noto Sans" font-size="3.60"
+        fill="#e8ecf0" text-anchor="middle">ESP</text>
+ </g>
+</svg>

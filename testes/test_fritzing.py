@@ -417,3 +417,42 @@ def test_o_pacote_importavel_fica_dentro_da_pasta_da_peca():
         pacote = pecas.pacote(peca)
         assert pacote.parent == peca, f"{pacote} devia estar dentro de {peca}"
         assert pacote.exists(), f"{pacote.name} nao existe; rode empacotar.py"
+
+
+def test_gerador_faz_placa_de_duas_fileiras(tmp_path):
+    """Placa de desenvolvimento tem duas fileiras, e o vao entre elas decide se
+    a peca encaixa. Aqui: 1,1 polegada, que e a NodeMCU larga."""
+    pasta = nova_peca.criar(
+        "duas-fileiras", 59, 31, None, tmp_path, vao=27.94, alinhar="centro",
+        fileiras=[("cima", ["D0", "D1", "D2"]), ("baixo", ["A0", "G", "VU"])])
+    bb = ElementTree.parse(
+        pasta / "svg" / "breadboard" / "duas_fileiras_breadboard.svg").getroot()
+    furos = {e.get("id"): (float(e.get("cx")), float(e.get("cy")))
+             for e in bb.iter() if (e.get("id") or "").startswith("connector")}
+    assert len(furos) == 6
+    ys = sorted({round(y, 2) for _, y in furos.values()})
+    assert len(ys) == 2
+    assert round((ys[1] - ys[0]) / 2.834646, 2) == 27.94   # o vao pedido, em mm
+    assert round((ys[0] + ys[1]) / 2 / 2.834646, 2) == 15.5  # simetricas no meio
+    assert validar.problemas(pasta) == []
+
+
+def test_gerador_recusa_vao_fora_da_grade(tmp_path):
+    """Vao fora de multiplo de 0,1 polegada e peca que nao senta na protoboard,
+    e nada mais acusaria isso."""
+    with pytest.raises(ValueError, match="nao encaixaria"):
+        nova_peca.criar("torta", 59, 31, None, tmp_path, vao=25.0,
+                        fileiras=[("cima", ["A"]), ("baixo", ["B"])])
+
+
+def test_validador_confere_o_passo_dentro_de_cada_fileira(tmp_path, peca):
+    """Com duas fileiras, medir a distancia entre conectores quaisquer acharia
+    todo vizinho longe demais e o passo deixaria de ser conferido."""
+    torto = BB_MINIMO.replace(
+        '<rect id="connector1pin" x="14.3" y="20"',
+        '<rect id="connector1pin" x="13.0" y="20"').replace(
+        "</g>",
+        '<rect id="connector2pin" x="7.1" y="2" width="1.8" height="10" fill="#8c8c8c"/>'
+        '<rect id="connector3pin" x="14.3" y="2" width="1.8" height="10" fill="#8c8c8c"/></g>')
+    escrever(peca / "svg" / "breadboard" / "bb.svg", torto)
+    assert any("passo" in p for p in validar.problemas(peca))

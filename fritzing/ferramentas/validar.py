@@ -9,7 +9,6 @@ As regras saem de fritzing-parts/scripts/checks/svg_checkers.py e explain_errors
 do proprio Fritzing. O desenho em si nao tem conferencia automatica: para isso existe
 a folha de contato em previa.html.
 """
-import math
 from pathlib import Path
 from xml.etree import ElementTree
 
@@ -174,22 +173,31 @@ def _numero(elemento, *atributos):
 
 
 def _conferir_passo(centros, vista):
-    """Os conectores da fileira ficam num passo constante de 0,1 polegada.
+    """Os conectores de cada fileira ficam num passo constante de 0,1 polegada.
 
-    A distancia e medida em linha reta, nao no eixo x: modulo com o conector na
-    ponta tem a fileira correndo na vertical, e medir so em x veria zero.
+    A conferencia agrupa por fileira antes de medir. Medindo a distancia entre
+    conectores quaisquer, uma placa de duas fileiras teria todos os vizinhos
+    longe demais — e o passo deixaria de ser conferido sem ninguem notar.
 
-    Peca com ANT tem um conector solto fora da fileira, entao a conferencia olha
-    os pares consecutivos e so reclama do que esta perto de um passo mas errado.
+    Conector solto, como o furo de antena, fica sozinho no seu grupo e sai de
+    fora, que e o comportamento certo: ele nao pertence a fileira nenhuma.
     """
     achados = []
-    centros = sorted(centros)
-    for (x1, y1), (x2, y2) in zip(centros, centros[1:]):
-        distancia = math.hypot(x2 - x1, y2 - y1)
-        if distancia > PASSO * 1.5:
-            continue  # conector solto, fora da fileira
-        if abs(distancia - PASSO) > FOLGA:
-            achados.append(
-                f"{vista}: passo de {distancia:.2f} u entre pinos, esperado {PASSO}"
-            )
-    return achados
+    for eixo, fixo in ((0, 1), (1, 0)):
+        grupos = {}
+        for centro in centros:
+            grupos.setdefault(round(centro[fixo], 1), []).append(centro[eixo])
+        for _, valores in sorted(grupos.items()):
+            if len(valores) < 2:
+                continue
+            valores.sort()
+            for anterior, seguinte in zip(valores, valores[1:]):
+                distancia = seguinte - anterior
+                if distancia > PASSO * 1.5:
+                    continue  # conector fora da fileira
+                if abs(distancia - PASSO) > FOLGA:
+                    achados.append(
+                        f"{vista}: passo de {distancia:.2f} u entre pinos, "
+                        f"esperado {PASSO}"
+                    )
+    return sorted(set(achados))

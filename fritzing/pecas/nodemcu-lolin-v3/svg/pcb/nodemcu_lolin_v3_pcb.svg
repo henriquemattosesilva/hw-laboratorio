@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1000 unidades por polegada, que e a escala das pecas THT do core.
+     Furo de 35 mil e anel de 75 mil: r 27,5 com traco de 20. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="2.32284in" height="1.22047in" viewBox="0 0 2322.836 1220.473">
+  <g id="copper1">
+   <g id="copper0">
+   <circle id="connector0pin" cx="461.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector1pin" cx="561.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector2pin" cx="661.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector3pin" cx="761.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector4pin" cx="861.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector5pin" cx="961.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector6pin" cx="1061.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector7pin" cx="1161.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector8pin" cx="1261.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector9pin" cx="1361.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector10pin" cx="1461.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector11pin" cx="1561.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector12pin" cx="1661.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector13pin" cx="1761.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector14pin" cx="1861.4" cy="60.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector15pin" cx="461.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector16pin" cx="561.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector17pin" cx="661.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector18pin" cx="761.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector19pin" cx="861.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector20pin" cx="961.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector21pin" cx="1061.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector22pin" cx="1161.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector23pin" cx="1261.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector24pin" cx="1361.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector25pin" cx="1461.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector26pin" cx="1561.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector27pin" cx="1661.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector28pin" cx="1761.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   <circle id="connector29pin" cx="1861.4" cy="1160.2" r="27.5" fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>
+   </g>
+  </g>
+  <g id="silkscreen">
+   <rect x="5" y="5" width="2312.8" height="1210.5" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+   <circle cx="461.4" cy="135.2" r="14" fill="none" stroke="#f0f0f0" stroke-width="10"/>
+   <text x="1161.4" y="610.2" font-family="OCR-Fritzing-mono" font-size="70" fill="#f0f0f0" text-anchor="middle">NODEMCU-LOLIN-V3</text>
+  </g>
+</svg>

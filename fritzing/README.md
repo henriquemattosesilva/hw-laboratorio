@@ -53,6 +53,8 @@ Outras opções:
 | `--alinhar inicio\|centro\|fim` | onde a fileira encosta na borda. Header longo costuma ser `inicio`; conector de dois pinos na ponta, `centro` |
 | `--cor verde\|azul\|vermelha\|preta\|branca\|amarela` | cor da placa, com a borda e a tinta da serigrafia junto |
 | `--familia` | peças da mesma família viram variantes uma da outra no Inspector |
+| `--fileira LADO:NOMES` | uma fileira por vez, repetível. Placa de desenvolvimento tem duas: `--fileira cima:D0,D1 --fileira baixo:A0,G` |
+| `--vao MM` | distância entre as duas fileiras, de centro a centro. **Precisa ser múltiplo de 2,54 mm**, e o gerador recusa se não for |
 | `--ant` | acrescenta um conector de antena fora da fileira |
 
 ## Conferir
@@ -122,6 +124,13 @@ dentro do zip. Existe teste para isso justamente porque aconteceu.
 | `rf433-tx` | Transmissor 433 MHz FS1000A (MX-FS-03V), 19 × 19 mm | DATA · VCC · GND · ANT |
 | `rf433-rx` | Receptor 433 MHz MX-05V, 30 × 14 mm | VCC · DATA · DATA · GND · ANT |
 | `buzzer-ativo` | Buzzer ativo GBK P15, 32 × 15 mm | GND · SINAL, na ponta esquerda |
+| `nodemcu-lolin-v3` | NodeMCU ESP8266 LoLin v3, 59 × 31 mm | 15 + 15, fileiras a 1,1 pol |
+
+O `nodemcu-lolin-v3` é a exceção à regra de o `id` ser o mesmo do inventário: lá a placa
+está como `esp8266-nodemcu`, nome genérico que serve para qualquer NodeMCU. Aqui o id
+precisa dizer a variante, porque a **Amica já existe no core do Fritzing** e as duas
+diferem em dois pinos — na LoLin o terceiro pino de baixo é `VU`, os 5 V do USB; na Amica
+é `RSV`, sem ligação nenhuma. Peça errada no desenho vira fio ligado em pino morto.
 
 A serigrafia do receptor fica **no verso**, onde se lê GND · DATA · DATA · VCC. Ler o
 verso sem espelhar troca alimentação com terra. As duas ordens têm teste.
@@ -137,6 +146,10 @@ quem confirma que a peça senta na protoboard é o programa aberto.
 
 **A cota de 19 × 19 mm do transmissor** veio do anúncio, não de paquímetro. Só importa na
 vista de PCB.
+
+**A ficha do vendedor da LoLin v3 dizia 49 × 25,5 mm**, que é de outra variante. As cotas
+usadas — 59 × 31 mm, fileiras a 1,1 polegada — vieram da régua de Henrique. Com a ficha,
+a peça teria saído com as fileiras a 0,9 polegada e não encaixaria.
 
 **A polaridade de acionamento do buzzer.** Vários módulos P15 tocam com nível BAIXO, e a
 deste não foi medida. Está registrado no inventário e na `description` da peça. Não muda o

@@ -68,7 +68,7 @@ página.
 
 ```text
 python -m pip install -r requisitos.txt   # PyYAML e pytest
-python -m pytest                          # 53 testes
+python -m pytest                          # 56 testes
 python ferramentas/gerar-pagina.py        # sempre, depois de mexer em qualquer YAML
 python ferramentas/novo-projeto.py nome "Título"
 pwsh ferramentas/previa.ps1 -Largura 390 -Destino previa-390.png
@@ -81,8 +81,10 @@ python fritzing/ferramentas/instalar.py   # atualiza no Fritzing (com ele fechad
 ## Peças Fritzing
 
 `fritzing/` guarda peças próprias do Fritzing, para módulos que o core do programa não
-traz. Hoje são três: o transmissor FS1000A, o receptor MX-05V de 433 MHz e o buzzer ativo
-GBK P15. Os `id` são os mesmos do inventário — `rf433-tx`, `rf433-rx` e `buzzer-ativo`.
+traz. Hoje são quatro: o transmissor FS1000A, o receptor MX-05V de 433 MHz, o buzzer ativo
+GBK P15 e a NodeMCU ESP8266 LoLin v3. Os `id` são os mesmos do inventário, com uma exceção
+documentada em `fritzing/README.md`: a NodeMCU precisa dizer a variante, porque a Amica já
+existe no core do Fritzing e difere em dois pinos.
 
 **Peça nova sai do `nova-peca.py`**, que recebe as cotas em mm e os nomes dos pinos e já
 emite as quatro vistas com a geometria certa — resta desenhar o ornamento. As ferramentas

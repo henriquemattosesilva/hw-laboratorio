@@ -3,10 +3,15 @@
   python fritzing/ferramentas/nova-peca.py hc-sr04 --mm 45x20 \
          --pinos VCC,TRIG,ECHO,GND --titulo "Sensor ultrassonico HC-SR04"
 
-Sai uma peca completa e valida: as quatro vistas, os furos no passo de 0,1
-polegada, o viewBox na unidade certa de cada vista e o FZP com os conectores.
-Falta so o ornamento — o desenho dos componentes da placa, que nenhum gerador
-tem como adivinhar. Cada SVG diz onde ele entra.
+Placa de desenvolvimento tem duas fileiras, uma em cada borda longa:
+
+  python fritzing/ferramentas/nova-peca.py nodemcu --mm 59x31 --vao 27.94 \
+         --fileira cima:D0,D1,D2 --fileira baixo:A0,G,VU
+
+Sai uma peca completa e valida: as vistas, os furos no passo de 0,1 polegada,
+o viewBox na unidade certa de cada vista e o FZP com os conectores. Falta so o
+ornamento — o desenho dos componentes da placa, que nenhum gerador tem como
+adivinhar. Cada SVG diz onde ele entra.
 
 O que o gerador resolve e justamente a parte que da errado em silencio: unidade
 do viewBox, passo dos furos, ordem dos conectores e o barramento de pinos
@@ -15,7 +20,14 @@ peca nao encaixa.
 
 **Pino repetido vira barramento.** `--pinos VCC,DATA,DATA,GND` cria DATA e
 DATA2 e os declara ligados, porque nome repetido quer dizer o mesmo ponto na
-placa. Sem isso o Fritzing acusaria conexao faltando ao usar so um deles.
+placa. Sem isso o Fritzing acusaria conexao faltando ao usar so um deles. Numa
+placa com varios GND e varios 3V isso sai de graca e e o comportamento certo:
+eles sao mesmo o mesmo ponto.
+
+**`--vao` e a cota que decide se a peca encaixa.** E a distancia entre as duas
+fileiras, de centro a centro, e precisa ser multiplo de 0,1". Sem ela as
+fileiras ficam a BORDA_MM da borda, que serve para modulo pequeno e nao para
+placa de desenvolvimento.
 """
 import argparse
 import re
@@ -29,7 +41,7 @@ MM = 2.834646    # unidades por milimetro no breadboard, esquema e icone (72/pol
 MIL = 39.3701    # unidades por milimetro no pcb (1000/pol)
 PASSO_MM = 2.54  # 0,1 polegada
 BORDA_MM = 2.2   # do centro do furo ate a borda da placa
-MARGEM_MM = 3.2  # da borda esquerda ate o primeiro furo
+MARGEM_MM = 3.2  # da borda ate o primeiro furo
 
 METAL, FURO = "#c9c9c9", "#3a3a3a"
 
@@ -45,13 +57,14 @@ CORES = {
 
 LADOS = ("baixo", "cima", "esquerda", "direita")
 ALINHAMENTOS = ("inicio", "centro", "fim")
+OPOSTO = {"baixo": "cima", "cima": "baixo", "esquerda": "direita", "direita": "esquerda"}
 
-ALIMENTACAO = {"VCC", "VDD", "V+", "5V", "3V3", "3.3V", "VIN", "VBAT"}
-TERRA = {"GND", "GROUND", "VSS", "0V", "-"}
+ALIMENTACAO = {"VCC", "VDD", "V+", "5V", "3V3", "3.3V", "VIN", "VBAT", "3V", "VU"}
+TERRA = {"GND", "GROUND", "VSS", "0V", "-", "G"}
 DIREITA = {"ANT", "ANTENNA", "RF"}
 
 
-def posicoes(larg, alt, n, lado, alinhar="inicio"):
+def posicoes(larg, alt, n, lado, alinhar="inicio", vao=None):
     """Centro de cada furo em milimetros, na ordem em que os pinos foram dados.
 
     Fileira em cima ou embaixo corre da esquerda para a direita; nas bordas
@@ -60,12 +73,20 @@ def posicoes(larg, alt, n, lado, alinhar="inicio"):
     `alinhar` decide onde a fileira encosta na borda. Header longo em borda
     longa costuma ficar encostado no comeco, que e o padrao; conector de dois
     pinos na ponta da placa costuma ficar centrado.
+
+    `vao` e a distancia entre as duas fileiras opostas, de centro a centro.
+    Dado, ele manda: as fileiras ficam simetricas em relacao ao meio da placa.
+    Sem ele, cada fileira fica a BORDA_MM da sua borda.
     """
     corrida = (n - 1) * PASSO_MM
     if lado in ("baixo", "cima"):
-        livre, fixo = larg, (alt - BORDA_MM if lado == "baixo" else BORDA_MM)
+        livre = larg
+        fixo = ((alt + vao) / 2 if lado == "baixo" else (alt - vao) / 2) \
+            if vao is not None else (alt - BORDA_MM if lado == "baixo" else BORDA_MM)
     else:
-        livre, fixo = alt, (BORDA_MM if lado == "esquerda" else larg - BORDA_MM)
+        livre = alt
+        fixo = ((larg + vao) / 2 if lado == "direita" else (larg - vao) / 2) \
+            if vao is not None else (BORDA_MM if lado == "esquerda" else larg - BORDA_MM)
 
     if alinhar == "centro" or MARGEM_MM * 2 + corrida > livre:
         a0 = (livre - corrida) / 2
@@ -101,11 +122,14 @@ def barramentos(originais, nomeados):
 
 # -------------------------------------------------------------------- vistas
 
+DESLOCA = {"baixo": (0, -4.6, "middle"), "cima": (0, 6.6, "middle"),
+           "esquerda": (3.6, 1.0, "start"), "direita": (-3.6, 1.0, "end")}
+
+
 def breadboard(cfg):
     larg, alt = cfg["larg"] * MM, cfg["alt"] * MM
     r_pad, r_furo, tam_rotulo = 2.4, 1.15, 2.4
-    lado, tinta = cfg["lado"], cfg["tinta"]
-    furos = [(x * MM, y * MM) for x, y in cfg["furos"]]
+    tinta = cfg["tinta"]
 
     corpo = [
         f'  <rect x="0" y="0" width="{larg:.3f}" height="{alt:.3f}" rx="1.5"'
@@ -118,56 +142,60 @@ def breadboard(cfg):
         "",
     ]
 
-    # O rotulo do pino sai para o lado de dentro da placa, seja qual for a
-    # borda em que a fileira esta.
-    desloca = {"baixo": (0, -4.6, "middle"), "cima": (0, 6.6, "middle"),
-               "esquerda": (r_pad + 1.2, 1.0, "start"),
-               "direita": (-r_pad - 1.2, 1.0, "end")}[lado]
+    for fileira in cfg["fileiras"]:
+        dx, dy, ancora = DESLOCA[fileira["lado"]]
+        for i, nome in zip(fileira["indices"], fileira["nomes"]):
+            cx, cy = (v * MM for v in cfg["furos"][i])
+            corpo += [
+                f'  <text x="{cx + dx:.3f}" y="{cy + dy:.3f}" font-family="Noto Sans"'
+                f' font-size="{tam_rotulo}" fill="{tinta}"'
+                f' text-anchor="{ancora}">{nome}</text>',
+                f'  <circle id="connector{i}pin" cx="{cx:.3f}" cy="{cy:.3f}" r="{r_pad}"'
+                f' fill="{METAL}" stroke="none"/>',
+                f'  <circle cx="{cx:.3f}" cy="{cy:.3f}" r="{r_furo}" fill="{FURO}"/>',
+            ]
 
-    for i, (nome, (cx, cy)) in enumerate(zip(cfg["pinos"], furos)):
-        dx, dy, ancora = desloca
+    if cfg["ant"]:
+        i, cx, cy = cfg["indice_ant"], larg - 4.0 * MM, 4.0 * MM
         corpo += [
-            f'  <text x="{cx + dx:.3f}" y="{cy + dy:.3f}" font-family="Noto Sans"'
-            f' font-size="{tam_rotulo}" fill="{tinta}"'
-            f' text-anchor="{ancora}">{nome}</text>',
             f'  <circle id="connector{i}pin" cx="{cx:.3f}" cy="{cy:.3f}" r="{r_pad}"'
             f' fill="{METAL}" stroke="none"/>',
             f'  <circle cx="{cx:.3f}" cy="{cy:.3f}" r="{r_furo}" fill="{FURO}"/>',
-        ]
-
-    if cfg["ant"]:
-        i, cx, cy_ant = len(cfg["pinos"]), larg - 4.0 * MM, 4.0 * MM
-        corpo += [
-            f'  <circle id="connector{i}pin" cx="{cx:.3f}" cy="{cy_ant:.3f}" r="{r_pad}"'
-            f' fill="{METAL}" stroke="none"/>',
-            f'  <circle cx="{cx:.3f}" cy="{cy_ant:.3f}" r="{r_furo}" fill="{FURO}"/>',
-            f'  <text x="{cx:.3f}" y="{cy_ant + 7.2:.3f}" font-family="Noto Sans"'
+            f'  <text x="{cx:.3f}" y="{cy + 7.2:.3f}" font-family="Noto Sans"'
             f' font-size="2.8" fill="{tinta}" text-anchor="middle">ANT</text>',
         ]
 
-    corpo += rotulo_da_placa(cfg, larg, alt, furos, r_pad, tam_rotulo)
+    corpo += rotulo_da_placa(cfg, larg, alt, r_pad, tam_rotulo)
 
+    lados = " e ".join(f["lado"] for f in cfg["fileiras"])
     cabeca = (f'<!-- {cfg["titulo"]}, vista de cima. Placa de {cfg["larg"]:g} x '
-              f'{cfg["alt"]:g} mm, conectores na borda de {lado}.\n'
+              f'{cfg["alt"]:g} mm, conectores na borda de {lados}.\n'
               f'     72 unidades por polegada: 1 mm = 2,834646 u e o passo de 0,1" = 7,2 u.\n'
               f'     Furo de encaixe, sem pino saindo: e assim que o fio entra. -->')
     return svg(cabeca, larg, alt, "breadboard", corpo)
 
 
-def rotulo_da_placa(cfg, larg, alt, furos, r_pad, tam_rotulo):
-    """Poe o nome da peca no espaco que a fileira de furos deixou livre.
-
-    A folga se mede da borda do furo e do fim do rotulo do pino, nao do centro
-    do furo: medindo do centro, o nome encosta nos furos em placa estreita.
-    """
+def rotulo_da_placa(cfg, larg, alt, r_pad, tam_rotulo):
+    """Poe o nome da peca no espaco que as fileiras deixaram livre."""
     nome = cfg["rotulo"]
+    lados = {f["lado"] for f in cfg["fileiras"]}
+
+    # Duas fileiras opostas deixam o meio da placa livre, e e la que o nome vai.
+    if len(lados) > 1:
+        tam = min(3.2, (larg - 8) / (len(nome) * 0.62))
+        return [f'  <text x="{larg / 2:.3f}" y="{alt / 2 + tam * 0.36:.3f}"'
+                f' font-family="Noto Sans" font-size="{tam:.2f}" fill="{cfg["tinta"]}"'
+                f' text-anchor="middle">{nome}</text>']
+
+    lado = cfg["fileiras"][0]["lado"]
+    furos = [(x * MM, y * MM) for x, y in cfg["furos"][: len(cfg["fileiras"][0]["nomes"])]]
     largo_rotulos = max(len(p) for p in cfg["pinos"]) * 0.62 * tam_rotulo
     xs = [x for x, _ in furos]
 
-    if cfg["lado"] in ("baixo", "cima"):
+    if lado in ("baixo", "cima"):
         x0, x1 = max(xs) + r_pad + 2.5, larg - 2.0
         cy = furos[0][1] + 1.0
-    elif cfg["lado"] == "esquerda":
+    elif lado == "esquerda":
         x0, x1 = max(xs) + r_pad + 1.2 + largo_rotulos + 2.0, larg - 2.0
         cy = alt / 2 + 1.0
     else:
@@ -186,7 +214,22 @@ def rotulo_da_placa(cfg, larg, alt, furos, r_pad, tam_rotulo):
 
 
 def _fatia_schematic(cfg):
-    """Reparte os conectores entre os quatro lados da caixa do esquema."""
+    """Reparte os conectores entre os lados da caixa do esquema.
+
+    Com duas fileiras, cada fileira vira um lado: e o que faz o esquema lembrar
+    a placa na bancada. Com uma so, alimentacao vai para cima e para baixo e o
+    resto para a esquerda, que e o desenho classico de modulo pequeno.
+    """
+    if len(cfg["fileiras"]) > 1:
+        lados = ["esquerda", "direita", "esquerda", "direita"]
+        esquerda, direita = [], []
+        for ordem, fileira in enumerate(cfg["fileiras"]):
+            destino = esquerda if lados[ordem] == "esquerda" else direita
+            destino += list(zip(fileira["indices"], fileira["nomes"]))
+        if cfg["ant"]:
+            direita.append((cfg["indice_ant"], "ANT"))
+        return None, None, esquerda, direita
+
     topo = baixo = None
     esquerda, direita = [], []
     for i, nome in enumerate(cfg["pinos"]):
@@ -200,16 +243,20 @@ def _fatia_schematic(cfg):
         else:
             esquerda.append((i, nome))
     if cfg["ant"]:
-        direita.append((len(cfg["pinos"]), "ANT"))
+        direita.append((cfg["indice_ant"], "ANT"))
     return topo, baixo, esquerda, direita
 
 
 def schematic(cfg):
-    passo, pino = 14.4, 14.4
+    pino = 14.4
     topo, baixo, esquerda, direita = _fatia_schematic(cfg)
     linhas = max(len(esquerda), len(direita))
+    # Fileira longa em passo de 0,2" faria uma caixa de tres polegadas. O passo
+    # de 0,1" continua na grade do esquema e cabe na tela.
+    passo = 7.2 if linhas > 8 else 14.4
     caixa_h = max(43.2, passo * (linhas + 1))
-    caixa_x, caixa_y, caixa_w = 14.4, 14.4, 50.4
+    caixa_x, caixa_y = 14.4, 14.4
+    caixa_w = 64.8 if linhas > 8 else 50.4
     larg, alt = caixa_x + caixa_w + pino, caixa_y + caixa_h + pino
 
     corpo = [
@@ -218,6 +265,7 @@ def schematic(cfg):
         '        stroke-linecap="round" stroke-linejoin="round"/>',
         "",
     ]
+    tam_rotulo = 4 if passo > 7.2 else 3.2
 
     def horizontal(i, nome, y, esq):
         x = 0 if esq else caixa_x + caixa_w
@@ -225,8 +273,8 @@ def schematic(cfg):
         return [
             f'  <rect id="connector{i}pin" connectorName="{nome}" x="{x:.1f}"'
             f' y="{y - 0.35:.2f}" width="{pino}" height="0.7" fill="#787878" stroke="none"/>',
-            f'  <text x="{rx:.1f}" y="{y + 1.4:.2f}" font-family="Noto Sans" font-size="4"'
-            f' fill="#000000" text-anchor="{ancora}">{nome}</text>',
+            f'  <text x="{rx:.1f}" y="{y + tam_rotulo * 0.35:.2f}" font-family="Noto Sans"'
+            f' font-size="{tam_rotulo}" fill="#000000" text-anchor="{ancora}">{nome}</text>',
         ]
 
     for ordem, (i, nome) in enumerate(esquerda):
@@ -260,7 +308,15 @@ def schematic(cfg):
     tam = min(4.8, (caixa_w - 8) / (len(cfg["rotulo"]) * 0.62))
     ultimo = caixa_y + passo * linhas
     folga = caixa_y + caixa_h - ultimo
-    ty = (ultimo + folga / 2 + tam * 0.36) if folga >= 12 else caixa_y + 10.0
+    if folga >= 12:
+        ty = ultimo + folga / 2 + tam * 0.36
+    elif topo is None:
+        # Caixa cheia de pino, como placa de desenvolvimento: dentro nao ha vao
+        # nenhum e o titulo cai em cima do rotulo do primeiro pino. Sobe para
+        # fora, onde so ficaria o pino de alimentacao — que aqui nao existe.
+        ty = caixa_y - 3.5
+    else:
+        ty = caixa_y + 10.0
     corpo += [
         "",
         f'  <text x="{caixa_x + caixa_w / 2:.1f}" y="{ty:.1f}"'
@@ -280,14 +336,9 @@ def pcb(cfg):
     furos = [f'   <circle id="connector{i}pin" cx="{cx:.1f}" cy="{cy:.1f}" r="27.5"'
              f' fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>'
              for i, (cx, cy) in enumerate(pos)]
-    if cfg["ant"]:
-        furos.append(f'   <circle id="connector{len(cfg["pinos"])}pin"'
-                     f' cx="{larg - 4.0 * MIL:.1f}" cy="{4.0 * MIL:.1f}" r="27.5"'
-                     f' fill="none" stroke="rgb(255, 191, 0)" stroke-width="20"/>')
 
-    # Marca do pino 1, deslocada para dentro da placa.
     marca = {"baixo": (0, -75), "cima": (0, 75),
-             "esquerda": (75, 0), "direita": (-75, 0)}[cfg["lado"]]
+             "esquerda": (75, 0), "direita": (-75, 0)}[cfg["fileiras"][0]["lado"]]
     tam = min(70.0, (larg - 120) / (len(cfg["rotulo"]) * 0.62))
 
     corpo = ['  <g id="copper1">', '   <g id="copper0">'] + furos + ["   </g>", "  </g>",
@@ -314,45 +365,59 @@ def icon(cfg):
                     quadro - 2)
     x0, y0 = (quadro - larg_placa) / 2, (quadro - alt_placa) / 2
 
-    n = len(cfg["pinos"])
-    vertical = cfg["lado"] in ("esquerda", "direita")
-    corrida = alt_placa if vertical else larg_placa
-    r_pad = min(1.5, (larg_placa if vertical else alt_placa) / 6)
-    passo = min(4.8, (corrida - 3) / max(n - 1, 1))
-    inicio = (y0 if vertical else x0) + (corrida - passo * (n - 1)) / 2
-    fixo = {"baixo": y0 + alt_placa - r_pad - 1.0,
-            "cima": y0 + r_pad + 1.0,
-            "esquerda": x0 + r_pad + 1.0,
-            "direita": x0 + larg_placa - r_pad - 1.0}[cfg["lado"]]
-
     corpo = [f'  <rect x="{x0:.2f}" y="{y0:.2f}" width="{larg_placa:.2f}"'
              f' height="{alt_placa:.2f}" rx="1.4" fill="{cfg["placa"]}"/>']
-    for i in range(n):
-        p = inicio + i * passo
-        cx, cy = (fixo, p) if vertical else (p, fixo)
-        corpo.append(f'  <circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r_pad:.2f}"'
-                     f' fill="{METAL}"/>'
-                     f'<circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r_pad * 0.47:.2f}"'
-                     f' fill="{FURO}"/>')
+
+    ocupado = []
+    for fileira in cfg["fileiras"]:
+        lado, n = fileira["lado"], len(fileira["nomes"])
+        vertical = lado in ("esquerda", "direita")
+        corrida = alt_placa if vertical else larg_placa
+        r_pad = min(1.5, (larg_placa if vertical else alt_placa) / 6)
+        fixo = {"baixo": y0 + alt_placa - r_pad - 1.0,
+                "cima": y0 + r_pad + 1.0,
+                "esquerda": x0 + r_pad + 1.0,
+                "direita": x0 + larg_placa - r_pad - 1.0}[lado]
+        ocupado.append((lado, fixo, r_pad))
+
+        # Furo demais vira mancha ilegivel num icone de 32 px: vira barra.
+        if n > 8:
+            comp, esp = corrida - 3, r_pad * 1.5
+            if vertical:
+                corpo.append(f'  <rect x="{fixo - esp / 2:.2f}" y="{y0 + 1.5:.2f}"'
+                             f' width="{esp:.2f}" height="{comp:.2f}" rx="{esp / 2:.2f}"'
+                             f' fill="{METAL}"/>')
+            else:
+                corpo.append(f'  <rect x="{x0 + 1.5:.2f}" y="{fixo - esp / 2:.2f}"'
+                             f' width="{comp:.2f}" height="{esp:.2f}" rx="{esp / 2:.2f}"'
+                             f' fill="{METAL}"/>')
+            continue
+
+        passo = min(4.8, (corrida - 3) / max(n - 1, 1))
+        inicio = (y0 if vertical else x0) + (corrida - passo * (n - 1)) / 2
+        for i in range(n):
+            p = inicio + i * passo
+            cx, cy = (fixo, p) if vertical else (p, fixo)
+            corpo.append(f'  <circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r_pad:.2f}"'
+                         f' fill="{METAL}"/>'
+                         f'<circle cx="{cx:.2f}" cy="{cy:.2f}" r="{r_pad * 0.47:.2f}"'
+                         f' fill="{FURO}"/>')
 
     # Placa achatada deixa pouco espaco livre, e texto de tamanho fixo vaza para
     # fora do icone. O tamanho sai do que sobrou, nos dois eixos.
     texto = cfg["icone"]
-    if vertical:
-        borda = fixo + r_pad if cfg["lado"] == "esquerda" else fixo - r_pad
-        tx0, tx1 = ((borda + 0.6, x0 + larg_placa - 0.6) if cfg["lado"] == "esquerda"
-                    else (x0 + 0.6, borda - 0.6))
-        vao_larg, vao_alt = tx1 - tx0, alt_placa - 2.0
-        cx_texto, cy_centro = (tx0 + tx1) / 2, y0 + alt_placa / 2
-    else:
-        topo = fixo - r_pad if cfg["lado"] == "baixo" else fixo + r_pad
-        vao_larg = larg_placa - 2.0
-        vao_alt = (topo - y0 - 1.0) if cfg["lado"] == "baixo" else (y0 + alt_placa - topo - 1.0)
-        cx_texto = quadro / 2
-        cy_centro = (y0 + topo) / 2 if cfg["lado"] == "baixo" else (topo + y0 + alt_placa) / 2
-
+    horizontais = [(f, r) for lado, f, r in ocupado if lado in ("baixo", "cima")]
+    verticais = [(f, r) for lado, f, r in ocupado if lado in ("esquerda", "direita")]
+    cima = max([f + r for lado, f, r in ocupado if lado == "cima"], default=y0)
+    baixo = min([f - r for lado, f, r in ocupado if lado == "baixo"],
+                default=y0 + alt_placa)
+    esq = max([f + r for lado, f, r in ocupado if lado == "esquerda"], default=x0)
+    dir_ = min([f - r for lado, f, r in ocupado if lado == "direita"],
+               default=x0 + larg_placa)
+    vao_larg, vao_alt = dir_ - esq - 1.6, baixo - cima - 1.6
     tam = max(2.0, min(6.0, vao_larg / (len(texto) * 0.62), vao_alt))
-    corpo.append(f'  <text x="{cx_texto:.2f}" y="{cy_centro + tam * 0.36:.2f}"'
+    corpo.append(f'  <text x="{(esq + dir_) / 2:.2f}"'
+                 f' y="{(cima + baixo) / 2 + tam * 0.36:.2f}"'
                  f' font-family="Noto Sans" font-size="{tam:.2f}" fill="{cfg["tinta"]}"'
                  f' text-anchor="middle">{texto}</text>')
 
@@ -445,34 +510,61 @@ def fzp(cfg):
 # --------------------------------------------------------------------- criar
 
 def criar(ident, larg, alt, pinos, destino, titulo=None, familia=None,
-          ant=False, lado="baixo", cor="verde", alinhar="inicio",
-          data="2026-09-06"):
-    """Escreve a peca em `destino`/<ident>. Devolve a pasta criada."""
-    brutos = [p.strip().upper() for p in pinos if p.strip()]
-    if not brutos:
+          ant=False, lado="baixo", cor="verde", alinhar="inicio", vao=None,
+          fileiras=None, data="2026-09-06"):
+    """Escreve a peca em `destino`/<ident>. Devolve a pasta criada.
+
+    `pinos` e uma fileira so, na borda `lado`. Para placa de duas fileiras,
+    passar `fileiras` como [(lado, [nomes]), ...] e o `vao` entre elas.
+    """
+    if fileiras is None:
+        fileiras = [(lado, pinos)]
+    fileiras = [(ld, [p.strip().upper() for p in nomes if p.strip()])
+                for ld, nomes in fileiras]
+
+    if not any(nomes for _, nomes in fileiras):
         raise ValueError("a peca precisa de pelo menos um pino")
-    if lado not in LADOS:
-        raise ValueError(f"lado precisa ser um de {', '.join(LADOS)}")
+    for ld, _ in fileiras:
+        if ld not in LADOS:
+            raise ValueError(f"lado precisa ser um de {', '.join(LADOS)}")
+    if len({ld for ld, _ in fileiras}) != len(fileiras):
+        raise ValueError("duas fileiras na mesma borda")
     if cor not in CORES:
         raise ValueError(f"cor precisa ser uma de {', '.join(CORES)}")
     if alinhar not in ALINHAMENTOS:
         raise ValueError(f"alinhar precisa ser um de {', '.join(ALINHAMENTOS)}")
+    if vao is not None and abs(vao / PASSO_MM - round(vao / PASSO_MM)) > 0.02:
+        raise ValueError(
+            f"o vao de {vao:g} mm nao e multiplo de 0,1 polegada (2,54 mm): a peca "
+            "nao encaixaria na protoboard")
+
+    brutos = [nome for _, nomes in fileiras for nome in nomes]
     nomeados = nomear(brutos)
 
-    passo_total = (len(nomeados) - 1) * PASSO_MM
-    extensao = larg if lado in ("baixo", "cima") else alt
-    if passo_total + 2 * BORDA_MM > extensao:
-        raise ValueError(
-            f"{len(nomeados)} pinos ocupam {passo_total:.1f} mm e nao cabem na "
-            f"borda de {lado}, que tem {extensao:g} mm")
+    for ld, nomes in fileiras:
+        corrida = (len(nomes) - 1) * PASSO_MM
+        extensao = larg if ld in ("baixo", "cima") else alt
+        if corrida + 2 * BORDA_MM > extensao:
+            raise ValueError(
+                f"{len(nomes)} pinos ocupam {corrida:.1f} mm e nao cabem na "
+                f"borda de {ld}, que tem {extensao:g} mm")
+
+    detalhadas, furos, base = [], [], 0
+    for ld, nomes in fileiras:
+        coords = posicoes(larg, alt, len(nomes), ld, alinhar, vao)
+        indices = list(range(base, base + len(nomes)))
+        detalhadas.append({"lado": ld, "nomes": nomeados[base:base + len(nomes)],
+                           "indices": indices})
+        furos += coords
+        base += len(nomes)
 
     placa, borda, tinta = CORES[cor]
     slug = ident.replace("-", "_")
     rotulo = ident.upper()
     cfg = {
         "id": ident, "slug": slug, "larg": larg, "alt": alt,
-        "pinos": nomeados, "ant": ant, "lado": lado,
-        "furos": posicoes(larg, alt, len(nomeados), lado, alinhar),
+        "pinos": nomeados, "ant": ant, "indice_ant": len(nomeados),
+        "fileiras": detalhadas, "furos": furos,
         "placa": placa, "borda": borda, "tinta": tinta,
         "barramentos": barramentos(brutos, nomeados),
         "titulo": titulo or ident, "rotulo": rotulo,
@@ -482,9 +574,8 @@ def criar(ident, larg, alt, pinos, destino, titulo=None, familia=None,
         "data": data,
         "tags": [ident] + [n.lower() for n in dict.fromkeys(brutos)][:4],
         "descricao": (f"{titulo or ident}. Placa de {larg:g} x {alt:g} mm, "
-                      f"pinos {' '.join(nomeados)} da esquerda para a direita vista "
-                      f"de cima. Completar esta descricao com tensao, corrente e o "
-                      f"que mais custar a lembrar na bancada."),
+                      f"{len(nomeados)} pinos. Completar esta descricao com tensao, "
+                      f"corrente e o que mais custar a lembrar na bancada."),
     }
 
     pasta = Path(destino) / ident
@@ -509,13 +600,19 @@ def main():
     ap.add_argument("id", help="identificador, tambem o nome da pasta (ex.: hc-sr04)")
     ap.add_argument("--mm", required=True, metavar="LxA",
                     help="cotas da placa em milimetros, ex.: 45x20")
-    ap.add_argument("--pinos", required=True,
-                    help="nomes na ordem em que aparecem VISTA DE CIMA, separados "
-                         "por virgula: da esquerda para a direita nas bordas de "
-                         "cima e de baixo, de cima para baixo nas bordas curtas. "
-                         "Nome repetido vira barramento.")
+    ap.add_argument("--pinos",
+                    help="uma fileira so: nomes na ordem em que aparecem VISTA DE "
+                         "CIMA, separados por virgula. Da esquerda para a direita "
+                         "nas bordas de cima e de baixo, de cima para baixo nas "
+                         "bordas curtas. Nome repetido vira barramento.")
+    ap.add_argument("--fileira", action="append", metavar="LADO:NOMES",
+                    help="uma fileira por vez, ex.: --fileira cima:D0,D1,D2. "
+                         "Repetir para placa de duas fileiras.")
     ap.add_argument("--lado", default="baixo", choices=LADOS,
-                    help="borda onde fica a fileira de furos (padrao: baixo)")
+                    help="borda da fileira, quando se usa --pinos (padrao: baixo)")
+    ap.add_argument("--vao", type=float, metavar="MM",
+                    help="distancia entre as duas fileiras, de centro a centro. "
+                         "Precisa ser multiplo de 2,54 mm, senao a peca nao encaixa.")
     ap.add_argument("--cor", default="verde", choices=sorted(CORES),
                     help="cor da placa (padrao: verde)")
     ap.add_argument("--alinhar", default="inicio", choices=ALINHAMENTOS,
@@ -525,7 +622,7 @@ def main():
     ap.add_argument("--familia", help="family do Inspector; pecas da mesma familia "
                                       "viram variantes uma da outra")
     ap.add_argument("--ant", action="store_true",
-                    help="acrescenta um conector ANT fora da barra")
+                    help="acrescenta um conector ANT fora da fileira")
     args = ap.parse_args()
 
     if not re.fullmatch(r"[a-z0-9][a-z0-9.-]*", args.id):
@@ -536,12 +633,26 @@ def main():
     if not casado:
         print(f"--mm esperava algo como 45x20, veio {args.mm!r}")
         return 1
+    if not args.pinos and not args.fileira:
+        print("Faltou --pinos ou --fileira.")
+        return 1
+
+    fileiras = None
+    if args.fileira:
+        fileiras = []
+        for bruto in args.fileira:
+            if ":" not in bruto:
+                print(f"--fileira esperava LADO:NOMES, veio {bruto!r}")
+                return 1
+            ld, nomes = bruto.split(":", 1)
+            fileiras.append((ld.strip(), nomes.split(",")))
 
     try:
         pasta = criar(args.id, float(casado[1]), float(casado[2]),
-                      args.pinos.split(","), pecas.PASTA,
+                      (args.pinos or "").split(","), pecas.PASTA,
                       titulo=args.titulo, familia=args.familia, ant=args.ant,
-                      lado=args.lado, cor=args.cor, alinhar=args.alinhar)
+                      lado=args.lado, cor=args.cor, alinhar=args.alinhar,
+                      vao=args.vao, fileiras=fileiras)
     except ValueError as erro:
         print(erro)
         return 1

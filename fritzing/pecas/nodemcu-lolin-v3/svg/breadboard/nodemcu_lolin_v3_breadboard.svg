@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NodeMCU ESP8266 LoLin v3 (ESP-12E), vista de cima. Placa de 59 x 31 mm, conectores na borda de cima e baixo.
+     72 unidades por polegada: 1 mm = 2,834646 u e o passo de 0,1" = 7,2 u.
+     Furo de encaixe, sem pino saindo: e assim que o fio entra.
+     Geometria gerada; ornamento desenhado a mao contra a foto da placa. -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="2.32283in" height="1.22047in" viewBox="0 0 167.244 87.874">
+ <g id="breadboard">
+  <rect x="0" y="0" width="167.244" height="87.874" rx="1.5" fill="#1e1e1e"/>
+  <rect x="0.4" y="0.4" width="166.444" height="87.074" rx="1.2"
+        fill="none" stroke="#000000" stroke-width="0.8"/>
+
+  <!-- Modulo ESP-12E, 24 x 16 mm: PCB proprio, antena meandrada e blindagem -->
+  <rect x="1.42" y="21.26" width="69.45" height="45.35" rx="1.0" fill="#6b5327"/>
+  <path d="M 6.24,58.39 V 29.48 H 12.47 V 53.86 H 18.14 V 29.48 H 23.81 V 45.35"
+        fill="none" stroke="#efd08a" stroke-width="2.0" stroke-linejoin="miter" stroke-linecap="square"/>
+  <rect x="25.51" y="22.68" width="45.35" height="42.52" rx="0.8" fill="#33373b"/>
+  <rect x="25.51" y="22.68" width="45.35" height="42.52" rx="0.8"
+        fill="none" stroke="#5e666e" stroke-width="0.7"/>
+  <rect x="25.51" y="22.68" width="45.35" height="4.54" rx="0.8" fill="#454b51"/>
+  <path d="M 30.05,44.22 a 5.67 5.67 0 0 1 10.77 0"
+        fill="none" stroke="#dfe4ea" stroke-width="1.0"/>
+  <path d="M 32.31,48.19 a 3.12 3.12 0 0 1 6.24 0"
+        fill="none" stroke="#dfe4ea" stroke-width="1.0"/>
+  <circle cx="35.43" cy="52.16" r="1.3" fill="#dfe4ea"/>
+  <text x="55.56" y="43.09" font-family="Noto Sans" font-size="3.0"
+        fill="#e8ecf0" text-anchor="middle">ESP-12E</text>
+  <text x="55.56" y="56.13" font-family="Noto Sans" font-size="2.6"
+        fill="#9fb3c8" text-anchor="middle">LoLin v3</text>
+
+  <!-- Regulador, capacitores de tantalo, cristal e o conversor USB-serial -->
+  <rect x="79.37" y="23.24" width="17.01" height="13.04" rx="0.4" fill="#161616"/>
+  <rect x="80.79" y="20.41" width="14.17" height="3.12" fill="#a8a8a8"/>
+  <rect x="79.37" y="42.52" width="12.47" height="9.64" rx="0.4" fill="#d8a63a"/>
+  <rect x="79.37" y="55.56" width="12.47" height="9.64" rx="0.4" fill="#d8a63a"/>
+  <rect x="94.68" y="53.86" width="6.8" height="10.77" rx="0.5" fill="#c0c4c8"/>
+  <rect x="102.05" y="31.18" width="22.68" height="28.35" rx="0.5" fill="#161616"/>
+  <rect x="99.5" y="33.45" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="99.5" y="36.71" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="99.5" y="39.97" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="99.5" y="43.23" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="99.5" y="46.49" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="99.5" y="49.75" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="99.5" y="53.01" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="99.5" y="56.27" width="2.55" height="1.56" fill="#a8a8a8"/>
+  <rect x="124.72" y="33.45" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="124.72" y="36.71" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="124.72" y="39.97" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="124.72" y="43.23" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="124.72" y="46.49" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="124.72" y="49.75" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="124.72" y="53.01" width="2.55" height="1.56" fill="#a8a8a8"/><rect x="124.72" y="56.27" width="2.55" height="1.56" fill="#a8a8a8"/>
+  <rect x="95.24" y="25.51" width="6.24" height="3.69" fill="#6b6b6b"/>
+  <rect x="104.88" y="63.5" width="6.24" height="3.69" fill="#6b6b6b"/>
+  <rect x="116.22" y="63.5" width="6.24" height="3.69" fill="#6b6b6b"/>
+  <rect x="129.83" y="32.31" width="6.24" height="3.69" fill="#6b6b6b"/>
+  <rect x="129.83" y="54.99" width="6.24" height="3.69" fill="#6b6b6b"/>
+
+  <!-- Botoes FLASH e RST, com o rotulo longe do furo de fixacao -->
+  <rect x="128.98" y="13.04" width="12.76" height="12.47" rx="0.5" fill="#242424"/>
+  <circle cx="135.35" cy="19.28" r="2.5" fill="#50565c"/>
+  <text x="143.72" y="21.26" font-family="Noto Sans" font-size="2.0"
+        fill="#d8d8d8" text-anchor="start">FLASH</text>
+  <rect x="128.98" y="62.36" width="12.76" height="12.47" rx="0.5" fill="#242424"/>
+  <circle cx="135.35" cy="68.6" r="2.5" fill="#50565c"/>
+  <text x="143.72" y="70.58" font-family="Noto Sans" font-size="2.0"
+        fill="#d8d8d8" text-anchor="start">RST</text>
+
+  <!-- Micro USB na borda direita -->
+  <rect x="147.4" y="28.35" width="19.84" height="31.18" rx="0.8" fill="#c3c7cc"/>
+  <rect x="147.4" y="28.35" width="19.84" height="31.18" rx="0.8"
+        fill="none" stroke="#8f959c" stroke-width="0.7"/>
+  <rect x="154.77" y="35.15" width="12.47" height="17.57" rx="0.6" fill="#4a4f55"/>
+  <rect x="157.61" y="39.12" width="9.64" height="9.64" rx="0.4" fill="#22262a"/>
+
+  <!-- Furos de fixacao dos quatro cantos -->
+  <circle cx="12.76" cy="13.04" r="4.25" fill="#e9edf2"/>
+  <circle cx="160.16" cy="13.04" r="4.25" fill="#e9edf2"/>
+  <circle cx="12.76" cy="74.83" r="4.25" fill="#e9edf2"/>
+  <circle cx="160.16" cy="74.83" r="4.25" fill="#e9edf2"/>
+
+  <text x="33.222" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D0</text>
+  <circle id="connector0pin" cx="33.222" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="33.222" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="40.422" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D1</text>
+  <circle id="connector1pin" cx="40.422" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="40.422" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="47.622" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D2</text>
+  <circle id="connector2pin" cx="47.622" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="47.622" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="54.822" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D3</text>
+  <circle id="connector3pin" cx="54.822" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="54.822" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="62.022" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D4</text>
+  <circle id="connector4pin" cx="62.022" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="62.022" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="69.222" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">3V</text>
+  <circle id="connector5pin" cx="69.222" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="69.222" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="76.422" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">G</text>
+  <circle id="connector6pin" cx="76.422" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="76.422" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="83.622" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D5</text>
+  <circle id="connector7pin" cx="83.622" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="83.622" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="90.822" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D6</text>
+  <circle id="connector8pin" cx="90.822" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="90.822" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="98.022" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D7</text>
+  <circle id="connector9pin" cx="98.022" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="98.022" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="105.222" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">D8</text>
+  <circle id="connector10pin" cx="105.222" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="105.222" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="112.422" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">RX</text>
+  <circle id="connector11pin" cx="112.422" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="112.422" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="119.622" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">TX</text>
+  <circle id="connector12pin" cx="119.622" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="119.622" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="126.822" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">G2</text>
+  <circle id="connector13pin" cx="126.822" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="126.822" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="134.022" y="10.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">3V2</text>
+  <circle id="connector14pin" cx="134.022" cy="4.337" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="134.022" cy="4.337" r="1.15" fill="#3a3a3a"/>
+  <text x="33.222" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">A0</text>
+  <circle id="connector15pin" cx="33.222" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="33.222" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="40.422" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">G3</text>
+  <circle id="connector16pin" cx="40.422" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="40.422" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="47.622" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">VU</text>
+  <circle id="connector17pin" cx="47.622" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="47.622" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="54.822" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">S3</text>
+  <circle id="connector18pin" cx="54.822" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="54.822" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="62.022" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">S2</text>
+  <circle id="connector19pin" cx="62.022" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="62.022" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="69.222" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">S1</text>
+  <circle id="connector20pin" cx="69.222" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="69.222" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="76.422" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">SC</text>
+  <circle id="connector21pin" cx="76.422" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="76.422" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="83.622" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">SO</text>
+  <circle id="connector22pin" cx="83.622" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="83.622" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="90.822" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">SK</text>
+  <circle id="connector23pin" cx="90.822" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="90.822" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="98.022" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">G4</text>
+  <circle id="connector24pin" cx="98.022" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="98.022" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="105.222" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">3V3</text>
+  <circle id="connector25pin" cx="105.222" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="105.222" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="112.422" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">EN</text>
+  <circle id="connector26pin" cx="112.422" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="112.422" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="119.622" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">RST</text>
+  <circle id="connector27pin" cx="119.622" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="119.622" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="126.822" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">G5</text>
+  <circle id="connector28pin" cx="126.822" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="126.822" cy="83.537" r="1.15" fill="#3a3a3a"/>
+  <text x="134.022" y="78.937" font-family="Noto Sans" font-size="2.4" fill="#e8e8e8" text-anchor="middle">VIN</text>
+  <circle id="connector29pin" cx="134.022" cy="83.537" r="2.4" fill="#c9c9c9" stroke="none"/>
+  <circle cx="134.022" cy="83.537" r="1.15" fill="#3a3a3a"/>
+ </g>
+</svg>

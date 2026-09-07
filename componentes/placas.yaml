@@ -30,3 +30,6 @@
     Um único pino analógico, A0, e no chip ele lê até 1,0 V — a placa tem divisor para aceitar 3,3 V.
     Para deep sleep é preciso ligar GPIO16 (D0) ao RST com um fio; sem isso a placa dorme e não acorda.
     D3, D4 e D8 mandam no boot: nível errado neles na energização impede a placa de subir.
+    A placa da gaveta é a LoLin v3, de 59 x 31 mm, com as fileiras a 1,1 polegada: ela cobre a protoboard inteira e não deixa coluna livre.
+    O terceiro pino de baixo é VU, os 5 V do USB. Na Amica, que é a versão estreita, esse mesmo pino é RSV e não tem ligação nenhuma.
+    Tem peça Fritzing própria em fritzing/pecas/nodemcu-lolin-v3/, porque a do core do programa é a Amica.
